@@ -13,6 +13,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        UILabel.appearance().font = UIFont(name: "Marker Felt Wide", size: 16)
+        
     }
 
 
