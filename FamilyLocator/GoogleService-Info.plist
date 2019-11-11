@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>678767604698-me12etj33bl5o3ou0m5d6jbj3pl8nf1m.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.678767604698-me12etj33bl5o3ou0m5d6jbj3pl8nf1m</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA95OT8LZbNIunHQaGWjr3rhRP4sneR4lA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>678767604698</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.aws.FamilyLocator</string>
+	<key>PROJECT_ID</key>
+	<string>familylocator-2e4b3</string>
+	<key>STORAGE_BUCKET</key>
+	<string>familylocator-2e4b3.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:678767604698:ios:489fae5d8d5f494ec286e3</string>
+	<key>DATABASE_URL</key>
+	<string>https://familylocator-2e4b3.firebaseio.com</string>
+</dict>
+</plist>

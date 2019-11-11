@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A0FA09D3095C9E8366328809 /* Pods_FamilyLocator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A7E6A4B2B76C5AC1275298 /* Pods_FamilyLocator.framework */; };
 		C9AEAD20237904750042E476 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AEAD1F237904750042E476 /* AppDelegate.swift */; };
 		C9AEAD22237904750042E476 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AEAD21237904750042E476 /* ViewController.swift */; };
 		C9AEAD25237904750042E476 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9AEAD23237904750042E476 /* Main.storyboard */; };
 		C9AEAD27237904780042E476 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9AEAD26237904780042E476 /* Assets.xcassets */; };
 		C9AEAD2A237904780042E476 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9AEAD28237904780042E476 /* LaunchScreen.storyboard */; };
+		C9AEAD3223790CD30042E476 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9AEAD3123790CD30042E476 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01A7E6A4B2B76C5AC1275298 /* Pods_FamilyLocator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FamilyLocator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		583034B3865313C5BEC1B031 /* Pods-FamilyLocator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyLocator.release.xcconfig"; path = "Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator.release.xcconfig"; sourceTree = "<group>"; };
 		C9AEAD1C237904750042E476 /* FamilyLocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamilyLocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9AEAD1F237904750042E476 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9AEAD21237904750042E476 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +26,8 @@
 		C9AEAD26237904780042E476 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9AEAD29237904780042E476 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9AEAD2B237904780042E476 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9AEAD3123790CD30042E476 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E80AFA47A99BEC97F66B1B86 /* Pods-FamilyLocator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyLocator.debug.xcconfig"; path = "Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +35,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0FA09D3095C9E8366328809 /* Pods_FamilyLocator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AEB001A2B29D35B3EF802149 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E80AFA47A99BEC97F66B1B86 /* Pods-FamilyLocator.debug.xcconfig */,
+				583034B3865313C5BEC1B031 /* Pods-FamilyLocator.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		C9AEAD13237904750042E476 = {
 			isa = PBXGroup;
 			children = (
 				C9AEAD1E237904750042E476 /* FamilyLocator */,
 				C9AEAD1D237904750042E476 /* Products */,
+				AEB001A2B29D35B3EF802149 /* Pods */,
+				F98CB475A7A9869A391B68A2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,8 +78,17 @@
 				C9AEAD26237904780042E476 /* Assets.xcassets */,
 				C9AEAD28237904780042E476 /* LaunchScreen.storyboard */,
 				C9AEAD2B237904780042E476 /* Info.plist */,
+				C9AEAD3123790CD30042E476 /* GoogleService-Info.plist */,
 			);
 			path = FamilyLocator;
+			sourceTree = "<group>";
+		};
+		F98CB475A7A9869A391B68A2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				01A7E6A4B2B76C5AC1275298 /* Pods_FamilyLocator.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +98,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9AEAD2E237904780042E476 /* Build configuration list for PBXNativeTarget "FamilyLocator" */;
 			buildPhases = (
+				C1E1195819AEAC1D1A2118C9 /* [CP] Check Pods Manifest.lock */,
 				C9AEAD18237904750042E476 /* Sources */,
 				C9AEAD19237904750042E476 /* Frameworks */,
 				C9AEAD1A237904750042E476 /* Resources */,
+				AC4FDE841DD6245129DFFFDB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -123,12 +152,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9AEAD2A237904780042E476 /* LaunchScreen.storyboard in Resources */,
+				C9AEAD3223790CD30042E476 /* GoogleService-Info.plist in Resources */,
 				C9AEAD27237904780042E476 /* Assets.xcassets in Resources */,
 				C9AEAD25237904750042E476 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AC4FDE841DD6245129DFFFDB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C1E1195819AEAC1D1A2118C9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FamilyLocator-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C9AEAD18237904750042E476 /* Sources */ = {
@@ -280,6 +352,7 @@
 		};
 		C9AEAD2F237904780042E476 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E80AFA47A99BEC97F66B1B86 /* Pods-FamilyLocator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -297,6 +370,7 @@
 		};
 		C9AEAD30237904780042E476 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 583034B3865313C5BEC1B031 /* Pods-FamilyLocator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
