@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.4.0)
+  - Alamofire (5.0.0-rc.3)
   - Firebase/Analytics (6.12.0):
     - Firebase/Core
   - Firebase/Auth (6.12.0):
@@ -96,18 +96,14 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
-  - PubNub (3.7.2)
-  - PusherSwift (4.1.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.4.0)
+  - Alamofire (~> 5.0.0-rc.3)
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
-  - GoogleMaps
-  - PubNub (= 3.7.2)
-  - PusherSwift (~> 4.1.0)
+  - GoogleMaps (~> 3.6)
 
 SPEC REPOS:
   trunk:
@@ -130,11 +126,9 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
-    - PubNub
-    - PusherSwift
 
 SPEC CHECKSUMS:
-  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
   Firebase: da031bc7012374e3bed17a6731b89327b29863b9
   FirebaseAnalytics: 4e53a7eb7b76bc703c4d9239bc964545e9b23361
   FirebaseAuth: b401a012cc33b04df3b52bb308b04e8766f2693e
@@ -153,9 +147,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  PubNub: 726606d76b75312fe79e393f79f0c16338a4a651
-  PusherSwift: 13257260d77445f44ee26d7843e9311186b26e79
 
-PODFILE CHECKSUM: 596f77c93874e9b07891669be6fa025f2a1e310d
+PODFILE CHECKSUM: 3319adaa782bc9cdda04539591d5432a7d2d608e
 
 COCOAPODS: 1.8.4

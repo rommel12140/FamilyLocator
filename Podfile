@@ -16,9 +16,7 @@ pod 'Firebase/Analytics'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'Firebase/Storage'
-pod 'GoogleMaps'
-pod 'Alamofire', '~> 4.4.0'
-pod 'PusherSwift', '~> 4.1.0'
-pod 'PubNub', '3.7.2'
+pod 'GoogleMaps', '~> 3.6'
+pod 'Alamofire', '~> 5.0.0-rc.3'
 
 end
