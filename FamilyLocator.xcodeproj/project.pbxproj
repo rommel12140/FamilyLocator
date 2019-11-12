@@ -15,6 +15,7 @@
 		C9AEAD2A237904780042E476 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9AEAD28237904780042E476 /* LaunchScreen.storyboard */; };
 		C9AEAD3223790CD30042E476 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9AEAD3123790CD30042E476 /* GoogleService-Info.plist */; };
 		C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */; };
+		C9C500AC237A52F800A13953 /* UserSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500AB237A52F800A13953 /* UserSelectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		C9AEAD2B237904780042E476 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9AEAD3123790CD30042E476 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		C9C500AB237A52F800A13953 /* UserSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSelectionViewController.swift; sourceTree = "<group>"; };
 		E80AFA47A99BEC97F66B1B86 /* Pods-FamilyLocator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyLocator.debug.xcconfig"; path = "Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +90,7 @@
 			children = (
 				C9AEAD21237904750042E476 /* LoginViewController.swift */,
 				C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */,
+				C9C500AB237A52F800A13953 /* UserSelectionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -130,6 +133,7 @@
 				C9AEAD19237904750042E476 /* Frameworks */,
 				C9AEAD1A237904750042E476 /* Resources */,
 				AC4FDE841DD6245129DFFFDB /* [CP] Embed Pods Frameworks */,
+				66597C4B7D119F11CCC1BC43 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -188,6 +192,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		66597C4B7D119F11CCC1BC43 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		AC4FDE841DD6245129DFFFDB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -234,6 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9C500AC237A52F800A13953 /* UserSelectionViewController.swift in Sources */,
 				C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */,
 				C9AEAD22237904750042E476 /* LoginViewController.swift in Sources */,
 				C9AEAD20237904750042E476 /* AppDelegate.swift in Sources */,

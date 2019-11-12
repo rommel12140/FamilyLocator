@@ -14,7 +14,11 @@ pod 'Firebase/Analytics'
 # Add the pods for any other Firebase products you want to use in your app
 # For example, to use Firebase Authentication and Cloud Firestore
 pod 'Firebase/Auth'
-pod 'Firebase/Firestore'
 pod 'Firebase/Database'
+pod 'Firebase/Storage'
+pod 'GoogleMaps'
+pod 'Alamofire', '~> 4.4.0'
+pod 'PusherSwift', '~> 4.1.0'
+pod 'PubNub', '3.7.2'
 
 end

@@ -1,10 +1,5 @@
 PODS:
-  - BoringSSL-GRPC (0.0.3):
-    - BoringSSL-GRPC/Implementation (= 0.0.3)
-    - BoringSSL-GRPC/Interface (= 0.0.3)
-  - BoringSSL-GRPC/Implementation (0.0.3):
-    - BoringSSL-GRPC/Interface (= 0.0.3)
-  - BoringSSL-GRPC/Interface (0.0.3)
+  - Alamofire (4.4.0)
   - Firebase/Analytics (6.12.0):
     - Firebase/Core
   - Firebase/Auth (6.12.0):
@@ -18,9 +13,9 @@ PODS:
   - Firebase/Database (6.12.0):
     - Firebase/CoreOnly
     - FirebaseDatabase (~> 6.1.2)
-  - Firebase/Firestore (6.12.0):
+  - Firebase/Storage (6.12.0):
     - Firebase/CoreOnly
-    - FirebaseFirestore (~> 1.7.0)
+    - FirebaseStorage (~> 3.4.1)
   - FirebaseAnalytics (6.1.5):
     - FirebaseCore (~> 6.3)
     - FirebaseInstanceID (~> 4.2)
@@ -53,25 +48,14 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 6.0)
     - leveldb-library (~> 1.22)
-  - FirebaseFirestore (1.7.0):
-    - FirebaseAuthInterop (~> 1.0)
-    - FirebaseCore (~> 6.2)
-    - FirebaseFirestore/abseil-cpp (= 1.7.0)
-    - "gRPC-C++ (= 0.0.9)"
-    - leveldb-library (~> 1.22)
-    - nanopb (~> 0.3.901)
-    - Protobuf (>= 3.9.2, ~> 3.9)
-  - FirebaseFirestore/abseil-cpp (1.7.0):
-    - FirebaseAuthInterop (~> 1.0)
-    - FirebaseCore (~> 6.2)
-    - "gRPC-C++ (= 0.0.9)"
-    - leveldb-library (~> 1.22)
-    - nanopb (~> 0.3.901)
-    - Protobuf (>= 3.9.2, ~> 3.9)
   - FirebaseInstanceID (4.2.7):
     - FirebaseCore (~> 6.0)
     - GoogleUtilities/Environment (~> 6.0)
     - GoogleUtilities/UserDefaults (~> 6.0)
+  - FirebaseStorage (3.4.1):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 6.0)
+    - GTMSessionFetcher/Core (~> 1.1)
   - GoogleAppMeasurement (6.1.5):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -82,6 +66,11 @@ PODS:
   - GoogleDataTransportCCTSupport (1.2.1):
     - GoogleDataTransport (~> 3.0)
     - nanopb (~> 0.3.901)
+  - GoogleMaps (3.6.0):
+    - GoogleMaps/Maps (= 3.6.0)
+  - GoogleMaps/Base (3.6.0)
+  - GoogleMaps/Maps (3.6.0):
+    - GoogleMaps/Base
   - GoogleUtilities/AppDelegateSwizzler (6.3.1):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -100,22 +89,6 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.3.1):
     - GoogleUtilities/Logger
-  - "gRPC-C++ (0.0.9)":
-    - "gRPC-C++/Implementation (= 0.0.9)"
-    - "gRPC-C++/Interface (= 0.0.9)"
-  - "gRPC-C++/Implementation (0.0.9)":
-    - "gRPC-C++/Interface (= 0.0.9)"
-    - gRPC-Core (= 1.21.0)
-    - nanopb (~> 0.3)
-  - "gRPC-C++/Interface (0.0.9)"
-  - gRPC-Core (1.21.0):
-    - gRPC-Core/Implementation (= 1.21.0)
-    - gRPC-Core/Interface (= 1.21.0)
-  - gRPC-Core/Implementation (1.21.0):
-    - BoringSSL-GRPC (= 0.0.3)
-    - gRPC-Core/Interface (= 1.21.0)
-    - nanopb (~> 0.3)
-  - gRPC-Core/Interface (1.21.0)
   - GTMSessionFetcher/Core (1.3.0)
   - leveldb-library (1.22)
   - nanopb (0.3.9011):
@@ -123,17 +96,22 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
-  - Protobuf (3.10.0)
+  - PubNub (3.7.2)
+  - PusherSwift (4.1.0)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.4.0)
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Database
-  - Firebase/Firestore
+  - Firebase/Storage
+  - GoogleMaps
+  - PubNub (= 3.7.2)
+  - PusherSwift (~> 4.1.0)
 
 SPEC REPOS:
   trunk:
-    - BoringSSL-GRPC
+    - Alamofire
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -142,21 +120,21 @@ SPEC REPOS:
     - FirebaseCoreDiagnostics
     - FirebaseCoreDiagnosticsInterop
     - FirebaseDatabase
-    - FirebaseFirestore
     - FirebaseInstanceID
+    - FirebaseStorage
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
+    - GoogleMaps
     - GoogleUtilities
-    - "gRPC-C++"
-    - gRPC-Core
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
-    - Protobuf
+    - PubNub
+    - PusherSwift
 
 SPEC CHECKSUMS:
-  BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   Firebase: da031bc7012374e3bed17a6731b89327b29863b9
   FirebaseAnalytics: 4e53a7eb7b76bc703c4d9239bc964545e9b23361
   FirebaseAuth: b401a012cc33b04df3b52bb308b04e8766f2693e
@@ -165,19 +143,19 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: af29e43048607588c050889d19204f4d7b758c9f
   FirebaseCoreDiagnosticsInterop: e9b1b023157e3a2fc6418b5cb601e79b9af7b3a0
   FirebaseDatabase: 963515d232ded06f36f6ce830507c94551866170
-  FirebaseFirestore: 1c7ed32c09d6b0148034e035d0c07783ca45bac3
   FirebaseInstanceID: ebd2ea79ee38db0cb5f5167b17a0d387e1cc7b6e
+  FirebaseStorage: b7c6d00997bc21d4465453bdcc5cc65513110fed
   GoogleAppMeasurement: 037f46d1d8ae8b312720f1042585ab961a1289e3
   GoogleDataTransport: 166f9b9f82cbf60a204e8fe2daa9db3e3ec1fb15
   GoogleDataTransportCCTSupport: f6ab1962e9dc05ab1fb938b795e5b310209edeec
+  GoogleMaps: 82f8fe307193bb4de6ef6bf9e88f1d624b718f9d
   GoogleUtilities: f895fde57977df4e0233edda0dbeac490e3703b6
-  "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
-  gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
+  PubNub: 726606d76b75312fe79e393f79f0c16338a4a651
+  PusherSwift: 13257260d77445f44ee26d7843e9311186b26e79
 
-PODFILE CHECKSUM: 46576a004de7e01121515c9dd63bd09691f04bff
+PODFILE CHECKSUM: 596f77c93874e9b07891669be6fa025f2a1e310d
 
 COCOAPODS: 1.8.4
