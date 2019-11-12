@@ -17,6 +17,6 @@ pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'Firebase/Storage'
 pod 'GoogleMaps', '~> 3.6'
-pod 'Alamofire', '~> 5.0.0-rc.3'
+pod 'Alamofire', '~>  4.8.2'
 
 end
