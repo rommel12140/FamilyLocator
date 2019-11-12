@@ -10,14 +10,41 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var signUpLabel: UILabel!
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    
+    @IBOutlet weak var appTitle: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let tap = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.tapFunction))
+        signUpLabel.isUserInteractionEnabled = true
+        signUpLabel.addGestureRecognizer(tap)
+    }
+    
+    @objc func tapFunction(sender:UITapGestureRecognizer) {
+        print("tap working")
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "RegisterScreen")
         
-        UILabel.appearance().font = UIFont(name: "Marker Felt Wide", size: 16)
+        dismiss(animated: true, completion: nil)
+        self.present(vc, animated: true, completion: nil)
         
     }
 
+    @IBAction func login(_ sender: Any) {
+        print("Username: \(String(describing: usernameTextField.text))\nPassword: \(String(describing: passwordTextField.text))")
+        
+        if usernameTextField.text == "1", passwordTextField.text == "1" {
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "navScreen")
+            
+            dismiss(animated: true, completion: nil)
+            self.present(vc, animated: true, completion: nil)
+        }
+        
+    }
+    
 
 }
 
