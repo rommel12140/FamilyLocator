@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: UIViewController {
 
@@ -23,10 +24,18 @@ class RegisterViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     @IBAction func register(_ sender: Any) {
-        print("Username: \(String(describing: usernameTextField.text))\nPassword: \(String(describing: passwordTextField.text))\nFirst Name: \(String(describing: firstNameTextField.text))\nLast Name: \(String(describing: lastNameTextField.text))")
+        Auth.auth().createUser(withEmail: usernameTextField.text!, password: passwordTextField.text!) { (result, error) in
+            if let _eror = error {
+                //something bad happning
+                print(_eror.localizedDescription )
+            }else{
+                //user registered successfully
+                print(result as Any)
+            }
+        }
         
         if usernameTextField.text != nil, passwordTextField.text != nil, confirmPasswordTextField.text != nil, let confirmation = confirmPasswordTextField.text, confirmation == passwordTextField.text, firstNameTextField != nil, lastNameTextField.text != nil {
-            let vc = self.storyboard!.instantiateViewController(withIdentifier: "LoginScreen")
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "LoginScreen") as! LoginViewController
             
             dismiss(animated: true, completion: nil)
             self.present(vc, animated: true, completion: nil)

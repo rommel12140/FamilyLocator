@@ -36,12 +36,10 @@ class LoginViewController: UIViewController {
     @IBAction func login(_ sender: Any) {
         print("Username: \(String(describing: usernameTextField.text))\nPassword: \(String(describing: passwordTextField.text))")
         
-        if usernameTextField.text == "1", passwordTextField.text == "1" {
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "navScreen")
             
             dismiss(animated: true, completion: nil)
             self.present(vc, animated: true, completion: nil)
-        }
         
     }
     

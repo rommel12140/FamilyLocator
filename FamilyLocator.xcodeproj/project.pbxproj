@@ -17,6 +17,7 @@
 		C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */; };
 		C9C500AC237A52F800A13953 /* UserSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500AB237A52F800A13953 /* UserSelectionViewController.swift */; };
 		C9C500AE237A627900A13953 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500AD237A627900A13953 /* MapViewController.swift */; };
+		C9C500BB237A8C5800A13953 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500BA237A8C5800A13953 /* TableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,8 @@
 		C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C9C500AB237A52F800A13953 /* UserSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSelectionViewController.swift; sourceTree = "<group>"; };
 		C9C500AD237A627900A13953 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		C9C500B8237A85A900A13953 /* FamilyLocator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FamilyLocator.entitlements; sourceTree = "<group>"; };
+		C9C500BA237A8C5800A13953 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		E80AFA47A99BEC97F66B1B86 /* Pods-FamilyLocator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyLocator.debug.xcconfig"; path = "Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,6 +81,7 @@
 		C9AEAD1E237904750042E476 /* FamilyLocator */ = {
 			isa = PBXGroup;
 			children = (
+				C9C500B8237A85A900A13953 /* FamilyLocator.entitlements */,
 				C9AEAD352379530F0042E476 /* Assets */,
 				C9AEAD33237952E00042E476 /* Controllers */,
 				C9AEAD34237952EA0042E476 /* Storyboards */,
@@ -90,6 +94,7 @@
 		C9AEAD33237952E00042E476 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C9C500BC237A8C6400A13953 /* supporting controllers */,
 				C9AEAD21237904750042E476 /* LoginViewController.swift */,
 				C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */,
 				C9C500AB237A52F800A13953 /* UserSelectionViewController.swift */,
@@ -114,6 +119,14 @@
 				C9AEAD26237904780042E476 /* Assets.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		C9C500BC237A8C6400A13953 /* supporting controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C9C500BA237A8C5800A13953 /* TableViewCell.swift */,
+			);
+			path = "supporting controllers";
 			sourceTree = "<group>";
 		};
 		F98CB475A7A9869A391B68A2 /* Frameworks */ = {
@@ -159,6 +172,11 @@
 				TargetAttributes = {
 					C9AEAD1B237904750042E476 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -261,6 +279,7 @@
 				C9C500AC237A52F800A13953 /* UserSelectionViewController.swift in Sources */,
 				C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */,
 				C9AEAD22237904750042E476 /* LoginViewController.swift in Sources */,
+				C9C500BB237A8C5800A13953 /* TableViewCell.swift in Sources */,
 				C9C500AE237A627900A13953 /* MapViewController.swift in Sources */,
 				C9AEAD20237904750042E476 /* AppDelegate.swift in Sources */,
 			);
@@ -409,7 +428,9 @@
 			baseConfigurationReference = E80AFA47A99BEC97F66B1B86 /* Pods-FamilyLocator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FamilyLocator/FamilyLocator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8GXV5S47ZB;
 				INFOPLIST_FILE = FamilyLocator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -427,7 +448,9 @@
 			baseConfigurationReference = 583034B3865313C5BEC1B031 /* Pods-FamilyLocator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FamilyLocator/FamilyLocator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8GXV5S47ZB;
 				INFOPLIST_FILE = FamilyLocator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
