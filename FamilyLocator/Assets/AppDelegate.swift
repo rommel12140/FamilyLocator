@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         //google api key
-        let googleApiKey = "AIzaSyBK-wMB-iwl1fBWhF7bNMb9xMriivOlnpQ"
+        let googleApiKey = ""
         //configure apis
         FirebaseApp.configure()
         GMSServices.provideAPIKey(googleApiKey)
