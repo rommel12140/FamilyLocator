@@ -1,122 +1,124 @@
 //
 //  MapViewController.swift
-//  KaoHon
+//  FamilyLocator
 //
-//  Created by Action Trainee on 31/10/2019.
+//  Created by DEVG-ODI-2552 on 13/11/2019.
 //  Copyright © 2019 Action Trainee. All rights reserved.
 //
 
 import UIKit
-import MapKit
-import CoreLocation
+import FirebaseDatabase
+import GoogleMaps
 
-class MapViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
+    @IBOutlet weak var mapView: GMSMapView!
     
-    let geoLat = 10.281923
-    let geoLng = 123.881524
-    var locationManager = CLLocationManager()
+    let locationManager = CLLocationManager()
+    var reference = DatabaseReference()
+    var markers = Array<GMSMarker>()
     
-    @IBOutlet weak var mapView: MKMapView!
+    //temporary data
+    var user: String!
+    let users = ["019143","17E28D"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //TEMPORARY
+        /*==========================================================================*/
+        let button = UIButton(frame: CGRect(x: 50, y: 50, width: 100, height: 100))
         
-        // Do any additional setup after loading the view.
-        checkLocationServices()//check for permissions
-        fetchHome() //add annotation
+        button.setTitle("Button", for: .normal)
+        button.setTitleColor(.red, for: .normal)
+        button.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
+        self.view.addSubview(button)
+        /*===========================================================================*/
         
-        // 1.
-        mapView.delegate = self
+        //create database reference
+        reference = Database.database().reference()
         
-        // 2.
-        let sourceLocation = CLLocationCoordinate2D(latitude: 10.30, longitude: 123.881524)
-        let destinationLocation = CLLocationCoordinate2D(latitude: geoLat, longitude: geoLng)
+        //request authorization
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.requestAlwaysAuthorization()
         
-        // 3.
-        let sourcePlacemark = MKPlacemark(coordinate: sourceLocation, addressDictionary: nil)
-        let destinationPlacemark = MKPlacemark(coordinate: destinationLocation, addressDictionary: nil)
-        
-        // 4.
-        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
-        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
-        
-        // 7.
-        let directionRequest = MKDirections.Request()
-        directionRequest.source = sourceMapItem
-        directionRequest.destination = destinationMapItem
-        directionRequest.transportType = .any
-        
-        // Calculate the direction
-        let directions = MKDirections(request: directionRequest)
-        
-        // 8.
-        directions.calculate {
-            (response, error) -> Void in
-            
-            guard let response = response else {
-                if let error = error {
-                    print("Error: \(error)")
-                }
-                
-                return
-            }
-            
-            let route = response.routes[0]
-            self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
-            
-            let rect = route.polyline.boundingMapRect
-            self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
-        }
-    }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = UIColor.red
-        renderer.lineWidth = 4.0
-        
-        return renderer
-    }
-    
-    func checkLocationServices() {
+        //enable delegate and location services
         if CLLocationManager.locationServicesEnabled() {
-            checkLocationAuthorization()
-        } else {
-            // Show alert letting the user know they have to turn this on.
+            self.locationManager.delegate = self
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            self.locationManager.startUpdatingLocation()
+            //enable location and add functions
+            mapView.isMyLocationEnabled = true
+            mapView.settings.myLocationButton = true
+            listenToUserLocation()
         }
     }
     
-    func checkLocationAuthorization() {
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedWhenInUse:
-            mapView.showsUserLocation = true
-        case .denied: // Show alert telling users how to turn on permissions
-            break
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-            mapView.showsUserLocation = true
-        case .restricted: // Show an alert letting them know what’s up
-            break
-        case .authorizedAlways:
-            break
-        }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        //update current user location
+        let locValue: CLLocationCoordinate2D = (manager.location?.coordinate)!
+        self.reference.child("location").child(user as! String).setValue(["longitude": locValue.longitude,"latitude":locValue.latitude])
     }
     
-    func fetchHome() {
-        let annotations = MKPointAnnotation()
-        annotations.title = "Home"
-        annotations.coordinate = CLLocationCoordinate2D(latitude:
-            geoLat, longitude: geoLng)
-        print(annotations.coordinate)
-        mapView.addAnnotation(annotations)
+    func listenToUserLocation(){
+        for i in users{
+            if i != user{ //if not user, do not add marker
+                //create marker for user
+                var marker = GMSMarker()
+                //add all markers (for fitting to bounds/map)
+                markers.append(marker)
+                //get user name
+                var name: String?
+                reference.child("users").child("\(i)").observe(.value, with: { (snapshot) in
+                    //set name
+                    name = (snapshot.value as? AnyObject)?.value(forKey: "firstname") as! String
+                }) { print($0) }
+                
+                //listen for location (longitude and latitude)
+                reference.child("location").child("\(i)").observe(.value, with: { (snapshot) in
+                    //reset annotations
+                    marker.map = nil
+                    //set latitude and longitude
+                    if let lat = (snapshot.value as? AnyObject)?.value(forKey: "latitude")  as? CLLocationDegrees, let long = (snapshot.value as? AnyObject)?.value(forKey: "longitude") as? CLLocationDegrees{
+                        marker = GMSMarker(position: CLLocationCoordinate2D(latitude: lat, longitude: long)) //create marker for each user
+                        marker.title = name //user name
+                        marker.map = self.mapView   //add marker to map
+                    }
+                    
+                }) { print($0) }
+            }
+        }
+
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    
+    
+    //revise (not working function)
+    func getAddressFromLocation(lat: CLLocationDegrees, long: CLLocationDegrees) -> String {
+        let g = GMSGeocoder()
+        var locality: String?
+        var subLocality: String?
+        var country: String?
+        var postalCode: String?
+        g.reverseGeocodeCoordinate(CLLocationCoordinate2D(latitude: lat, longitude: long)) { response , error in
+            if let address = response?.firstResult() {
+                locality = address.locality
+                subLocality = address.subLocality
+                country = address.country
+                postalCode = address.postalCode
+                
+            }
+        }
+        return "\(subLocality),\(locality),\(country),\(postalCode)"
+    }
+    
+    @objc func handleTap(_ sender: UIButton) {
+        let bounds = GMSCoordinateBounds()
+        for marker in markers{
+            print(marker.position.latitude)
+            bounds.includingCoordinate(marker.position)
+        }
+//        let updateFocus = GMSCameraUpdate.fit(bounds)
+//        self.mapView.moveCamera(updateFocus)
+        self.mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 120.0))
+    }
     
 }
+

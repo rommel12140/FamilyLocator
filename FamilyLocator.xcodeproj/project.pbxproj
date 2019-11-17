@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		A0FA09D3095C9E8366328809 /* Pods_FamilyLocator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A7E6A4B2B76C5AC1275298 /* Pods_FamilyLocator.framework */; };
+		B08BBB17237FB6EE00ED4602 /* LoginPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08BBB16237FB6EE00ED4602 /* LoginPasswordTextField.swift */; };
+		B08BBB19237FBB1200ED4602 /* LoginEmailTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08BBB18237FBB1200ED4602 /* LoginEmailTextField.swift */; };
+		B08BBB1C237FBBDF00ED4602 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08BBB1B237FBBDF00ED4602 /* LoginButton.swift */; };
 		C9AEAD20237904750042E476 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AEAD1F237904750042E476 /* AppDelegate.swift */; };
 		C9AEAD22237904750042E476 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AEAD21237904750042E476 /* LoginViewController.swift */; };
 		C9AEAD25237904750042E476 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9AEAD23237904750042E476 /* Main.storyboard */; };
@@ -23,6 +26,9 @@
 /* Begin PBXFileReference section */
 		01A7E6A4B2B76C5AC1275298 /* Pods_FamilyLocator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FamilyLocator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		583034B3865313C5BEC1B031 /* Pods-FamilyLocator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyLocator.release.xcconfig"; path = "Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator.release.xcconfig"; sourceTree = "<group>"; };
+		B08BBB16237FB6EE00ED4602 /* LoginPasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPasswordTextField.swift; sourceTree = "<group>"; };
+		B08BBB18237FBB1200ED4602 /* LoginEmailTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEmailTextField.swift; sourceTree = "<group>"; };
+		B08BBB1B237FBBDF00ED4602 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		C9AEAD1C237904750042E476 /* FamilyLocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamilyLocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9AEAD1F237904750042E476 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9AEAD21237904750042E476 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +66,24 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		B08BBB14237FB6B200ED4602 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				B08BBB15237FB6C400ED4602 /* TextFields */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		B08BBB15237FB6C400ED4602 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				B08BBB16237FB6EE00ED4602 /* LoginPasswordTextField.swift */,
+				B08BBB18237FBB1200ED4602 /* LoginEmailTextField.swift */,
+				B08BBB1B237FBBDF00ED4602 /* LoginButton.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
 		C9AEAD13237904750042E476 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +105,7 @@
 		C9AEAD1E237904750042E476 /* FamilyLocator */ = {
 			isa = PBXGroup;
 			children = (
+				B08BBB14237FB6B200ED4602 /* API */,
 				C9C500B8237A85A900A13953 /* FamilyLocator.entitlements */,
 				C9AEAD352379530F0042E476 /* Assets */,
 				C9AEAD33237952E00042E476 /* Controllers */,
@@ -277,10 +302,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9C500AC237A52F800A13953 /* UserSelectionViewController.swift in Sources */,
+				B08BBB1C237FBBDF00ED4602 /* LoginButton.swift in Sources */,
 				C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */,
+				B08BBB17237FB6EE00ED4602 /* LoginPasswordTextField.swift in Sources */,
 				C9AEAD22237904750042E476 /* LoginViewController.swift in Sources */,
 				C9C500BB237A8C5800A13953 /* TableViewCell.swift in Sources */,
 				C9C500AE237A627900A13953 /* MapViewController.swift in Sources */,
+				B08BBB19237FBB1200ED4602 /* LoginEmailTextField.swift in Sources */,
 				C9AEAD20237904750042E476 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

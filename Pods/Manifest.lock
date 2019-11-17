@@ -161,6 +161,7 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - SkyFloatingLabelTextField (3.7.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.8.2)
@@ -173,6 +174,7 @@ DEPENDENCIES:
   - MaterialComponents/Dialogs
   - MaterialComponents/List
   - MaterialComponents/TextFields
+  - SkyFloatingLabelTextField (~> 3.0)
 
 SPEC REPOS:
   trunk:
@@ -198,6 +200,7 @@ SPEC REPOS:
     - MDFInternationalization
     - MDFTextAccessibility
     - nanopb
+    - SkyFloatingLabelTextField
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
@@ -222,7 +225,8 @@ SPEC CHECKSUMS:
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  SkyFloatingLabelTextField: 4b46db0ab1ccde0919cded29c656e6b4805eda04
 
-PODFILE CHECKSUM: 416962b671499f0d922277e78046653d5bd0ea96
+PODFILE CHECKSUM: c055d507cc0aa571d1957d28177cca7629b64e44
 
 COCOAPODS: 1.8.4
