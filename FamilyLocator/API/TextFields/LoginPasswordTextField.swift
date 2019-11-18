@@ -19,7 +19,6 @@ class LoginPasswordTextField: MDCTextField {
     */
     func setup(){
         placeholder = "Password"
-        password
     }
     
     override init(frame: CGRect) {

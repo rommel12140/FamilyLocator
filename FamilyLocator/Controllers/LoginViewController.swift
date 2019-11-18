@@ -58,9 +58,9 @@
                 let reference = Database.database().reference()
                 reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                     //present view controller while passing userCode from database
-                    let viewController = self.storyboard?.instantiateViewController(withIdentifier: "mapScreen") as! MapViewController
+                    let viewController = self.storyboard?.instantiateViewController(withIdentifier: "navScreen") as! UINavigationController
                     if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
-                        viewController.user = userCode
+//                        viewController.user = userCode
                         self.present(viewController, animated: true, completion: nil)
                     }
                 })
