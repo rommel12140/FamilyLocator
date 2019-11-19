@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleAspectFill" id="iN0-l3-epB" customClass="HeaderXIB" customModule="FamilyLocator" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3F7-NR-GEy">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i2X-um-7f7">
+                            <rect key="frame" x="20" y="63" width="121" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLN-2C-g9p">
+                            <rect key="frame" x="317" y="8" width="48" height="76"/>
+                            <connections>
+                                <action selector="showFamilyOptions:" destination="iN0-l3-epB" eventType="touchUpInside" id="Quq-vI-zAN"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eIJ-IC-ADK">
+                            <rect key="frame" x="20" y="21" width="228" height="29"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.73477935791015625" green="0.8707239031791687" blue="0.85882526636123657" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="fLN-2C-g9p" secondAttribute="trailing" constant="10" id="HKo-hc-2ob"/>
+                        <constraint firstItem="fLN-2C-g9p" firstAttribute="trailing" secondItem="eIJ-IC-ADK" secondAttribute="trailing" constant="117" id="Pr2-Tn-6jI"/>
+                        <constraint firstAttribute="bottom" secondItem="fLN-2C-g9p" secondAttribute="bottom" constant="16" id="UDU-8U-MAO"/>
+                        <constraint firstItem="eIJ-IC-ADK" firstAttribute="leading" secondItem="3F7-NR-GEy" secondAttribute="leading" constant="20" id="Zo5-0x-JX4"/>
+                        <constraint firstItem="fLN-2C-g9p" firstAttribute="top" secondItem="3F7-NR-GEy" secondAttribute="top" constant="8" id="azc-Sv-cfP"/>
+                        <constraint firstItem="eIJ-IC-ADK" firstAttribute="top" secondItem="3F7-NR-GEy" secondAttribute="top" constant="21" id="d2r-4P-RAe"/>
+                        <constraint firstItem="fLN-2C-g9p" firstAttribute="leading" secondItem="eIJ-IC-ADK" secondAttribute="trailing" constant="69" id="dGf-pf-SJn"/>
+                        <constraint firstItem="i2X-um-7f7" firstAttribute="leading" secondItem="3F7-NR-GEy" secondAttribute="leading" constant="20" id="k08-K9-aOf"/>
+                        <constraint firstItem="i2X-um-7f7" firstAttribute="top" secondItem="eIJ-IC-ADK" secondAttribute="bottom" constant="13" id="oiM-Jw-dfv"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="3F7-NR-GEy" secondAttribute="bottom" id="5E7-Gn-J1J"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="3F7-NR-GEy" secondAttribute="trailing" id="dpB-zk-FuM"/>
+                <constraint firstItem="3F7-NR-GEy" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="kY6-rB-aQG"/>
+                <constraint firstItem="3F7-NR-GEy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="tsv-9g-qgG"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="contentView" destination="3F7-NR-GEy" id="qQk-fC-Amg"/>
+                <outlet property="familyCode" destination="i2X-um-7f7" id="owA-Ft-oBs"/>
+                <outlet property="familyName" destination="eIJ-IC-ADK" id="3TO-Jc-b1V"/>
+                <outlet property="familyOptions" destination="fLN-2C-g9p" id="hNO-ai-Y6U"/>
+            </connections>
+            <point key="canvasLocation" x="137.8125" y="133.09859154929578"/>
+        </view>
+    </objects>
+</document>

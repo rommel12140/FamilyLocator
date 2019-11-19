@@ -16,6 +16,7 @@ class MemberTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        memberImageView.layer.cornerRadius = 17.5
     }
     
     
