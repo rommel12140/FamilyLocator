@@ -25,6 +25,7 @@ pod 'MaterialComponents/List'
 pod 'MaterialComponents/Dialogs'
 pod 'MaterialComponents/BottomSheet'
 pod 'StickyHeader', '~> 2.0'
+pod "MXParallaxHeader"
 
 
 #pod 'DropdownMenu', '~> 1.0'

@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import StickyHeader
+import MXParallaxHeader
 
-class UserSelectionViewController: UIViewController {
+class UserSelectionViewController: UIViewController, MXParallaxHeaderDelegate {
     
     let tempFamily:NSArray = ["","CCS Family", "Friends"]
     let tempCodes:NSArray = ["","ccsfamily-1122", "friends-2233"]
@@ -17,6 +19,7 @@ class UserSelectionViewController: UIViewController {
     @IBOutlet var superView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var locateButton: UIButton!
+    @IBOutlet var headerView: UIView!
     let profileView = UIView()
     let buttonView = UIButton()
     let backgroundImage = UIImageView()
@@ -25,6 +28,7 @@ class UserSelectionViewController: UIViewController {
     let profileImage = UIImageView()
     let changeProfilePicture = UIImageView()
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -36,15 +40,22 @@ class UserSelectionViewController: UIViewController {
         navBarModifications()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-    }
+    override func viewDidAppear(_ animated: Bool) {
+           super.viewDidAppear(animated)
+           
+           tableView.parallaxHeader.minimumHeight = view.safeAreaInsets.top
+       }
     
     func setupTable() {
         tableView.estimatedRowHeight = 100
         tableView.contentInset = UIEdgeInsets(top: 300, left: 0, bottom: 0, right: 0)
 //        tableView.backgroundColor = UIColor(named: "white")
+        
+        // Parallax Header
+        tableView.parallaxHeader.view = headerView // You can set the parallax header view from the floating view
+        tableView.parallaxHeader.height = 300
+        tableView.parallaxHeader.mode = .fill
+        tableView.parallaxHeader.delegate = self
         
         // The below line is to eliminate the empty cells
         tableView.tableFooterView = UIView()
@@ -181,5 +192,9 @@ extension UserSelectionViewController: UITableViewDelegate, UITableViewDataSourc
         let y = 300 - (scrollView.contentOffset.y + 300)
         let height = min(max(y, 60), 400)
         profileView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: height)
+    }
+    
+    func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
+        NSLog("progress %f", parallaxHeader.progress)
     }
 }

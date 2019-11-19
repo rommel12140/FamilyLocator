@@ -167,12 +167,14 @@ PODS:
     - MaterialComponents/private/Math
   - MDFInternationalization (2.0.0)
   - MDFTextAccessibility (2.0.0)
+  - MXParallaxHeader (1.1.0)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - SkyFloatingLabelTextField (3.7.0)
+  - StickyHeader (2.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.8.2)
@@ -186,7 +188,9 @@ DEPENDENCIES:
   - MaterialComponents/Dialogs
   - MaterialComponents/List
   - MaterialComponents/TextFields
+  - MXParallaxHeader
   - SkyFloatingLabelTextField (~> 3.0)
+  - StickyHeader (~> 2.0)
 
 SPEC REPOS:
   trunk:
@@ -211,8 +215,10 @@ SPEC REPOS:
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
+    - MXParallaxHeader
     - nanopb
     - SkyFloatingLabelTextField
+    - StickyHeader
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
@@ -236,9 +242,11 @@ SPEC CHECKSUMS:
   MaterialComponents: c00d0dac9a2cbb05ddfa1614711c9dad7620b8f7
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
+  MXParallaxHeader: de3c867e10ba46e8f6e20c8ee1f2a910372b3b94
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   SkyFloatingLabelTextField: 4b46db0ab1ccde0919cded29c656e6b4805eda04
+  StickyHeader: 9da9618df59172b5803a6e9b2c5e5880d10b192b
 
-PODFILE CHECKSUM: 5afbee983e7fa086531e2ad88a80360ecbf04205
+PODFILE CHECKSUM: f27a3fce92caca3d3d60758a6d2bba56a6d3994c
 
 COCOAPODS: 1.8.4

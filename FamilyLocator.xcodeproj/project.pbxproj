@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E041861238436BF00F36F87 /* testViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E041860238436BF00F36F87 /* testViewController.swift */; };
 		A0FA09D3095C9E8366328809 /* Pods_FamilyLocator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A7E6A4B2B76C5AC1275298 /* Pods_FamilyLocator.framework */; };
 		B08BBB17237FB6EE00ED4602 /* LoginPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08BBB16237FB6EE00ED4602 /* LoginPasswordTextField.swift */; };
 		B08BBB19237FBB1200ED4602 /* LoginEmailTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08BBB18237FBB1200ED4602 /* LoginEmailTextField.swift */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		01A7E6A4B2B76C5AC1275298 /* Pods_FamilyLocator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FamilyLocator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		583034B3865313C5BEC1B031 /* Pods-FamilyLocator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyLocator.release.xcconfig"; path = "Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator.release.xcconfig"; sourceTree = "<group>"; };
+		7E041860238436BF00F36F87 /* testViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testViewController.swift; sourceTree = "<group>"; };
 		B08BBB16237FB6EE00ED4602 /* LoginPasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPasswordTextField.swift; sourceTree = "<group>"; };
 		B08BBB18237FBB1200ED4602 /* LoginEmailTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEmailTextField.swift; sourceTree = "<group>"; };
 		B08BBB1B237FBBDF00ED4602 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */,
 				C9C500AB237A52F800A13953 /* UserSelectionViewController.swift */,
 				C9C500AD237A627900A13953 /* MapViewController.swift */,
+				7E041860238436BF00F36F87 /* testViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				C9C3A8502383EED1003FFB03 /* ButtonXIB.swift in Sources */,
 				B08BBB17237FB6EE00ED4602 /* LoginPasswordTextField.swift in Sources */,
 				C9AEAD22237904750042E476 /* LoginViewController.swift in Sources */,
+				7E041861238436BF00F36F87 /* testViewController.swift in Sources */,
 				C91BC2D923824CC200988A95 /* MemberTableViewCell.swift in Sources */,
 				C9C500AE237A627900A13953 /* MapViewController.swift in Sources */,
 				B08BBB19237FBB1200ED4602 /* LoginEmailTextField.swift in Sources */,
