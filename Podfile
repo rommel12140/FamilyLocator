@@ -13,19 +13,19 @@ pod 'Firebase/Analytics'
 
 # Add the pods for any other Firebase products you want to use in your app
 # For example, to use Firebase Authentication and Cloud Firestore
-#pod 'Firebase/Auth'
-#pod 'Firebase/Database'
-#pod 'Firebase/Storage'
-#pod 'GoogleMaps', '~> 3.6'
-#pod 'Alamofire', '~>  4.8.2'
-#pod 'SkyFloatingLabelTextField', '~> 3.0'
-#pod 'MaterialComponents/TextFields'
-#pod 'MaterialComponents/Buttons'
-#pod 'MaterialComponents/List'
-#pod 'MaterialComponents/Dialogs'
-#pod 'MaterialComponents/BottomSheet'
-#pod 'StickyHeader', '~> 2.0'
-#pod "MXParallaxHeader"
+pod 'Firebase/Auth'
+pod 'Firebase/Database'
+pod 'Firebase/Storage'
+pod 'GoogleMaps', '~> 3.6'
+pod 'Alamofire', '~>  4.8.2'
+pod 'SkyFloatingLabelTextField', '~> 3.0'
+pod 'MaterialComponents/TextFields'
+pod 'MaterialComponents/Buttons'
+pod 'MaterialComponents/List'
+pod 'MaterialComponents/Dialogs'
+pod 'MaterialComponents/BottomSheet'
+pod 'StickyHeader', '~> 2.0'
+pod "MXParallaxHeader"
 
 
 #pod 'DropdownMenu', '~> 1.0'
