@@ -1,5 +1,5 @@
 //
-//  PasswordTextField.swift
+//  LoginEmailTextField.swift
 //  FamilyLocator
 //
 //  Created by Rommel Gallofin on 16/11/2019.
@@ -7,9 +7,10 @@
 //
 
 import UIKit
-import MaterialComponents.MDCTextField
+import SkyFloatingLabelTextField
 
-class LoginPasswordTextField: MDCTextField {
+class AuthTextField: SkyFloatingLabelTextField {
+
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -17,8 +18,9 @@ class LoginPasswordTextField: MDCTextField {
         // Drawing code
     }
     */
+    
     func setup(){
-        placeholder = "Password"
+
     }
     
     override init(frame: CGRect) {

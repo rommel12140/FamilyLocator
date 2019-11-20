@@ -11,22 +11,39 @@ import FirebaseDatabase
 
 class RegisterViewController: UIViewController {
     //IBOUTLETS
-    @IBOutlet weak var signInButton: UIButton!
-    @IBOutlet weak var registerButton: UIButton!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var confirmPasswordTextField: UITextField!
-    @IBOutlet weak var firstNameTextField: UITextField!
-    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var signInButton: AuthButton!
+    @IBOutlet weak var registerButton: AuthButton!
+    @IBOutlet weak var emailTextField: AuthTextField!
+    @IBOutlet weak var passwordTextField: AuthTextField!
+    @IBOutlet weak var confirmPasswordTextField: AuthTextField!
+    @IBOutlet weak var firstNameTextField: AuthTextField!
+    @IBOutlet weak var lastNameTextField: AuthTextField!
+    @IBOutlet weak var appTitle: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        appTitle.textColor = .white
+        signInButton.backgroundColor = UIColor.commonGreenColor()
+        signInButton.setTitleColor(.white, for: UIControl.State.normal)
+        registerButton.setTitleColor(UIColor.commonGreenColor(), for: UIControl.State.normal)
         
-        // Do any additional setup after loading the view.
+        //background
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        UIImage(named: "background")?.draw(in: self.view.bounds)
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        self.view.backgroundColor = UIColor(patternImage: image)
     }
+    @IBAction func signin(_ sender: Any) {
+        //redirect to log in after sign in
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "LoginScreen") as! LoginViewController
+        self.dismiss(animated: true, completion: nil)
+        self.present(vc, animated: true, completion: nil)
+    }
+    
     @IBAction func register(_ sender: Any) {
         //check if fields are empty
-        if !checkEmpty(){
+        if checkValid(){
             if let confirmation = confirmPasswordTextField.text, confirmation == passwordTextField.text{
                 //create user
                 createUser(email: emailTextField.text!,password: passwordTextField.text!, firstname: (firstNameTextField.text!), lastname: (lastNameTextField.text!))
@@ -36,6 +53,13 @@ class RegisterViewController: UIViewController {
     }
     
     func createUser(email: String, password: String, firstname: String, lastname: String) {
+        signInButton.isEnabled = false
+        registerButton.isEnabled = false
+        emailTextField.isEnabled = false
+        passwordTextField.isEnabled = false
+        confirmPasswordTextField.isEnabled = false
+        firstNameTextField.isEnabled = false
+        lastNameTextField.isEnabled = false
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
             if error == nil {
                 //create user if valid
@@ -53,41 +77,56 @@ class RegisterViewController: UIViewController {
                 reference.child("uids").child("\(user!.user.uid)").setValue(["code": str])
                 
                 //redirect to log in after sign in
-                let vc = self.storyboard!.instantiateViewController(withIdentifier: "LoginScreen") as! LoginViewController
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginScreen") as! LoginViewController
                 
                 self.dismiss(animated: true, completion: nil)
                 self.present(vc, animated: true, completion: nil)
+            }
+            else{
+                let alert = UIAlertController(title: "Sign In Failed",
+                                              message: error!.localizedDescription,
+                                              preferredStyle: .alert)
+                
+                //alert with error
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(alert, animated: true, completion: nil)
+                self.signInButton.isEnabled = false
+                self.registerButton.isEnabled = false
+                self.emailTextField.isEnabled = false
+                self.passwordTextField.isEnabled = false
+                self.confirmPasswordTextField.isEnabled = false
+                self.firstNameTextField.isEnabled = false
+                self.lastNameTextField.isEnabled = false
             }
         }
     }
 
     
-    func checkEmpty() -> Bool{
-        var flag = false
+    func checkValid() -> Bool{
+        var flag = true
         if (emailTextField.text?.isEmpty)!{
-            emailTextField.layer.borderWidth = 1
-            emailTextField.layer.borderColor = UIColor.red.cgColor
-            flag = true
+            emailTextField.errorMessage = "Please input valid email."
+            flag = false
+        }
+        else if !((emailTextField.text?.contains("@"))!){
+            emailTextField.errorMessage = "Invalid email."
+            flag = false
         }
         if (passwordTextField.text?.isEmpty)!{
-            passwordTextField.layer.borderWidth = 1
-            passwordTextField.layer.borderColor = UIColor.red.cgColor
-            flag = true
+            passwordTextField.errorMessage = "Please input valid password."
+            flag = false
         }
         if (confirmPasswordTextField.text?.isEmpty)! || confirmPasswordTextField.text != passwordTextField.text{
-            confirmPasswordTextField.layer.borderWidth = 1
-            confirmPasswordTextField.layer.borderColor = UIColor.red.cgColor
-            flag = true
+            confirmPasswordTextField.errorMessage = "Password does not match."
+            flag = false
         }
         if (firstNameTextField.text?.isEmpty)!{
-            firstNameTextField.layer.borderWidth = 1
-            firstNameTextField.layer.borderColor = UIColor.red.cgColor
-            flag = true
+            firstNameTextField.errorMessage = "Please input valid first name."
+            flag = false
         }
         if (lastNameTextField.text?.isEmpty)!{
-            lastNameTextField.layer.borderWidth = 1
-            lastNameTextField.layer.borderColor = UIColor.red.cgColor
-            flag = true
+            lastNameTextField.errorMessage = "Please input valid last name."
+            flag = false
         }
         
         return flag
