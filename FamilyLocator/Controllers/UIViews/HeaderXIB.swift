@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MaterialComponents.MaterialBottomSheet
 
 class HeaderXIB: UITableViewHeaderFooterView {
 
@@ -18,6 +19,7 @@ class HeaderXIB: UITableViewHeaderFooterView {
     
     @IBAction func showFamilyOptions(_ sender: Any) {
         print("it works")
+       
     }
     
     override func awakeFromNib() {

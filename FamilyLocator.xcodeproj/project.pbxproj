@@ -16,16 +16,21 @@
 		C9AEAD27237904780042E476 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9AEAD26237904780042E476 /* Assets.xcassets */; };
 		C9AEAD2A237904780042E476 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9AEAD28237904780042E476 /* LaunchScreen.storyboard */; };
 		C9AEAD3223790CD30042E476 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9AEAD3123790CD30042E476 /* GoogleService-Info.plist */; };
+		C9AED00423863954007FDFF3 /* FamilyOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AED00323863954007FDFF3 /* FamilyOptionsViewController.swift */; };
+		C9AED00623863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AED00523863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift */; };
+		C9AED00C2386857B007FDFF3 /* stickyheaderxib.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9AED00B2386857B007FDFF3 /* stickyheaderxib.xib */; };
+		C9AED00E23868612007FDFF3 /* StickyHeaderXIB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AED00D23868612007FDFF3 /* StickyHeaderXIB.swift */; };
 		C9B13B63238504E400169223 /* ResizeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B13B5D238504E400169223 /* ResizeImage.swift */; };
 		C9B13B64238504E400169223 /* AuthTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B13B5F238504E400169223 /* AuthTextField.swift */; };
 		C9B13B65238504E400169223 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B13B60238504E400169223 /* AuthButton.swift */; };
 		C9B13B66238504E400169223 /* CommonGreenColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B13B62238504E400169223 /* CommonGreenColor.swift */; };
+		C9B13B792385082100169223 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B13B762385082000169223 /* Map.storyboard */; };
+		C9B13B7A2385082100169223 /* UserSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B13B772385082100169223 /* UserSelection.storyboard */; };
+		C9B13B7B2385082100169223 /* temporary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B13B782385082100169223 /* temporary.storyboard */; };
+		C9B13B7D238526E900169223 /* UserSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B13B7C238526E900169223 /* UserSelectionTableViewController.swift */; };
 		C9C3A84A2383C200003FFB03 /* HeaderXIB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C3A8492383C200003FFB03 /* HeaderXIB.swift */; };
 		C9C3A84C2383C22D003FFB03 /* headerxib.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9C3A84B2383C22D003FFB03 /* headerxib.xib */; };
-		C9C3A84E2383EEBD003FFB03 /* buttonxib.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9C3A84D2383EEBD003FFB03 /* buttonxib.xib */; };
-		C9C3A8502383EED1003FFB03 /* ButtonXIB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C3A84F2383EED1003FFB03 /* ButtonXIB.swift */; };
 		C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */; };
-		C9C500AC237A52F800A13953 /* UserSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500AB237A52F800A13953 /* UserSelectionViewController.swift */; };
 		C9C500AE237A627900A13953 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500AD237A627900A13953 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,16 +47,21 @@
 		C9AEAD29237904780042E476 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9AEAD2B237904780042E476 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9AEAD3123790CD30042E476 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C9AED00323863954007FDFF3 /* FamilyOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyOptionsViewController.swift; sourceTree = "<group>"; };
+		C9AED00523863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyOptionsTableViewCell.swift; sourceTree = "<group>"; };
+		C9AED00B2386857B007FDFF3 /* stickyheaderxib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = stickyheaderxib.xib; sourceTree = "<group>"; };
+		C9AED00D23868612007FDFF3 /* StickyHeaderXIB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyHeaderXIB.swift; sourceTree = "<group>"; };
 		C9B13B5D238504E400169223 /* ResizeImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResizeImage.swift; sourceTree = "<group>"; };
 		C9B13B5F238504E400169223 /* AuthTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthTextField.swift; sourceTree = "<group>"; };
 		C9B13B60238504E400169223 /* AuthButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		C9B13B62238504E400169223 /* CommonGreenColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonGreenColor.swift; sourceTree = "<group>"; };
+		C9B13B762385082000169223 /* Map.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
+		C9B13B772385082100169223 /* UserSelection.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserSelection.storyboard; sourceTree = "<group>"; };
+		C9B13B782385082100169223 /* temporary.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = temporary.storyboard; sourceTree = "<group>"; };
+		C9B13B7C238526E900169223 /* UserSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSelectionTableViewController.swift; sourceTree = "<group>"; };
 		C9C3A8492383C200003FFB03 /* HeaderXIB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderXIB.swift; sourceTree = "<group>"; };
 		C9C3A84B2383C22D003FFB03 /* headerxib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = headerxib.xib; sourceTree = "<group>"; };
-		C9C3A84D2383EEBD003FFB03 /* buttonxib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = buttonxib.xib; sourceTree = "<group>"; };
-		C9C3A84F2383EED1003FFB03 /* ButtonXIB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonXIB.swift; sourceTree = "<group>"; };
 		C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		C9C500AB237A52F800A13953 /* UserSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSelectionViewController.swift; sourceTree = "<group>"; };
 		C9C500AD237A627900A13953 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C9C500B8237A85A900A13953 /* FamilyLocator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FamilyLocator.entitlements; sourceTree = "<group>"; };
 		E80AFA47A99BEC97F66B1B86 /* Pods-FamilyLocator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyLocator.debug.xcconfig"; path = "Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator.debug.xcconfig"; sourceTree = "<group>"; };
@@ -117,9 +127,9 @@
 				C9C500BC237A8C6400A13953 /* supporting controllers */,
 				C9AEAD21237904750042E476 /* LoginViewController.swift */,
 				C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */,
-				C9C500AB237A52F800A13953 /* UserSelectionViewController.swift */,
 				C9C500AD237A627900A13953 /* MapViewController.swift */,
 				7E041860238436BF00F36F87 /* testViewController.swift */,
+				C9B13B7C238526E900169223 /* UserSelectionTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -127,6 +137,9 @@
 		C9AEAD34237952EA0042E476 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				C9B13B782385082100169223 /* temporary.storyboard */,
+				C9B13B762385082000169223 /* Map.storyboard */,
+				C9B13B772385082100169223 /* UserSelection.storyboard */,
 				C9AEAD23237904750042E476 /* Main.storyboard */,
 				C9AEAD28237904780042E476 /* LaunchScreen.storyboard */,
 			);
@@ -174,7 +187,7 @@
 			children = (
 				C9C3A83D23838F3F003FFB03 /* xib */,
 				C9C3A8492383C200003FFB03 /* HeaderXIB.swift */,
-				C9C3A84F2383EED1003FFB03 /* ButtonXIB.swift */,
+				C9AED00D23868612007FDFF3 /* StickyHeaderXIB.swift */,
 			);
 			path = UIViews;
 			sourceTree = "<group>";
@@ -183,7 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				C9C3A84B2383C22D003FFB03 /* headerxib.xib */,
-				C9C3A84D2383EEBD003FFB03 /* buttonxib.xib */,
+				C9AED00B2386857B007FDFF3 /* stickyheaderxib.xib */,
 			);
 			path = xib;
 			sourceTree = "<group>";
@@ -192,6 +205,8 @@
 			isa = PBXGroup;
 			children = (
 				C91BC2D823824CC200988A95 /* MemberTableViewCell.swift */,
+				C9AED00323863954007FDFF3 /* FamilyOptionsViewController.swift */,
+				C9AED00523863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift */,
 			);
 			path = "supporting controllers";
 			sourceTree = "<group>";
@@ -216,6 +231,7 @@
 				C9AEAD19237904750042E476 /* Frameworks */,
 				C9AEAD1A237904750042E476 /* Resources */,
 				CFD5552EACBBE8F92F7102B3 /* [CP] Embed Pods Frameworks */,
+				4AFA51997FF3CC4FA4C5CADF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -269,11 +285,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9B13B7B2385082100169223 /* temporary.storyboard in Resources */,
 				C9AEAD2A237904780042E476 /* LaunchScreen.storyboard in Resources */,
-				C9C3A84E2383EEBD003FFB03 /* buttonxib.xib in Resources */,
+				C9B13B7A2385082100169223 /* UserSelection.storyboard in Resources */,
 				C9AEAD3223790CD30042E476 /* GoogleService-Info.plist in Resources */,
+				C9B13B792385082100169223 /* Map.storyboard in Resources */,
 				C9C3A84C2383C22D003FFB03 /* headerxib.xib in Resources */,
 				C9AEAD27237904780042E476 /* Assets.xcassets in Resources */,
+				C9AED00C2386857B007FDFF3 /* stickyheaderxib.xib in Resources */,
 				C9AEAD25237904750042E476 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,6 +300,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4AFA51997FF3CC4FA4C5CADF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C1E1195819AEAC1D1A2118C9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -327,14 +363,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9C500AC237A52F800A13953 /* UserSelectionViewController.swift in Sources */,
 				C9B13B65238504E400169223 /* AuthButton.swift in Sources */,
 				C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */,
-				C9C3A8502383EED1003FFB03 /* ButtonXIB.swift in Sources */,
 				C9B13B66238504E400169223 /* CommonGreenColor.swift in Sources */,
 				C9AEAD22237904750042E476 /* LoginViewController.swift in Sources */,
 				7E041861238436BF00F36F87 /* testViewController.swift in Sources */,
 				C91BC2D923824CC200988A95 /* MemberTableViewCell.swift in Sources */,
+				C9AED00623863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift in Sources */,
+				C9B13B7D238526E900169223 /* UserSelectionTableViewController.swift in Sources */,
+				C9AED00423863954007FDFF3 /* FamilyOptionsViewController.swift in Sources */,
+				C9AED00E23868612007FDFF3 /* StickyHeaderXIB.swift in Sources */,
 				C9C500AE237A627900A13953 /* MapViewController.swift in Sources */,
 				C9AEAD20237904750042E476 /* AppDelegate.swift in Sources */,
 				C9C3A84A2383C200003FFB03 /* HeaderXIB.swift in Sources */,

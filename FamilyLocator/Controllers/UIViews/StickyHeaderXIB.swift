@@ -1,15 +1,17 @@
 //
-//  ButtonXIB.swift
+//  StickyHeaderXIB.swift
 //  FamilyLocator
 //
-//  Created by Action Trainee on 19/11/2019.
+//  Created by Action Trainee on 21/11/2019.
 //  Copyright © 2019 Action Trainee. All rights reserved.
 //
 
 import UIKit
 
-class ButtonXIB: UITableViewHeaderFooterView {
+class StickyHeaderXIB: UIView {
 
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var locateButton: UIButton!
     /*
     // Only override draw() if you perform custom drawing.

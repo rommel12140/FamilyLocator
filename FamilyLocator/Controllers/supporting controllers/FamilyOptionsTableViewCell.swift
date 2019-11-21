@@ -1,25 +1,21 @@
 //
-//  MemberTableViewCell.swift
+//  FamilyOptionsTableViewCell.swift
 //  FamilyLocator
 //
-//  Created by Action Trainee on 18/11/2019.
+//  Created by Action Trainee on 21/11/2019.
 //  Copyright © 2019 Action Trainee. All rights reserved.
 //
 
 import UIKit
 
-class MemberTableViewCell: UITableViewCell {
-    @IBOutlet weak var memberImageView: UIImageView!
-    @IBOutlet weak var membernameLabel: UILabel!
-    @IBOutlet weak var memberstatusLabel: UILabel!
-    
+class FamilyOptionsTableViewCell: UITableViewCell {
+
+    @IBOutlet weak var options: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        memberImageView.layer.cornerRadius = memberImageView.frame.height/2
     }
-    
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

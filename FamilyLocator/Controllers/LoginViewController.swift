@@ -29,7 +29,7 @@
         signupButton.backgroundColor = UIColor.commonGreenColor()
         signupButton.setTitleColor(.white, for: UIControl.State.normal)
         loginButton.setTitleColor(UIColor.commonGreenColor(), for: UIControl.State.normal)
-        emailTextField.text = "rommelngallofin@yahoo.com"
+        emailTextField.text = "seth@yahoo.com"
         passwordTextField.text = "123456"
         
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -93,10 +93,10 @@
                 let reference = Database.database().reference()
                 reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                     //present view controller while passing userCode from database
-                    let viewController = UIStoryboard(name: "Map", bundle: nil).instantiateViewController(withIdentifier: "mapScreen") as! MapViewController
+                    let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "navScreen") as! UINavigationController
                     if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
-                        viewController.user = userCode
-                        self.dismiss(animated: true, completion: nil)
+//                        viewController.user = userCode
+//                        self.dismiss(animated: true, completion: nil)
                         self.present(viewController, animated: true, completion: nil)
                     }
                 })
