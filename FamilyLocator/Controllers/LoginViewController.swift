@@ -94,7 +94,7 @@
                 reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                     //present view controller while passing userCode from database
                     let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "userSelection") as! UserSelectionTableViewController
-                    let navController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "navScreen") as! UINavigationController
+                    let navController = UINavigationController(rootViewController: viewController)
                     if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
                         viewController.users = userCode
                         self.dismiss(animated: true, completion: nil)

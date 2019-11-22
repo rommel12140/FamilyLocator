@@ -11,7 +11,7 @@ import MXParallaxHeader
 import MaterialComponents.MaterialBottomSheet
 import FirebaseDatabase
 
-class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderDelegate {
+class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var users: String!
     let tempFamily:NSArray = ["CCS Family", "Friends"]
@@ -22,25 +22,28 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var changePicView: UIView!
     @IBOutlet weak var changeProfilePictureButton: UIButton!
-    let fullnameLabel = UILabel()
-    let accountCode = UILabel()
-    let locateButton = UIButton()
+    @IBOutlet weak var fullNameLabel: UILabel!
+    @IBOutlet weak var accountCode: UILabel!
+    @IBOutlet weak var locateButton: UIButton!
+    
+    let imagePicker = UIImagePickerController()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         setup()
         setupHeader()
+        getData()
         navBarModifications()
+        imagePicker.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //        setupHeader()
-        tableView.parallaxHeader.minimumHeight = view.safeAreaInsets.top + 50
+        tableView.parallaxHeader.minimumHeight = view.safeAreaInsets.top + locateButton.frame.height
     }
     
     func setup() {
@@ -67,6 +70,21 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         changeProfilePictureButton.layer.cornerRadius = changeProfilePictureButton.frame.height/2
     }
     
+    func getData(){
+        let reference = Database.database().reference()
+        if let user = users as? String{
+            reference.child("users").child("\(user)" as! String).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let firstname = (snapshot.value as AnyObject).value(forKey: "firstname") as? String, let lastname = (snapshot.value as AnyObject).value(forKey: "lastname") as? String{
+                    self.fullNameLabel.text = "\(firstname)  \(lastname)"
+                    self.accountCode.text = user
+                    self.tableView.reloadData()
+                }
+                
+            })
+        }
+        
+    }
+    
     func navBarModifications() {
     self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default)
     self.navigationController!.navigationBar.shadowImage = UIImage()
@@ -79,10 +97,14 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         if parallaxHeader.progress == 0.000000{
             profileImage.frame.size = CGSize(width: 0, height: 0)
             changeProfilePictureButton.frame.size = CGSize(width: 0, height: 0)
+            fullNameLabel.frame.size = CGSize(width: 0, height: 0)
+            accountCode.frame.size = CGSize(width: 0, height: 0)
         }
         else{
             profileImage.frame.size = CGSize(width: 100, height: 100)
             changeProfilePictureButton.frame.size = CGSize(width:30, height: 30)
+            fullNameLabel.frame.size = CGSize(width: headerView.frame.width, height: 26)
+            accountCode.frame.size = CGSize(width: headerView.frame.width, height: 22)
         }
     }
     
@@ -91,6 +113,37 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         let map = UIStoryboard(name: "Map", bundle: nil).instantiateViewController(withIdentifier: "mapScreen") as! MapViewController
         self.present(map, animated: true, completion: nil)
         
+    }
+    
+    
+    @IBAction func showMenu(_ sender: Any) {
+        let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "menuOptions") as! MenuOptionsTableViewController
+        let bottomSheet: MDCBottomSheetController = MDCBottomSheetController(contentViewController: viewController)
+        bottomSheet.preferredContentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height/4)
+        // Present the bottom sheet
+        present(bottomSheet, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func changeProfilePicture(_ sender: Any) {
+        print("nipress?")
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            profileImage.contentMode = .scaleAspectFill
+            profileImage.image = pickedImage
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Table view data source
@@ -113,7 +166,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     
     @objc func presentBottomSheet( _sender: UIButton) {
         // Initialize the bottom sheet with the view controller just created
-        let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "test") as! FamilyOptionsViewController
+        let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "familyOptions") as! FamilyOptionsViewController
         let bottomSheet: MDCBottomSheetController = MDCBottomSheetController(contentViewController: viewController)
         bottomSheet.preferredContentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height/4)
         // Present the bottom sheet

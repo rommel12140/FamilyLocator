@@ -33,6 +33,8 @@
 		C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */; };
 		C9C500AE237A627900A13953 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500AD237A627900A13953 /* MapViewController.swift */; };
 		C9CDA00D2387B14F0026C7EF /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CDA00C2387B14F0026C7EF /* BlurView.swift */; };
+		C9CDA0112387DA130026C7EF /* MenuOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CDA0102387DA130026C7EF /* MenuOptionsTableViewController.swift */; };
+		C9CDA0142387DA9D0026C7EF /* MenuOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CDA0132387DA9D0026C7EF /* MenuOptionsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		C9C500AD237A627900A13953 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C9C500B8237A85A900A13953 /* FamilyLocator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FamilyLocator.entitlements; sourceTree = "<group>"; };
 		C9CDA00C2387B14F0026C7EF /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		C9CDA0102387DA130026C7EF /* MenuOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOptionsTableViewController.swift; sourceTree = "<group>"; };
+		C9CDA0132387DA9D0026C7EF /* MenuOptionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOptionsTableViewCell.swift; sourceTree = "<group>"; };
 		E80AFA47A99BEC97F66B1B86 /* Pods-FamilyLocator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyLocator.debug.xcconfig"; path = "Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -207,11 +211,21 @@
 		C9C500BC237A8C6400A13953 /* supporting controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C91BC2D823824CC200988A95 /* MemberTableViewCell.swift */,
+				C9CDA0122387DA810026C7EF /* cells */,
 				C9AED00323863954007FDFF3 /* FamilyOptionsViewController.swift */,
-				C9AED00523863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift */,
+				C9CDA0102387DA130026C7EF /* MenuOptionsTableViewController.swift */,
 			);
 			path = "supporting controllers";
+			sourceTree = "<group>";
+		};
+		C9CDA0122387DA810026C7EF /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				C91BC2D823824CC200988A95 /* MemberTableViewCell.swift */,
+				C9AED00523863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift */,
+				C9CDA0132387DA9D0026C7EF /* MenuOptionsTableViewCell.swift */,
+			);
+			path = cells;
 			sourceTree = "<group>";
 		};
 		F98CB475A7A9869A391B68A2 /* Frameworks */ = {
@@ -369,9 +383,11 @@
 				C9B13B65238504E400169223 /* AuthButton.swift in Sources */,
 				C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */,
 				C9B13B66238504E400169223 /* CommonGreenColor.swift in Sources */,
+				C9CDA0142387DA9D0026C7EF /* MenuOptionsTableViewCell.swift in Sources */,
 				C9AEAD22237904750042E476 /* LoginViewController.swift in Sources */,
 				7E041861238436BF00F36F87 /* testViewController.swift in Sources */,
 				C91BC2D923824CC200988A95 /* MemberTableViewCell.swift in Sources */,
+				C9CDA0112387DA130026C7EF /* MenuOptionsTableViewController.swift in Sources */,
 				C9AED00623863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift in Sources */,
 				C9B13B7D238526E900169223 /* UserSelectionTableViewController.swift in Sources */,
 				C9AED00423863954007FDFF3 /* FamilyOptionsViewController.swift in Sources */,
