@@ -32,6 +32,7 @@
 		C9C3A84C2383C22D003FFB03 /* headerxib.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9C3A84B2383C22D003FFB03 /* headerxib.xib */; };
 		C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */; };
 		C9C500AE237A627900A13953 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500AD237A627900A13953 /* MapViewController.swift */; };
+		C9CDA00D2387B14F0026C7EF /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CDA00C2387B14F0026C7EF /* BlurView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C9C500AD237A627900A13953 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C9C500B8237A85A900A13953 /* FamilyLocator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FamilyLocator.entitlements; sourceTree = "<group>"; };
+		C9CDA00C2387B14F0026C7EF /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		E80AFA47A99BEC97F66B1B86 /* Pods-FamilyLocator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyLocator.debug.xcconfig"; path = "Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,6 +163,7 @@
 				C9B13B5D238504E400169223 /* ResizeImage.swift */,
 				C9B13B5E238504E400169223 /* TextFields */,
 				C9B13B61238504E400169223 /* Colors */,
+				C9CDA00C2387B14F0026C7EF /* BlurView.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				C9AED00623863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift in Sources */,
 				C9B13B7D238526E900169223 /* UserSelectionTableViewController.swift in Sources */,
 				C9AED00423863954007FDFF3 /* FamilyOptionsViewController.swift in Sources */,
+				C9CDA00D2387B14F0026C7EF /* BlurView.swift in Sources */,
 				C9AED00E23868612007FDFF3 /* StickyHeaderXIB.swift in Sources */,
 				C9C500AE237A627900A13953 /* MapViewController.swift in Sources */,
 				C9AEAD20237904750042E476 /* AppDelegate.swift in Sources */,

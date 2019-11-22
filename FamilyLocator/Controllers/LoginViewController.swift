@@ -93,11 +93,12 @@
                 let reference = Database.database().reference()
                 reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                     //present view controller while passing userCode from database
-                    let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "navScreen") as! UINavigationController
+                    let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "userSelection") as! UserSelectionTableViewController
+                    let navController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "navScreen") as! UINavigationController
                     if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
-//                        viewController.user = userCode
-//                        self.dismiss(animated: true, completion: nil)
-                        self.present(viewController, animated: true, completion: nil)
+                        viewController.users = userCode
+                        self.dismiss(animated: true, completion: nil)
+                        self.present(navController, animated: true, completion: nil)
                     }
                 })
                 

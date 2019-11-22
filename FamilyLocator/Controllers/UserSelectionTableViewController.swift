@@ -9,16 +9,21 @@
 import UIKit
 import MXParallaxHeader
 import MaterialComponents.MaterialBottomSheet
-import MaterialComponents.MaterialBottomSheet_ShapeThemer
+import FirebaseDatabase
 
 class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderDelegate {
 
+    var users: String!
     let tempFamily:NSArray = ["CCS Family", "Friends"]
     let tempCodes:NSArray = ["ccsfamily-1122", "friends-2233"]
     let tempUserArray:NSArray = [["Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Nemo Clownfish", "Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Section 1"], ["Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Nemo Clownfish", "Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Section 2"]]
 
+    @IBOutlet var headerView: UIView!
     @IBOutlet weak var background: UIImageView!
-    let profileImage = UIImageView()
+    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var changePicView: UIView!
+    @IBOutlet weak var changeProfilePictureButton: UIButton!
     let fullnameLabel = UILabel()
     let accountCode = UILabel()
     let locateButton = UIButton()
@@ -35,18 +40,15 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //        setupHeader()
-        tableView.parallaxHeader.minimumHeight = view.safeAreaInsets.top + 100
+        tableView.parallaxHeader.minimumHeight = view.safeAreaInsets.top + 50
     }
     
     func setup() {
         tableView.estimatedRowHeight = 100
-//        headerView.frame.size = CGSize(width: tableView.frame.width, height: tableView.frame.height)
-//    headerView.translatesAutoresizingMaskIntoConstraints = false
-//        headerView.contentMode = .scaleAspectFit
         
-        
+        headerView.blurView.setup(style: UIBlurEffect.Style.dark, alpha: 1).enable()
         // Parallax Header
-        tableView.parallaxHeader.view = background // You can set the parallax header view from the floating view
+        tableView.parallaxHeader.view = headerView // You can set the parallax header view from the floating view
         tableView.parallaxHeader.height = 300
         tableView.parallaxHeader.mode = .fill
         tableView.parallaxHeader.delegate = self
@@ -61,14 +63,8 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     }
     
     func setupHeader() {
-        profileImage.frame = CGRect(x: background.frame.midX - 50, y: 20, width: 100, height: 100)
-        profileImage.image = UIImage(named: "spiderman")
-        background.addSubview(profileImage)
-        
-        locateButton.frame = CGRect(x: 0, y: background.frame.maxY - 100, width: background.frame.width, height: 100)
-        locateButton.backgroundColor = UIColor(cgColor: #colorLiteral(red: 0.4039205313, green: 0.593059063, blue: 0.603407383, alpha: 1))
-        locateButton.setTitle("Locate", for: .normal)
-        background.addSubview(locateButton)
+        profileImage.layer.cornerRadius = profileImage.frame.height/2
+        changeProfilePictureButton.layer.cornerRadius = changeProfilePictureButton.frame.height/2
     }
     
     func navBarModifications() {
@@ -79,8 +75,24 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     
     func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
         NSLog("progress %f", parallaxHeader.progress)
+        parallaxHeader.view?.blurView.alpha = 1 - parallaxHeader.progress
+        if parallaxHeader.progress == 0.000000{
+            profileImage.frame.size = CGSize(width: 0, height: 0)
+            changeProfilePictureButton.frame.size = CGSize(width: 0, height: 0)
+        }
+        else{
+            profileImage.frame.size = CGSize(width: 100, height: 100)
+            changeProfilePictureButton.frame.size = CGSize(width:30, height: 30)
+        }
     }
-
+    
+    
+    @IBAction func locate(_ sender: Any) {
+        let map = UIStoryboard(name: "Map", bundle: nil).instantiateViewController(withIdentifier: "mapScreen") as! MapViewController
+        self.present(map, animated: true, completion: nil)
+        
+    }
+    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -147,15 +159,4 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
             print(tempUserArray)
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
