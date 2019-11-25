@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class MenuOptionsTableViewController: UITableViewController {
 
@@ -34,6 +36,27 @@ class MenuOptionsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        
+        if indexPath.row == 3{
+            let reference = Database.database().reference()
+            
+            reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
+                //present view controller while passing userCode from database
+                let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginScreen") as! LoginViewController
+                if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
+                    print(userCode)
+                    reference.child("users").child("\(userCode)").updateChildValues(["isOnline" : "false"])
+                    self.present(viewController, animated: true, completion: nil)
+                }
+            })
+        
+        }
+        
+        
     }
 
 

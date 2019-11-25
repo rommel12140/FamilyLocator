@@ -17,10 +17,6 @@ class HeaderXIB: UITableViewHeaderFooterView {
     
     @IBOutlet weak var familyOptions: UIButton!
     
-    @IBAction func showFamilyOptions(_ sender: Any) {
-        print("it works")
-       
-    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

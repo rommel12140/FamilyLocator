@@ -34,13 +34,13 @@
                                                 <constraint firstAttribute="width" secondItem="p74-g5-VhA" secondAttribute="height" multiplier="1:1" id="hHP-k3-GYh"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyB-e6-yqW">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyB-e6-yqW">
                                             <rect key="frame" x="110" y="53" width="288" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Vq-Lt-eWm">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fullname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Vq-Lt-eWm">
                                             <rect key="frame" x="110" y="24" width="288" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -129,13 +129,13 @@
                                 <constraint firstAttribute="height" constant="100" id="TyW-Nw-f6L"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="it2-gi-47b">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fullname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="it2-gi-47b">
                             <rect key="frame" x="0.0" y="275" width="375" height="26"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nUi-ot-S1I">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="account code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nUi-ot-S1I">
                             <rect key="frame" x="0.0" y="309" width="375" height="22"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -156,8 +156,11 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="wem-ai-TMb" firstAttribute="leading" secondItem="bzW-eO-eJL" secondAttribute="leading" id="0nG-Pm-PxV"/>
                         <constraint firstAttribute="bottom" secondItem="wem-ai-TMb" secondAttribute="bottom" id="1PS-x8-HdW"/>
                         <constraint firstAttribute="centerX" secondItem="wem-ai-TMb" secondAttribute="centerX" id="6F4-oo-7j9"/>
+                        <constraint firstItem="nUi-ot-S1I" firstAttribute="trailing" secondItem="wem-ai-TMb" secondAttribute="trailing" id="8dx-5l-1FU"/>
+                        <constraint firstItem="nUi-ot-S1I" firstAttribute="leading" secondItem="wem-ai-TMb" secondAttribute="leading" id="8yK-xL-RoB"/>
                         <constraint firstItem="EQF-gp-bif" firstAttribute="centerY" secondItem="0Oi-Q3-za8" secondAttribute="centerY" constant="11" id="CYy-oe-cb9"/>
                         <constraint firstItem="QUg-Tu-BC6" firstAttribute="top" secondItem="0Oi-Q3-za8" secondAttribute="top" id="JIb-aG-wvi"/>
                         <constraint firstItem="nUi-ot-S1I" firstAttribute="top" secondItem="it2-gi-47b" secondAttribute="bottom" constant="8" symbolic="YES" id="KQA-Sl-ajV"/>

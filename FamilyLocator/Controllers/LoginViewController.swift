@@ -22,7 +22,7 @@
     @IBOutlet weak var appTitle: UILabel!
     
     //TEMPORARY (SUBSTITUTE FOR USER SELECTION)
-    var users = NSMutableArray()
+    var users = Array<String>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,7 @@
         let reference = Database.database().reference()
         reference.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             for a in ((snapshot.value as AnyObject).allKeys)!{
-                self.users.add(a)
+                self.users.append(a as! String)
             }
         }) { print($0) }
     }
@@ -119,11 +119,14 @@
             else{
                 //reference data and get user code
                 let reference = Database.database().reference()
+
                 reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                     //present view controller while passing userCode from database
                     let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "userSelection") as! UserSelectionTableViewController
                     let navController = UINavigationController(rootViewController: viewController)
                     if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
+                        print(userCode)
+                        reference.child("users").child("\(userCode)").updateChildValues(["isOnline" : "true"])
                         viewController.user = userCode
                         viewController.users = self.users
                         self.present(navController, animated: true, completion: nil)

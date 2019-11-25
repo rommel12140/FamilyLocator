@@ -14,10 +14,15 @@ import FirebaseDatabase
 class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var user: String!
-    var users: NSMutableArray = []
-    let tempFamily:NSArray = ["CCS Family", "Friends"]
-    let tempCodes:NSArray = ["ccsfamily-1122", "friends-2233"]
-    let tempUserArray:NSArray = [["Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Nemo Clownfish", "Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Section 1"], ["Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Nemo Clownfish", "Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Section 2"]]
+    var users: Array<String>!
+    var familyCodes = Array<String>()
+    var familyNames = Array<String>()
+    var familyMembers = Array<String>()
+    var memberStatus = Array<String>()
+    var firstName: String!
+    var lastName: String!
+    var fullname: String!
+    let reference = Database.database().reference()
 
     @IBOutlet var headerView: UIView!
     @IBOutlet weak var background: UIImageView!
@@ -34,9 +39,10 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getFamilyCode()
         setup()
         setupHeader()
-        getData()
+        displayUserData()
         navBarModifications()
         imagePicker.delegate = self
     }
@@ -71,9 +77,9 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         changeProfilePictureButton.layer.cornerRadius = changeProfilePictureButton.frame.height/2
     }
     
-    func getData(){
+    func displayUserData(){
         let reference = Database.database().reference()
-        if let user = users as? String{
+        if let user = user{
             reference.child("users").child("\(user)" ).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let firstname = (snapshot.value as AnyObject).value(forKey: "firstname") as? String, let lastname = (snapshot.value as AnyObject).value(forKey: "lastname") as? String{
                     self.fullNameLabel.text = "\(firstname)  \(lastname)"
@@ -83,17 +89,63 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                 
             })
         }
-        
+    }
+    
+    func getFamilyCode(){
+        if let currentUser = user as? String{
+            reference.child("users").child("\(currentUser)").child("families").observeSingleEvent(of: .value, with: { (snapshot) in
+                //set name
+                for familyCode in snapshot.children.allObjects as! [DataSnapshot]{
+                    if let family = familyCode.value{
+                        self.familyCodes.append(family as! String)
+                        self.tableView.reloadData()
+                    }
+                    for families in self.familyCodes{
+                        self.reference.child("family").child("\(families)").child("name").observeSingleEvent(of: .value, with: { (snapshot) in
+                            //set name
+                            if let name = snapshot.value{
+                                self.familyNames.append(name as! String)
+                                self.tableView.reloadData()
+                            }
+                        }) { print($0) }
+                    }
+                    for (index,families) in self.familyCodes.enumerated(){
+                        self.reference.child("family").child("\(families)").child("members").observeSingleEvent(of: .value, with: { (snapshot) in
+                            //set name
+                            //print(snapshot.value)
+                            for member in snapshot.children.allObjects as! [DataSnapshot]{
+                                if self.user != member.value as! String{
+                                    self.familyMembers.append("")
+                                    self.memberStatus.append("")
+                                    print(self.familyMembers)
+                                    self.reference.child("users").child("\(member.value as! String)").observe(.value, with: { (snapshot) in
+                                        //set name
+                                        if let name = snapshot.value{
+                                            if let fName = (name as AnyObject) .value(forKey: "firstname") as? String, let lName = (name as AnyObject) .value(forKey: "lastname") as? String, let onlineCheck = (name as AnyObject) .value(forKey: "isOnline") as? String {
+                                                self.fullname = ("\(fName) \(lName)")
+                                                self.familyMembers[index] = self.fullname
+                                                self.memberStatus[index] = onlineCheck
+                                                self.tableView.reloadData()
+                                            }
+                                        }
+                                    }) { print($0) }
+                                }
+                            }
+                        }) { print($0) }
+                    }
+                    
+                }
+            }) { print($0) }
+        }
     }
     
     func navBarModifications() {
-    self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default)
-    self.navigationController!.navigationBar.shadowImage = UIImage()
-    self.navigationController!.navigationBar.isTranslucent = true
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController!.navigationBar.shadowImage = UIImage()
+        self.navigationController!.navigationBar.isTranslucent = true
     }
     
     func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
-        NSLog("progress %f", parallaxHeader.progress)
         parallaxHeader.view?.blurView.alpha = 1 - parallaxHeader.progress
         if parallaxHeader.progress == 0.000000{
             profileImage.frame.size = CGSize(width: 0, height: 0)
@@ -161,8 +213,8 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let header = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as! HeaderXIB
-        header.familyName.text = (tempFamily.object(at: section) as! String)
-        header.familyCode.text = (tempCodes.object(at: section) as! String)
+        header.familyName.text = familyNames[section]
+        header.familyCode.text = familyCodes[section]
         header.backgroundColor = UIColor(cgColor: #colorLiteral(red: 0.6963852048, green: 0.8679255843, blue: 0.8520774245, alpha: 1))
         
         header.familyOptions.addTarget(self, action: #selector(UserSelectionTableViewController.presentBottomSheet), for: .touchUpInside)
@@ -181,12 +233,12 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return familyNames.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return users.count
+        return familyMembers.count
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -195,28 +247,25 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MemberTableViewCell
-        switch indexPath.row % 2 {
-        case 0:
-            cell.membernameLabel.text = (users.object(at: indexPath.row) as! String)
-            cell.memberImageView.image = UIImage(named: "spiderman")
-            cell.memberstatusLabel.text = "Online"
-        default:
-            cell.contentView.backgroundColor = UIColor.white
-            cell.membernameLabel.text = (users.object(at: indexPath.row) as! String)
-            cell.memberImageView.image = UIImage(named: "spiderman")
-            cell.memberstatusLabel.text = "Offline"
-            cell.membernameLabel.textColor = UIColor(cgColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
+        cell.membernameLabel.text = familyMembers[indexPath.row]
+        cell.memberImageView.image = UIImage(named: "spiderman")
+        
+        if memberStatus[indexPath.row] == "true"{
+           cell.memberstatusLabel.text = "status: online"
         }
+        else{
+            cell.memberstatusLabel.text = "status: offline"
+        }
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print(users.object(at: indexPath.row))
-            users.remove(indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            tableView.reloadData()
-            
+//            print(tempUserArray.object(at: indexPath.section))
+//            let sec:Int = indexPath.section
+//            (tempUserArray[sec] as AnyObject).removeObject(at: indexPath.row)
+//            print(tempUserArray)
         }
     }
 }

@@ -28,7 +28,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     //temporary data
     var user: String!
-    var users: NSMutableArray = []
+    var users: Array<String>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -202,7 +202,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let xFrame = self.view.frame.maxX - buttonSize - rightMargin
         let yFrame = (self.view.frame.minY + 20) + buttonSize + offset
         let button = MDCFloatingButton(frame: CGRect(x: xFrame, y: yFrame , width: buttonSize, height: buttonSize))
-        button.setTitle((users[index] as! String), for: .normal)
+        button.setTitle(users[index], for: .normal)
         button.tag = index
         button.setBackgroundColor(UIColor.commonGreenColor())
         button.setTitleColor(.white, for: .normal)
