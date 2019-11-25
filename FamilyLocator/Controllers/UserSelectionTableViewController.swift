@@ -13,7 +13,8 @@ import FirebaseDatabase
 
 class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    var users: String!
+    var user: String!
+    var users: NSMutableArray = []
     let tempFamily:NSArray = ["CCS Family", "Friends"]
     let tempCodes:NSArray = ["ccsfamily-1122", "friends-2233"]
     let tempUserArray:NSArray = [["Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Nemo Clownfish", "Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Section 1"], ["Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Nemo Clownfish", "Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Rommel Gallofin", "Dan Chin", "Charles Cariño", "Angel Ross", "Section 2"]]
@@ -32,7 +33,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         setup()
         setupHeader()
         getData()
@@ -73,7 +74,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     func getData(){
         let reference = Database.database().reference()
         if let user = users as? String{
-            reference.child("users").child("\(user)" as! String).observeSingleEvent(of: .value, with: { (snapshot) in
+            reference.child("users").child("\(user)" ).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let firstname = (snapshot.value as AnyObject).value(forKey: "firstname") as? String, let lastname = (snapshot.value as AnyObject).value(forKey: "lastname") as? String{
                     self.fullNameLabel.text = "\(firstname)  \(lastname)"
                     self.accountCode.text = user
@@ -110,8 +111,13 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     
     
     @IBAction func locate(_ sender: Any) {
+        
         let map = UIStoryboard(name: "Map", bundle: nil).instantiateViewController(withIdentifier: "mapScreen") as! MapViewController
-        self.present(map, animated: true, completion: nil)
+        map.user = user
+        map.users = self.users
+        if let navigator = navigationController {
+            navigator.pushViewController(map, animated: true)
+        }
         
     }
     
@@ -175,12 +181,12 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return tempFamily.count
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return (tempUserArray.object(at: section) as AnyObject).count
+        return users.count
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -191,12 +197,12 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MemberTableViewCell
         switch indexPath.row % 2 {
         case 0:
-            cell.membernameLabel.text = ((tempUserArray.object(at: indexPath.section) as AnyObject).object(at: indexPath.row) as! String)
+            cell.membernameLabel.text = (users.object(at: indexPath.row) as! String)
             cell.memberImageView.image = UIImage(named: "spiderman")
             cell.memberstatusLabel.text = "Online"
         default:
             cell.contentView.backgroundColor = UIColor.white
-            cell.membernameLabel.text = ((tempUserArray.object(at: indexPath.section) as AnyObject).object(at: indexPath.row) as! String)
+            cell.membernameLabel.text = (users.object(at: indexPath.row) as! String)
             cell.memberImageView.image = UIImage(named: "spiderman")
             cell.memberstatusLabel.text = "Offline"
             cell.membernameLabel.textColor = UIColor(cgColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
@@ -206,10 +212,11 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print(tempUserArray.object(at: indexPath.section))
-            let sec:Int = indexPath.section
-            (tempUserArray[sec] as AnyObject).removeObject(at: indexPath.row)
-            print(tempUserArray)
+            print(users.object(at: indexPath.row))
+            users.remove(indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.reloadData()
+            
         }
     }
 }

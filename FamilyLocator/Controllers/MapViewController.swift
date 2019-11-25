@@ -11,19 +11,28 @@ import FirebaseDatabase
 import GoogleMaps
 import MaterialComponents.MDCFloatingButton
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+struct ButtonProperties {
+    var buttonSize: CGFloat!
+    var offset: CGFloat!
+    var rightMargin: CGFloat!
+}
+
+class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var mapView: GMSMapView!
-    
-    let locationManager = CLLocationManager()
+    let googleApiKey = "AIzaSyDxSgGQX6jrn4iq6dyIWAKEOTneZ3Z8PtU"
     var reference = DatabaseReference()
+    var buttonProperties = ButtonProperties()
     var markers = Array<GMSMarker>()
+    var userLocation: CLLocationCoordinate2D?
+    let locationManager = CLLocationManager()
     
     //temporary data
     var user: String!
-    let users = ["019143","17E28D"]
+    var users: NSMutableArray = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //create database reference
         reference = Database.database().reference()
         
@@ -36,108 +45,225 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             self.locationManager.delegate = self
             self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             self.locationManager.startUpdatingLocation()
+            
             //enable location and add functions
+            mapView.delegate = self
             mapView.isMyLocationEnabled = true
-            mapView.settings.myLocationButton = true
+            
             mapView.settings.tiltGestures = false
+            mapView.settings.myLocationButton = true
+            
+            createButtons()
             listenToUserLocation()
         }
-        
-        //create all customized buttons
-        let buttonSize = CGFloat(75)
-        var offset = CGFloat(20)
-        let rightMargin = CGFloat(10)
-        offset = viewAllMarkersButton(buttonSize: buttonSize, offset: offset, rightMargin: rightMargin)
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //update current user location
         let locValue: CLLocationCoordinate2D = (manager.location?.coordinate)!
         self.reference.child("location").child(user as! String).setValue(["longitude": locValue.longitude,"latitude":locValue.latitude])
+        userLocation = locValue
     }
     
     func listenToUserLocation(){
+        //listen to each user
         for (index,element) in users.enumerated(){
-            if true{ //if not user, do not add marker
-                //create marker for user
-                var marker = GMSMarker()
-                //add all markers (for fitting to bounds/map)
+            if true { //if not user, do not add marker
                 
+                //initialize a marker
+                var marker = GMSMarker()
+                marker.tracksInfoWindowChanges = true;
+                markers.append(marker)
+                
+                //add all markers (for fitting to bounds/map)
                 //get user name
                 var name: String?
                 reference.child("users").child("\(element)").observe(.value, with: { (snapshot) in
                     //set name
-                    name = (snapshot.value as? AnyObject)?.value(forKey: "firstname") as! String
+                    name = (snapshot.value as AnyObject).value(forKey: "firstname") as? String
                 }) { print($0) }
                 
                 //listen for location (longitude and latitude)
                 reference.child("location").child("\(element)").observe(.value, with: { (snapshot) in
-                    //reset annotations
-                    marker.map = nil
-                    //set latitude and longitude
-                    if let lat = (snapshot.value as? AnyObject)?.value(forKey: "latitude")  as? CLLocationDegrees, let long = (snapshot.value as? AnyObject)?.value(forKey: "longitude") as? CLLocationDegrees{
-                        print(lat)
-                        print(long)
-                        marker = GMSMarker(position: CLLocationCoordinate2D(latitude: lat, longitude: long)) //create marker for each user
-                        self.markers.insert(marker, at: index)
-                        marker.title = name //user name
-                        marker.icon = UIImage.resizeImage(image: UIImage(named: "logo")!, targetSize: CGSize.init(width: 70, height: 70))
-                        
-                        marker.map = self.mapView   //add marker to map
-                    }
                     
+                    //set latitude and longitude
+                    if let lat = (snapshot.value as AnyObject).value(forKey: "latitude")  as? CLLocationDegrees, let long = (snapshot.value as AnyObject).value(forKey: "longitude") as? CLLocationDegrees{
+                        //update marker for each user
+                        if marker.accessibilityLabel == nil{
+                            marker = GMSMarker(position: CLLocationCoordinate2D(latitude: lat, longitude: long))
+                            self.markers[index] = marker
+                            marker.appearAnimation = GMSMarkerAnimation.pop
+                            marker.icon = UIImage.resizeImage(image: UIImage(named: "logo")!, targetSize: CGSize.init(width: 70, height: 70))
+                            marker.map = self.mapView   //add marker to map
+                            marker.snippet = name
+                            marker.accessibilityLabel = "\(index)"
+                        }
+                        else{
+                            CATransaction.begin()
+                            CATransaction.setAnimationDuration(0.1)
+                            marker.position = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                            CATransaction.commit()
+                        }
+                        
+                        let g = GMSGeocoder()
+                        g.reverseGeocodeCoordinate(CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)) { response , error in
+                            if let address = response?.firstResult() {
+                                var dict = [String: String]()
+                                dict["city"] = address.locality
+                                dict["country"] = address.country
+                                dict["street"] = address.thoroughfare
+                                marker.userData = dict
+                            }
+                        }
+                        
+                        if self.mapView.selectedMarker == marker{
+                            self.mapView.animate(to: GMSCameraPosition(latitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 50))
+                        }
+                        
+                    }
                 }) { print($0) }
             }
         }
 
     }
     
-    
-    //revise (not working function)
-    func getAddressFromLocation(lat: CLLocationDegrees, long: CLLocationDegrees) -> String {
-        let g = GMSGeocoder()
-        var locality: String?
-        var subLocality: String?
-        var country: String?
-        var postalCode: String?
-        g.reverseGeocodeCoordinate(CLLocationCoordinate2D(latitude: lat, longitude: long)) { response , error in
-            if let address = response?.firstResult() {
-                locality = address.locality
-                subLocality = address.subLocality
-                country = address.country
-                postalCode = address.postalCode
+    func createButtons(){
+        //set button properties
+        buttonProperties.buttonSize = CGFloat(75)
+        buttonProperties.offset = CGFloat(20)
+        buttonProperties.rightMargin = CGFloat(10)
+        buttonProperties.offset = viewAllUsersButton(buttonSize: buttonProperties.buttonSize, offset: buttonProperties.offset, rightMargin: buttonProperties.rightMargin)
+        
+        for (index,element) in users.enumerated() {
+            if true{
+                //create button for each user
+                buttonProperties.offset = userButton(buttonSize: buttonProperties.buttonSize, offset: buttonProperties.offset, rightMargin: buttonProperties.rightMargin, index: index)
+                buttonProperties.offset += CGFloat(20)
             }
         }
-        return "\(subLocality),\(locality),\(country),\(postalCode)"
     }
     
-    func viewAllMarkersButton(buttonSize: CGFloat, offset: CGFloat, rightMargin: CGFloat) -> CGFloat{
+    func mapView(_ mapView: GMSMapView!, markerInfoWindow marker: GMSMarker!) -> UIView! {
+        let customInfoWindow = Bundle.main.loadNibNamed("MapInfo", owner: self, options: nil)![0] as! MapInfo
+        var addressInfo = NSDictionary()
+        
+        if let info = marker.userData as? NSDictionary{
+            addressInfo = info
+        }
+        
+        customInfoWindow.userName.text = marker.snippet
+        customInfoWindow.userNumber = marker.accessibilityLabel
+        customInfoWindow.layer.cornerRadius = customInfoWindow.layer.frame.height/4
+        
+        if let street = addressInfo["street"] as? String{
+            customInfoWindow.userStreet.text = street
+        }
+        else{
+            customInfoWindow.userStreet.text = "--"
+        }
+        if let city = addressInfo["city"] as? String{
+            customInfoWindow.userCity.text = city
+        }
+        else{
+            customInfoWindow.userCity.text = "--"
+        }
+        if let country = addressInfo["country"] as? String{
+            customInfoWindow.userCountry.text = country
+        }
+        else{
+            customInfoWindow.userCountry.text = "--"
+        }
+        
+        return customInfoWindow
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        print("tapped")
+        if userLocation != nil{
+            print("Routing")
+            //fetchRoute(src: userLocation!, dst: marker.position)
+        }
+    }
+    
+    func viewAllUsersButton(buttonSize: CGFloat, offset: CGFloat, rightMargin: CGFloat) -> CGFloat{
         let xFrame = self.view.frame.maxX - buttonSize - rightMargin
         let yFrame = (self.view.frame.minY + 20) + buttonSize + offset
         let button = MDCFloatingButton(frame: CGRect(x: xFrame, y: yFrame , width: buttonSize, height: buttonSize))
-        
-        button.setTitle("All", for: .normal)
+        button.setTitle("View All", for: .normal)
         button.setBackgroundColor(UIColor.commonGreenColor())
         button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(viewAll), for: .touchUpInside)
         self.view.addSubview(button)
         
+        return buttonSize + offset*2
+    }
+    
+    func userButton(buttonSize: CGFloat, offset: CGFloat, rightMargin: CGFloat, index: Int) -> CGFloat{
+        let xFrame = self.view.frame.maxX - buttonSize - rightMargin
+        let yFrame = (self.view.frame.minY + 20) + buttonSize + offset
+        let button = MDCFloatingButton(frame: CGRect(x: xFrame, y: yFrame , width: buttonSize, height: buttonSize))
+        button.setTitle((users[index] as! String), for: .normal)
+        button.tag = index
+        button.setBackgroundColor(UIColor.commonGreenColor())
+        button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(viewUser), for: .touchUpInside)
+        self.view.addSubview(button)
+        
         return buttonSize + offset
     }
     
-    @objc func viewAll(_ sender: UIButton) {
-        print("tap")
-        let bounds = GMSCoordinateBounds()
-        for marker in markers{
-            print(marker)
-            bounds.includingCoordinate(marker.position)
+    @objc func viewAll() {
+        var bounds = GMSCoordinateBounds()
+        for marker in markers
+        {
+            bounds = bounds.includingCoordinate(marker.position)
         }
-        let updateFocus = GMSCameraUpdate.fit(bounds)
-        self.mapView.moveCamera(updateFocus)
+        let update = GMSCameraUpdate.fit(bounds, withPadding: 100)
+        mapView.selectedMarker = nil
+        mapView.animate(with: update)
     }
     
-
+    @objc func viewUser(_ sender: UIButton) {
+        self.mapView.animate(to: GMSCameraPosition(latitude: markers[sender.tag].position.latitude, longitude: markers[sender.tag].position.longitude, zoom: 50))
+        mapView.selectedMarker = markers[sender.tag]
+    }
+    
+    func fetchRoute(src: CLLocationCoordinate2D, dst: CLLocationCoordinate2D){
+        
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(src.latitude),\(src.longitude)&destination=\(dst.latitude),\(dst.longitude)&sensor=false&mode=walking&key=\(googleApiKey)")!
+        
+        let task = session.dataTask(with: url, completionHandler: {
+            (data, response, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                do {
+                    if let json : [String:Any] = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any] {
+                        print(json)
+                        let preRoutes = json["routes"] as! NSArray
+                        let routes = preRoutes[0] as! NSDictionary
+                        let routeOverviewPolyline:NSDictionary = routes.value(forKey: "overview_polyline") as! NSDictionary
+                        let polyString = routeOverviewPolyline.object(forKey: "points") as! String
+                        
+                        DispatchQueue.main.async(execute: {
+                            let path = GMSPath(fromEncodedPath: polyString)
+                            let polyline = GMSPolyline(path: path)
+                            polyline.strokeWidth = 5.0
+                            polyline.strokeColor = UIColor.green
+                            polyline.map = self.mapView
+                        })
+                    }
+                    
+                } catch {
+                    print("parsing error")
+                }
+            }
+        })
+        task.resume()
+    }
     
 }
 

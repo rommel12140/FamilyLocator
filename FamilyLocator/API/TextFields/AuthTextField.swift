@@ -20,7 +20,7 @@ class AuthTextField: SkyFloatingLabelTextField {
     */
     
     func setup(){
-
+        frame.size.height = 50
     }
     
     override init(frame: CGRect) {

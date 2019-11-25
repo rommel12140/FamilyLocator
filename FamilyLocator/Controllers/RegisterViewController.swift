@@ -22,6 +22,7 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         appTitle.textColor = .white
         signInButton.backgroundColor = UIColor.commonGreenColor()
         signInButton.setTitleColor(.white, for: UIControl.State.normal)
@@ -37,7 +38,7 @@ class RegisterViewController: UIViewController {
     @IBAction func signin(_ sender: Any) {
         //redirect to log in after sign in
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "LoginScreen") as! LoginViewController
-        self.dismiss(animated: true, completion: nil)
+
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -53,6 +54,10 @@ class RegisterViewController: UIViewController {
     }
     
     func createUser(email: String, password: String, firstname: String, lastname: String) {
+        let progressHUD = ProgressHUD(text: "Logging in...")
+        self.view.addSubview(progressHUD)
+        self.view.alpha = 0.9
+        
         signInButton.isEnabled = false
         registerButton.isEnabled = false
         emailTextField.isEnabled = false
@@ -97,6 +102,8 @@ class RegisterViewController: UIViewController {
                 self.confirmPasswordTextField.isEnabled = false
                 self.firstNameTextField.isEnabled = false
                 self.lastNameTextField.isEnabled = false
+                self.view.alpha = 1
+                progressHUD.removeFromSuperview()
             }
         }
     }
