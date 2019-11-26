@@ -50,11 +50,15 @@ class MenuOptionsTableViewController: UITableViewController {
             
             //2. Add the text field. You can configure it however you need.
             createFamily.addTextField { (textField) in
-                textField.text = ""
+                textField.text = nil
             }
             
             // 3. Grab the value from the text field, and print it when the user clicks OK.
             createFamily.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak createFamily] (_) in
+                if createFamily?.textFields![0].text == nil{
+                    print(createFamily?.textFields![0].text)
+                    print("nil")
+                }
                 if let textField = createFamily?.textFields![0].text{
                     var count = 0
                     let code = self.createRandomHex()
@@ -63,16 +67,24 @@ class MenuOptionsTableViewController: UITableViewController {
                     let ref = self.reference.child("users").child(self.user).child("families")
                     
                     print("Starting observing");
-                    ref.observe(.value, with: { (snapshot: DataSnapshot!) in
+                    ref.observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
                         print("Got snapshot");
+                        print(snapshot.value)
                         print(snapshot.childrenCount)
                         count = Int(snapshot.childrenCount)
                         print("count inside observe: \(count)")
+//                        self.reference.child("family").child(familyCode).child("members").setValue(["0" : self.user])
+//                        self.reference.child("family").child(familyCode).updateChildValues(["name" : textField])
+//                        self.reference.child("users").child(self.user).child("families").updateChildValues([String(count) : familyCode])
+                        tableView.reloadData()
                     })
-                    print("count outside observe: \(count)")
-//                    self.reference.child("family").child(familyCode).child("members").setValue(["0" : self.user])
-//                    self.reference.child("family").child(familyCode).updateChildValues(["name" : textField])
-//                    self.reference.child("users").child(self.user).child("families").updateChildValues([String(count) : familyCode])
+                }
+                else{
+                    let error = UIAlertController(title: "Create Family", message: "Please input a family name", preferredStyle: .alert)
+                    error.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak error] (_) in
+                        self.present(createFamily!, animated: true, completion: nil) // Force unwrapping because we know it exists.
+                    }))
+                    self.present(error, animated: true, completion: nil)
                 }
                 
                 let alert = UIAlertController(title: "Create Family", message: "Successfully created the family", preferredStyle: .alert)
