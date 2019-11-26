@@ -13,7 +13,8 @@ import FirebaseDatabase
 class MenuOptionsTableViewController: UITableViewController {
 
     let optionList:NSArray = ["CREATE A FAMILY", "JOIN A FAMILY", "NOTIFICATIONS", "LOGOUT"]
-    
+    let reference = Database.database().reference()
+    var user:String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,24 +42,76 @@ class MenuOptionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let cell = tableView.cellForRow(at: indexPath)
         
-        if indexPath.row == 3{
+        switch indexPath.row {
+        case 0:
+            print("create")
+            //1. Create the alert controller.
+            let createFamily = UIAlertController(title: "Create Family", message: "Family Name:", preferredStyle: .alert)
+            
+            //2. Add the text field. You can configure it however you need.
+            createFamily.addTextField { (textField) in
+                textField.text = ""
+            }
+            
+            // 3. Grab the value from the text field, and print it when the user clicks OK.
+            createFamily.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak createFamily] (_) in
+                if let textField = createFamily?.textFields![0].text{
+                    var count = 0
+                    let code = self.createRandomHex()
+                    let familyCode = "\(String(describing: textField))-\(code)"
+                    print(familyCode)
+                    let ref = self.reference.child("users").child(self.user).child("families")
+                    
+                    print("Starting observing");
+                    ref.observe(.value, with: { (snapshot: DataSnapshot!) in
+                        print("Got snapshot");
+                        print(snapshot.childrenCount)
+                        count = Int(snapshot.childrenCount + 1)
+                    })
+                    
+                    
+                    self.reference.child("family").child(familyCode).child("members").setValue(["0" : self.user])
+                    self.reference.child("family").child(familyCode).updateChildValues(["name" : textField])
+                    self.reference.child("users").child(self.user).child("families").updateChildValues([String(count) : familyCode])
+                }
+                
+                let alert = UIAlertController(title: "Create Family", message: "Successfully created the family", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+                    self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
+                    
+                }))
+                
+                self.present(alert, animated: true, completion: nil)
+            }))
+            
+            // 4. Present the alert.
+            self.present(createFamily, animated: true, completion: nil)
+        case 1:
+            print("join")
+        case 2:
+            print("notification")
+        case 3:
             let reference = Database.database().reference()
             
             reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                 //present view controller while passing userCode from database
                 let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginScreen") as! LoginViewController
+                let navController = UINavigationController()
                 if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
-                    print(userCode)
                     reference.child("users").child("\(userCode)").updateChildValues(["isOnline" : "false"])
-                    self.navigationController?.popViewController(animated: true)
-                    viewController.dismiss(animated: true, completion: nil)
+                    navController.dismiss(animated: true, completion: nil)
                     self.present(viewController, animated: true, completion: nil)
                 }
             })
+        default:
+            print("default")
         
         }
+    }
         
-        
+    func createRandomHex() -> String{
+        return String(format: "%04X", Int(arc4random() % 655), Int(arc4random() % 655))
     }
 
 

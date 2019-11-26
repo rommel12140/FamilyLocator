@@ -38,6 +38,9 @@ class FamilyOptionsViewController: UIViewController, UITableViewDelegate, UITabl
         return 60
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
     /*
     // MARK: - Navigation
 

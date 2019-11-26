@@ -10,6 +10,19 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="aG9-1t-TtM">
+            <objects>
+                <navigationController id="xOA-4B-KmY" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1GY-0r-Jpa">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TM1-c2-BrZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="218" y="91"/>
+        </scene>
         <!--User Selection Table View Controller-->
         <scene sceneID="iaQ-4E-NaR">
             <objects>
@@ -75,7 +88,7 @@
                     <navigationItem key="navigationItem" id="xKy-BV-yPD">
                         <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="V3j-Wt-ntT">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bjI-tY-x6N">
-                                <rect key="frame" x="310" y="0.0" width="84" height="44"/>
+                                <rect key="frame" x="268" y="0.0" width="126" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="menu.svg"/>
                                 <connections>
@@ -168,12 +181,12 @@
                         <constraint firstItem="it2-gi-47b" firstAttribute="top" secondItem="PRL-Og-1fj" secondAttribute="bottom" constant="31" id="VVR-u0-bC6"/>
                         <constraint firstAttribute="trailing" secondItem="wem-ai-TMb" secondAttribute="trailing" id="XAH-G6-AQx"/>
                         <constraint firstItem="QUg-Tu-BC6" firstAttribute="trailing" secondItem="0Oi-Q3-za8" secondAttribute="trailing" id="cBI-g3-Jbf"/>
-                        <constraint firstItem="PRL-Og-1fj" firstAttribute="leading" secondItem="bzW-eO-eJL" secondAttribute="leading" constant="137" id="dpn-dQ-9ai"/>
+                        <constraint firstItem="PRL-Og-1fj" firstAttribute="leading" secondItem="0Oi-Q3-za8" secondAttribute="leading" constant="137" id="dpn-dQ-9ai"/>
                         <constraint firstItem="5YR-nT-0aa" firstAttribute="centerX" secondItem="0Oi-Q3-za8" secondAttribute="centerX" id="eu9-wT-8ex"/>
                         <constraint firstAttribute="bottom" secondItem="QUg-Tu-BC6" secondAttribute="bottom" id="gci-XQ-JUK"/>
                         <constraint firstItem="it2-gi-47b" firstAttribute="leading" secondItem="nUi-ot-S1I" secondAttribute="leading" id="jzY-9b-oHr"/>
                         <constraint firstItem="5YR-nT-0aa" firstAttribute="centerY" secondItem="0Oi-Q3-za8" secondAttribute="centerY" constant="-24" id="u63-Ng-sLB"/>
-                        <constraint firstItem="PRL-Og-1fj" firstAttribute="top" secondItem="bzW-eO-eJL" secondAttribute="top" constant="100" id="uJ6-97-Nlo"/>
+                        <constraint firstItem="PRL-Og-1fj" firstAttribute="top" secondItem="0Oi-Q3-za8" secondAttribute="top" constant="144" id="uJ6-97-Nlo"/>
                         <constraint firstItem="EQF-gp-bif" firstAttribute="centerX" secondItem="0Oi-Q3-za8" secondAttribute="centerX" constant="34.5" id="vJn-Bh-nKH"/>
                         <constraint firstItem="QUg-Tu-BC6" firstAttribute="leading" secondItem="0Oi-Q3-za8" secondAttribute="leading" id="xlY-mA-esk"/>
                         <constraint firstAttribute="bottom" secondItem="PRL-Og-1fj" secondAttribute="bottom" constant="192" id="y1O-AC-BeQ"/>
