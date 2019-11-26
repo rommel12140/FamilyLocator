@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="03c-rm-mOZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SxF-F8-Iwj" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -27,12 +26,11 @@
                         <constraints>
                             <constraint firstItem="SxF-F8-Iwj" firstAttribute="trailing" secondItem="gqw-pK-drX" secondAttribute="trailing" id="2FF-hs-dfd"/>
                             <constraint firstItem="SxF-F8-Iwj" firstAttribute="leading" secondItem="gqw-pK-drX" secondAttribute="leading" id="CNQ-cS-ZGq"/>
-                            <constraint firstItem="SxF-F8-Iwj" firstAttribute="bottom" secondItem="gqw-pK-drX" secondAttribute="bottom" constant="34" id="Lmw-Fw-U8e"/>
-                            <constraint firstItem="SxF-F8-Iwj" firstAttribute="top" secondItem="gqw-pK-drX" secondAttribute="top" constant="-44" id="eDk-vh-MQh"/>
+                            <constraint firstItem="SxF-F8-Iwj" firstAttribute="bottom" secondItem="C5Y-2E-Xm6" secondAttribute="bottom" id="Lmw-Fw-U8e"/>
+                            <constraint firstItem="SxF-F8-Iwj" firstAttribute="top" secondItem="C5Y-2E-Xm6" secondAttribute="top" id="eDk-vh-MQh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gqw-pK-drX"/>
                     </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="mapView" destination="SxF-F8-Iwj" id="WqO-NM-E7R"/>
                     </connections>

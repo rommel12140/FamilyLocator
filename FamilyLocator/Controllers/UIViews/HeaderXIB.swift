@@ -16,8 +16,7 @@ class HeaderXIB: UITableViewHeaderFooterView {
     @IBOutlet weak var familyCode: UILabel!
     
     @IBOutlet weak var familyOptions: UIButton!
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

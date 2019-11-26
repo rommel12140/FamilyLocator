@@ -9,11 +9,13 @@
 import UIKit
 import FirebaseDatabase
 import GoogleMaps
+import MapKit
 import MaterialComponents.MDCFloatingButton
 
 struct ButtonProperties {
     var buttonSize: CGFloat!
     var offset: CGFloat!
+    var currentYPosition: CGFloat!
     var rightMargin: CGFloat!
 }
 
@@ -23,8 +25,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var reference = DatabaseReference()
     var buttonProperties = ButtonProperties()
     var markers = Array<GMSMarker>()
+    var polylines = Array<GMSPolyline>()
     var userLocation: CLLocationCoordinate2D?
     let locationManager = CLLocationManager()
+    
     
     //temporary data
     var user: String!
@@ -46,15 +50,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             self.locationManager.startUpdatingLocation()
             
+            createButtons()
+            listenToUserLocation()
+            
             //enable location and add functions
             mapView.delegate = self
             mapView.isMyLocationEnabled = true
-            
             mapView.settings.tiltGestures = false
             mapView.settings.myLocationButton = true
+            mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: buttonProperties.buttonSize+buttonProperties.offset, right: 0)
             
-            createButtons()
-            listenToUserLocation()
+            
         }
     }
     
@@ -113,6 +119,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                                 dict["country"] = address.country
                                 dict["street"] = address.thoroughfare
                                 marker.userData = dict
+                                
                             }
                         }
                         
@@ -129,16 +136,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func createButtons(){
         //set button properties
-        buttonProperties.buttonSize = CGFloat(75)
-        buttonProperties.offset = CGFloat(20)
-        buttonProperties.rightMargin = CGFloat(10)
-        buttonProperties.offset = viewAllUsersButton(buttonSize: buttonProperties.buttonSize, offset: buttonProperties.offset, rightMargin: buttonProperties.rightMargin)
+        //buttonProperties.buttonSize = CGFloat(75)
+        buttonProperties.buttonSize = CGFloat(view.frame.width/6)
+        buttonProperties.offset = CGFloat(buttonProperties.buttonSize/5)
+        buttonProperties.currentYPosition = CGFloat(0)
+        buttonProperties.rightMargin = CGFloat(buttonProperties.buttonSize/5)
+        buttonProperties.currentYPosition = viewAllUsersButton(buttonSize: buttonProperties.buttonSize, yPos: buttonProperties.currentYPosition, rightMargin: buttonProperties.rightMargin, offset: buttonProperties.offset)
         
         for (index,element) in users.enumerated() {
             if true{
                 //create button for each user
-                buttonProperties.offset = userButton(buttonSize: buttonProperties.buttonSize, offset: buttonProperties.offset, rightMargin: buttonProperties.rightMargin, index: index)
-                buttonProperties.offset += CGFloat(20)
+                buttonProperties.currentYPosition = userButton(buttonSize: buttonProperties.buttonSize, yPos: buttonProperties.currentYPosition, rightMargin: buttonProperties.rightMargin, index: index, offset: buttonProperties.offset)
             }
         }
     }
@@ -177,30 +185,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         return customInfoWindow
     }
     
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        print("tapped")
-        if userLocation != nil{
-            print("Routing")
-            //fetchRoute(src: userLocation!, dst: marker.position)
-        }
-    }
-    
-    func viewAllUsersButton(buttonSize: CGFloat, offset: CGFloat, rightMargin: CGFloat) -> CGFloat{
+    func viewAllUsersButton(buttonSize: CGFloat, yPos: CGFloat, rightMargin: CGFloat, offset: CGFloat) -> CGFloat{
+        let yPosition = buttonSize + yPos
         let xFrame = self.view.frame.maxX - buttonSize - rightMargin
-        let yFrame = (self.view.frame.minY + 20) + buttonSize + offset
+        let yFrame = (self.view.frame.minY) + yPosition
         let button = MDCFloatingButton(frame: CGRect(x: xFrame, y: yFrame , width: buttonSize, height: buttonSize))
         button.setTitle("View All", for: .normal)
+        button.titleLabel!.numberOfLines = 1
+        button.titleLabel!.adjustsFontSizeToFitWidth = true
+        button.titleLabel!.baselineAdjustment = .alignCenters
         button.setBackgroundColor(UIColor.commonGreenColor())
         button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(viewAll), for: .touchUpInside)
         self.view.addSubview(button)
         
-        return buttonSize + offset*2
+        return yPosition + offset
     }
     
-    func userButton(buttonSize: CGFloat, offset: CGFloat, rightMargin: CGFloat, index: Int) -> CGFloat{
+    func userButton(buttonSize: CGFloat, yPos: CGFloat, rightMargin: CGFloat, index: Int, offset: CGFloat) -> CGFloat{
+        let yPosition = buttonSize + yPos
         let xFrame = self.view.frame.maxX - buttonSize - rightMargin
-        let yFrame = (self.view.frame.minY + 20) + buttonSize + offset
+        let yFrame = (self.view.frame.minY) + yPosition
         let button = MDCFloatingButton(frame: CGRect(x: xFrame, y: yFrame , width: buttonSize, height: buttonSize))
         button.setTitle(users[index], for: .normal)
         button.tag = index
@@ -209,7 +214,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         button.addTarget(self, action: #selector(viewUser), for: .touchUpInside)
         self.view.addSubview(button)
         
-        return buttonSize + offset
+        return yPosition + offset
     }
     
     @objc func viewAll() {
@@ -218,89 +223,106 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         {
             bounds = bounds.includingCoordinate(marker.position)
         }
-        let update = GMSCameraUpdate.fit(bounds, withPadding: 100)
+        let update = GMSCameraUpdate.fit(bounds, withPadding: 0)
         mapView.selectedMarker = nil
         mapView.animate(with: update)
     }
     
     @objc func viewUser(_ sender: UIButton) {
-        self.mapView.animate(to: GMSCameraPosition(latitude: markers[sender.tag].position.latitude, longitude: markers[sender.tag].position.longitude, zoom: 50))
+        self.mapView.animate(to: GMSCameraPosition(latitude: markers[sender.tag].position.latitude, longitude: markers[sender.tag].position.longitude, zoom: 17))
         mapView.selectedMarker = markers[sender.tag]
     }
     
-    func fetchRoute(src: CLLocationCoordinate2D, dst: CLLocationCoordinate2D){
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        print("tapped")
         
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        
-        let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(src.latitude),\(src.longitude)&destination=\(dst.latitude),\(dst.longitude)&sensor=false&mode=walking&key=\(googleApiKey)")!
-        
-        let task = session.dataTask(with: url, completionHandler: {
-            (data, response, error) in
-            if error != nil {
-                print(error!.localizedDescription)
-            } else {
-                do {
-                    if let json : [String:Any] = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any] {
-                        print(json)
-                        let preRoutes = json["routes"] as! NSArray
-                        let routes = preRoutes[0] as! NSDictionary
-                        let routeOverviewPolyline:NSDictionary = routes.value(forKey: "overview_polyline") as! NSDictionary
-                        let polyString = routeOverviewPolyline.object(forKey: "points") as! String
-                        
-                        DispatchQueue.main.async(execute: {
-                            let path = GMSPath(fromEncodedPath: polyString)
-                            let polyline = GMSPolyline(path: path)
-                            polyline.strokeWidth = 5.0
-                            polyline.strokeColor = UIColor.green
-                            polyline.map = self.mapView
-                        })
-                    }
-                    
-                } catch {
-                    print("parsing error")
-                }
+        for polyline in self.polylines {
+            polyline.map = nil
+        }
+        if userLocation != nil{
+            if let src = userLocation{
+                fetchRoute(src: src, dst: marker.position)
             }
-        })
-        task.resume()
+        }
+        
     }
     
+    func fetchRoute(src: CLLocationCoordinate2D, dst: CLLocationCoordinate2D){
+        let source = MKMapItem(placemark: MKPlacemark(coordinate: src))
+        let destination = MKMapItem(placemark: MKPlacemark(coordinate: dst))
+        let request = MKDirections.Request()
+        request.source = source
+        request.destination = destination
+        request.requestsAlternateRoutes = false
+        let directions = MKDirections(request: request)
+        directions.calculate(completionHandler: { (response, error) in
+            if response != nil{
+                var coordinates = [CLLocationCoordinate2D](
+                    repeating: kCLLocationCoordinate2DInvalid,
+                    count: response!.routes[0].polyline.pointCount
+                )
+                response!.routes[0].polyline.getCoordinates(
+                    &coordinates,
+                    range: NSRange(location: 0, length: response!.routes[0].polyline.pointCount)
+                )
+                
+                if let resp = response{
+                    self.show(polylines: self.googlePolylines(from: resp))
+                }
+            }
+            if error != nil{
+                let alert = UIAlertController(title: "Error",
+                                              message: error?.localizedDescription,
+                                              preferredStyle: .alert)
+                
+                //alert with error
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(alert, animated: true, completion: nil)
+            }
+        })
+        var bounds = GMSCoordinateBounds()
+        bounds = bounds.includingCoordinate(src)
+        bounds = bounds.includingCoordinate(dst)
+        let update = GMSCameraUpdate.fit(bounds, withPadding: self.view.frame.width/5)
+        mapView.animate(with: update)
+        
+    }
+    
+    private func googlePolylines(from response: MKDirections.Response) -> [GMSPolyline] {
+        let polylines: [GMSPolyline] = response.routes.map({ route in
+            var coordinates = [CLLocationCoordinate2D](
+                repeating: kCLLocationCoordinate2DInvalid,
+                count: route.polyline.pointCount
+            )
+            route.polyline.getCoordinates(
+                &coordinates,
+                range: NSRange(location: 0, length: route.polyline.pointCount)
+            )
+            let polyline = Polyline(coordinates: coordinates)
+            let encodedPolyline: String = polyline.encodedPolyline
+            let path = GMSPath(fromEncodedPath: encodedPolyline)
+            return GMSPolyline(path: path)
+        })
+        return polylines
+    }
+    
+    func show(polylines: [GMSPolyline]) {
+        self.polylines = polylines
+        self.polylines.forEach { polyline in
+            let strokeStyles = [
+                GMSStrokeStyle.solidColor(UIColor.commonGreenColor()),
+                GMSStrokeStyle.solidColor(.clear)
+            ]
+            let strokeLengths = [
+                NSNumber(value: 10),
+                NSNumber(value: 6)
+            ]
+            if let path = polyline.path {
+                polyline.spans = GMSStyleSpans(path, strokeStyles, strokeLengths, .rhumb)
+            }
+            polyline.strokeWidth = 3
+            polyline.map = mapView
+        }
+        
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//func drawText(text:NSString, inImage:UIImage) -> UIImage? {
-//
-//    let font = UIFont.systemFont(ofSize: 11)
-//    let size = inImage.size
-//
-//    //UIGraphicsBeginImageContext(size)
-//    let scale = UIScreen.main.scale
-//    UIGraphicsBeginImageContextWithOptions(inImage.size, false, scale)
-//    inImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-//    let style : NSMutableParagraphStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-//    style.alignment = .center
-//    let attributes:NSDictionary = [ NSAttributedString.Key.font : font, NSAttributedString.Key.paragraphStyle : style, NSAttributedString.Key.foregroundColor : UIColor.black ]
-//
-//    let textSize = text.size(withAttributes: attributes as? [NSAttributedString.Key : Any])
-//    let rect = CGRect(x: 0, y: 0, width: inImage.size.width, height: inImage.size.height)
-//    let textRect = CGRect(x: (rect.size.width - textSize.width)/2, y: (rect.size.height - textSize.height)/2 - 2, width: textSize.width, height: textSize.height)
-//    text.draw(in: textRect.integral, withAttributes: attributes as? [NSAttributedString.Key : Any])
-//    let resultImage = UIGraphicsGetImageFromCurrentImageContext()
-//
-//    UIGraphicsEndImageContext()
-//
-//    return resultImage
-//}

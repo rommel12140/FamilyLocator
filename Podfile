@@ -17,14 +17,11 @@ pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'Firebase/Storage'
 pod 'GoogleMaps', '~> 3.6'
-pod 'Alamofire', '~>  4.8.2'
 pod 'SkyFloatingLabelTextField', '~> 3.0'
 pod 'MaterialComponents/TextFields'
 pod 'MaterialComponents/Buttons'
-pod 'MaterialComponents/List'
 pod 'MaterialComponents/Dialogs'
 pod 'MaterialComponents/BottomSheet'
-pod 'MaterialComponents/BottomSheet+ShapeThemer'
 pod "MXParallaxHeader"
 
 

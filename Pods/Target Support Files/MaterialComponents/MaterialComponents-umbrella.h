@@ -19,8 +19,6 @@
 #import "MDCBottomSheetTransitionController.h"
 #import "MDCSheetState.h"
 #import "UIViewController+MaterialBottomSheet.h"
-#import "MaterialBottomSheet+ShapeThemer.h"
-#import "MDCBottomSheetControllerShapeThemer.h"
 #import "MaterialButtons.h"
 #import "MDCButton.h"
 #import "MDCFlatButton.h"
@@ -43,9 +41,6 @@
 #import "MDCInkGestureRecognizer.h"
 #import "MDCInkTouchController.h"
 #import "MDCInkView.h"
-#import "MaterialList.h"
-#import "MDCBaseCell.h"
-#import "MDCSelfSizingStereoCell.h"
 #import "MaterialPalettes.h"
 #import "MDCPalettes.h"
 #import "MaterialRipple.h"
@@ -110,9 +105,6 @@
 #import "MDCKeyboardWatcher.h"
 #import "MaterialMath.h"
 #import "MDCMath.h"
-#import "MaterialShapeScheme.h"
-#import "MDCShapeCategory.h"
-#import "MDCShapeScheme.h"
 
 FOUNDATION_EXPORT double MaterialComponentsVersionNumber;
 FOUNDATION_EXPORT const unsigned char MaterialComponentsVersionString[];

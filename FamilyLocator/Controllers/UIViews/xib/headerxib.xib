@@ -27,9 +27,6 @@
                         </label>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLN-2C-g9p">
                             <rect key="frame" x="317" y="8" width="48" height="76"/>
-                            <connections>
-                                <action selector="showFamilyOptions:" destination="iN0-l3-epB" eventType="touchUpInside" id="Quq-vI-zAN"/>
-                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eIJ-IC-ADK">
                             <rect key="frame" x="20" y="21" width="228" height="29"/>

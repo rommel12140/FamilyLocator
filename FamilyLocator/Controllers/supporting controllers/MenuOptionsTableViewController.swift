@@ -39,7 +39,7 @@ class MenuOptionsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
+//        let cell = tableView.cellForRow(at: indexPath)
         
         if indexPath.row == 3{
             let reference = Database.database().reference()
@@ -50,6 +50,8 @@ class MenuOptionsTableViewController: UITableViewController {
                 if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
                     print(userCode)
                     reference.child("users").child("\(userCode)").updateChildValues(["isOnline" : "false"])
+                    self.navigationController?.popViewController(animated: true)
+                    viewController.dismiss(animated: true, completion: nil)
                     self.present(viewController, animated: true, completion: nil)
                 }
             })

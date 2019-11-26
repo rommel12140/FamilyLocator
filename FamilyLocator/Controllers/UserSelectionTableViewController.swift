@@ -92,7 +92,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     }
     
     func getFamilyCode(){
-        if let currentUser = user as? String{
+        if let currentUser = user{
             reference.child("users").child("\(currentUser)").child("families").observeSingleEvent(of: .value, with: { (snapshot) in
                 //set name
                 for familyCode in snapshot.children.allObjects as! [DataSnapshot]{
@@ -114,7 +114,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                             //set name
                             //print(snapshot.value)
                             for member in snapshot.children.allObjects as! [DataSnapshot]{
-                                if self.user != member.value as! String{
+                                if self.user != (member.value as! String){
                                     self.familyMembers.append("")
                                     self.memberStatus.append("")
                                     print(self.familyMembers)
