@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,7 +27,6 @@
                                     <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="J64-QN-fis" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
                                         <rect key="frame" x="41" y="390" width="333" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                         <userDefinedRuntimeAttributes>
@@ -68,7 +65,6 @@
                                     <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="c5e-4B-3wi" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
                                         <rect key="frame" x="41" y="334" width="333" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done" textContentType="email"/>
                                         <userDefinedRuntimeAttributes>
@@ -172,11 +168,11 @@
             <objects>
                 <viewController storyboardIdentifier="RegisterScreen" id="dgo-YA-ipV" customClass="RegisterViewController" customModule="FamilyLocator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2SV-A5-lmr">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FAMILY LOCATOR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J0I-k7-Bg7">
-                                <rect key="frame" x="24" y="147" width="367" height="50"/>
+                                <rect key="frame" x="24" y="103" width="367" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="GQW-Cn-iPH"/>
                                 </constraints>
@@ -185,11 +181,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="NTH-gj-ln4" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
-                                <rect key="frame" x="27" y="338" width="355" height="50"/>
+                                <rect key="frame" x="27" y="294" width="355" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="OOP-k6-ykg"/>
                                 </constraints>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <userDefinedRuntimeAttributes>
@@ -227,11 +222,10 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9pi-vf-w0B" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
-                                <rect key="frame" x="27" y="396" width="355" height="50"/>
+                                <rect key="frame" x="27" y="352" width="355" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="dk1-zg-tTQ"/>
                                 </constraints>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="given-name"/>
                                 <userDefinedRuntimeAttributes>
@@ -269,11 +263,10 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8ag-QG-eSB" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
-                                <rect key="frame" x="27" y="454" width="355" height="50"/>
+                                <rect key="frame" x="27" y="410" width="355" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="lOb-iz-Qvl"/>
                                 </constraints>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="family-name"/>
                                 <userDefinedRuntimeAttributes>
@@ -311,11 +304,10 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="pKu-BJ-fVJ" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
-                                <rect key="frame" x="27" y="280" width="355" height="50"/>
+                                <rect key="frame" x="27" y="236" width="355" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="xLw-Zi-Nax"/>
                                 </constraints>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <userDefinedRuntimeAttributes>
@@ -353,11 +345,10 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="uYD-a9-xwa" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
-                                <rect key="frame" x="27" y="222" width="355" height="50"/>
+                                <rect key="frame" x="27" y="178" width="355" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="uTG-rg-bqv"/>
                                 </constraints>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                                 <userDefinedRuntimeAttributes>
@@ -395,14 +386,14 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="juQ-lT-mv0">
-                                <rect key="frame" x="157" y="75" width="100" height="70"/>
+                                <rect key="frame" x="157" y="31" width="100" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="Wg0-RU-0t7"/>
                                     <constraint firstAttribute="height" constant="70" id="rud-Cy-fJO"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IY6-wb-FZX" customClass="AuthButton" customModule="FamilyLocator" customModuleProvider="target">
-                                <rect key="frame" x="20" y="534" width="374" height="50"/>
+                                <rect key="frame" x="20" y="490" width="374" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="phw-y2-wWC"/>
                                 </constraints>
@@ -413,7 +404,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NPW-hd-S03" customClass="AuthButton" customModule="FamilyLocator" customModuleProvider="target">
-                                <rect key="frame" x="20" y="604" width="374" height="50"/>
+                                <rect key="frame" x="20" y="560" width="374" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="mIA-v1-8Iv"/>
                                 </constraints>
@@ -470,114 +461,8 @@
             </objects>
             <point key="canvasLocation" x="1152" y="132"/>
         </scene>
-        <!--Notification Table View Controller-->
-        <scene sceneID="cFD-Da-7cg">
-            <objects>
-                <tableViewController id="Hde-Wj-QaU" customClass="NotificationTableViewController" customModule="FamilyLocator" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="5ND-uh-F4V">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" restorationIdentifier="invite" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="invite" rowHeight="150" id="9Bq-T4-B5P" customClass="InvitationCell" customModule="FamilyLocator" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="414" height="150"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9Bq-T4-B5P" id="6p5-kZ-uTg">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="149.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0RW-Zk-c8U">
-                                            <rect key="frame" x="20" y="23" width="246" height="99"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Tj-d6-hwG" customClass="MDCFloatingButton">
-                                            <rect key="frame" x="328" y="81" width="60" height="60"/>
-                                            <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="6Tj-d6-hwG" secondAttribute="height" multiplier="1:1" id="EMp-15-awc"/>
-                                            </constraints>
-                                            <state key="normal" title="Decline"/>
-                                            <connections>
-                                                <action selector="rejectButton:" destination="9Bq-T4-B5P" eventType="touchUpInside" id="5Ne-6J-dS4"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ygK-PG-MAV" customClass="MDCFloatingButton">
-                                            <rect key="frame" x="328" y="13" width="60" height="60"/>
-                                            <color key="backgroundColor" red="0.45009386540000001" green="0.98132258650000004" blue="0.4743030667" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="60" id="A5G-ZU-TPV"/>
-                                                <constraint firstAttribute="width" constant="60" id="h5D-v1-A0d"/>
-                                                <constraint firstAttribute="width" secondItem="ygK-PG-MAV" secondAttribute="height" multiplier="1:1" id="mbB-Gb-AsW"/>
-                                            </constraints>
-                                            <state key="normal" title="Accept"/>
-                                            <connections>
-                                                <action selector="acceptButton:" destination="9Bq-T4-B5P" eventType="touchUpInside" id="VqT-gm-fBE"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="ygK-PG-MAV" firstAttribute="leading" secondItem="6Tj-d6-hwG" secondAttribute="leading" id="0Tq-IB-cts"/>
-                                        <constraint firstItem="0RW-Zk-c8U" firstAttribute="top" secondItem="6p5-kZ-uTg" secondAttribute="topMargin" constant="12" id="2TN-RT-b3c"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="ygK-PG-MAV" secondAttribute="trailing" constant="6" id="4g2-N9-72c"/>
-                                        <constraint firstItem="6Tj-d6-hwG" firstAttribute="width" secondItem="ygK-PG-MAV" secondAttribute="width" id="BcV-He-NN3"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="6Tj-d6-hwG" secondAttribute="bottom" constant="-2" id="D3y-FR-VE4"/>
-                                        <constraint firstItem="ygK-PG-MAV" firstAttribute="leading" secondItem="0RW-Zk-c8U" secondAttribute="trailing" constant="62" id="N7h-yd-D0u"/>
-                                        <constraint firstItem="6Tj-d6-hwG" firstAttribute="height" secondItem="ygK-PG-MAV" secondAttribute="height" id="PWS-MV-EMa"/>
-                                        <constraint firstItem="ygK-PG-MAV" firstAttribute="top" secondItem="6p5-kZ-uTg" secondAttribute="topMargin" constant="2" id="QSr-Pd-OGq"/>
-                                        <constraint firstItem="6Tj-d6-hwG" firstAttribute="top" secondItem="ygK-PG-MAV" secondAttribute="bottom" constant="8" id="aIU-6r-4My"/>
-                                        <constraint firstItem="ygK-PG-MAV" firstAttribute="trailing" secondItem="6Tj-d6-hwG" secondAttribute="trailing" id="goQ-pb-vzh"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="0RW-Zk-c8U" secondAttribute="bottom" constant="17" id="iz6-2v-xqu"/>
-                                        <constraint firstItem="0RW-Zk-c8U" firstAttribute="leading" secondItem="6p5-kZ-uTg" secondAttribute="leadingMargin" id="kAJ-Hv-IJY"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                                <connections>
-                                    <outlet property="acceptButton" destination="ygK-PG-MAV" id="zYY-P1-Qkl"/>
-                                    <outlet property="notificationLabel" destination="0RW-Zk-c8U" id="3WV-8y-vPE"/>
-                                    <outlet property="rejectButton" destination="6Tj-d6-hwG" id="F1d-7Q-dB4"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" restorationIdentifier="notification" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="notification" rowHeight="100" id="nWc-Cp-LSs" customClass="NotificationCell" customModule="FamilyLocator" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="205.5" width="414" height="100"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nWc-Cp-LSs" id="EIG-3Q-K9R">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="99.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lW8-Oh-6EY">
-                                            <rect key="frame" x="16" y="23" width="282" height="37"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="lW8-Oh-6EY" firstAttribute="leading" secondItem="EIG-3Q-K9R" secondAttribute="leadingMargin" id="Uf8-gR-Ioe"/>
-                                        <constraint firstItem="lW8-Oh-6EY" firstAttribute="top" secondItem="EIG-3Q-K9R" secondAttribute="topMargin" constant="12" id="YUa-eD-5Xo"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="lW8-Oh-6EY" secondAttribute="bottom" constant="17" id="kMi-v5-ZCl"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                                <connections>
-                                    <outlet property="notificationLabel" destination="lW8-Oh-6EY" id="akH-x5-tN0"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Hde-Wj-QaU" id="IX0-I0-ohC"/>
-                            <outlet property="delegate" destination="Hde-Wj-QaU" id="Miy-Wc-T6n"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="t3V-Gk-M63" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1016.8" y="131.78410794602701"/>
-        </scene>
     </scenes>
     <resources>
-        <image name="logo" width="478" height="648"/>
+        <image name="logo" width="239" height="324"/>
     </resources>
 </document>

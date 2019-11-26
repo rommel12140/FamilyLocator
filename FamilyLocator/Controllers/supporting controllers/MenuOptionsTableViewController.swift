@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import MaterialComponents.MaterialBottomSheet
 
 class MenuOptionsTableViewController: UITableViewController {
 
@@ -99,23 +100,31 @@ class MenuOptionsTableViewController: UITableViewController {
             
             // 4. Present the alert.
             self.present(createFamily, animated: true, completion: nil)
+            
         case 1:
             print("join")
+            
         case 2:
             print("notification")
+            
+            let viewController = UIStoryboard(name: "Notification", bundle: nil).instantiateViewController(withIdentifier: "notificationScreen") as! NotificationTableViewController
+            let navController = UINavigationController()
+//            self.dismiss(animated: true, completion: {
+//                print("dismissed")
+//                navController.pushViewController(viewController, animated: true)
+//            })
+                self.present(viewController, animated: true, completion: nil)
+            
         case 3:
             let reference = Database.database().reference()
-            
-            reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
-                //present view controller while passing userCode from database
-                let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginScreen") as! LoginViewController
-                let navController = UINavigationController()
+        reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                 if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
                     reference.child("users").child("\(userCode)").updateChildValues(["isOnline" : "false"])
-                    navController.dismiss(animated: true, completion: nil)
-                    self.present(viewController, animated: true, completion: nil)
+                    let root = UIApplication.shared.keyWindow?.rootViewController
+                    root?.dismiss(animated: true, completion: nil)
                 }
             })
+            
         default:
             print("default")
         

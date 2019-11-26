@@ -129,7 +129,17 @@
                         reference.child("users").child("\(userCode)").updateChildValues(["isOnline" : "true"])
                         viewController.user = userCode
                         viewController.users = self.users
-                        self.present(navController, animated: true, completion: nil)
+                       
+                        self.present(navController, animated: true, completion: {
+                            self.view.addSubview(progressHUD)
+                            progressHUD.removeFromSuperview()
+                            self.view.alpha = 1.0
+
+                            self.loginButton.isEnabled = true
+                            self.emailTextField.isEnabled = true
+                            self.signupButton.isEnabled = true
+                            self.passwordTextField.isEnabled = true
+                        })
                     }
                 })
                 

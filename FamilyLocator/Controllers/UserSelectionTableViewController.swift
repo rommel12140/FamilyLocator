@@ -10,6 +10,7 @@ import UIKit
 import MXParallaxHeader
 import MaterialComponents.MaterialBottomSheet
 import FirebaseDatabase
+import FirebaseStorage
 
 class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -23,6 +24,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     var lastName: String!
     var fullname: String!
     let reference = Database.database().reference()
+    let storageRef = Storage.storage()
 
     @IBOutlet var headerView: UIView!
     @IBOutlet weak var background: UIImageView!
@@ -200,6 +202,26 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             profileImage.contentMode = .scaleAspectFill
             profileImage.image = pickedImage
+            
+            // 1 Media Data in memory
+            let data = Data()
+
+            // 2 Create a reference to the file you want to upload
+            let image = storageRef.reference().child("images/\(profileImage.image)")
+
+            // 3 Upload the file to the path "images/rivers.jpg"
+            let uploadTask = image.putData(data, metadata: nil) { (metadata, error) in
+                if error != nil {
+                // 4 Uh-oh, an error occurred!
+                return
+              }
+
+              // 5
+                self.storageRef.reference().downloadURL(completion: { (url, error) in
+                    if error != nil { return }
+                // 6
+              })
+            }
         }
         
         dismiss(animated: true, completion: nil)
