@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Test View Controller-->
+        <scene sceneID="ipH-PF-cUc">
+            <objects>
+                <viewController id="e3w-SJ-EQL" customClass="testViewController" customModule="FamilyLocator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DDg-8t-kBL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sn7-px-njP">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="y0H-04-bc6">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="y0H-04-bc6" id="J56-dK-Dct">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="e3w-SJ-EQL" id="pv2-CY-HnG"/>
+                                    <outlet property="delegate" destination="e3w-SJ-EQL" id="9Rh-5c-OVA"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="MXQ-IJ-R60" firstAttribute="trailing" secondItem="sn7-px-njP" secondAttribute="trailing" id="6t5-Nu-wbF"/>
+                            <constraint firstItem="MXQ-IJ-R60" firstAttribute="bottom" secondItem="sn7-px-njP" secondAttribute="bottom" id="GX8-ur-JCf"/>
+                            <constraint firstItem="sn7-px-njP" firstAttribute="top" secondItem="MXQ-IJ-R60" secondAttribute="top" id="LcP-BT-VUh"/>
+                            <constraint firstItem="sn7-px-njP" firstAttribute="leading" secondItem="MXQ-IJ-R60" secondAttribute="leading" id="hQ7-v0-8Pi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="MXQ-IJ-R60"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="sn7-px-njP" id="qwH-es-whq"/>
+                        <outlet property="testView" destination="G6Z-OY-j8b" id="QP8-yq-aru"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kw8-Sq-Mad" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="G6Z-OY-j8b">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spiderman" translatesAutoresizingMaskIntoConstraints="NO" id="MRA-dV-Jsi">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xil-fO-vBl">
+                            <rect key="frame" x="0.0" y="200" width="375" height="100"/>
+                            <color key="backgroundColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="100" id="7qP-hd-0gt"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="xil-fO-vBl" firstAttribute="trailing" secondItem="VzD-CL-Kma" secondAttribute="trailing" id="2av-mJ-LuO"/>
+                        <constraint firstItem="MRA-dV-Jsi" firstAttribute="leading" secondItem="G6Z-OY-j8b" secondAttribute="leading" id="Bng-zo-Y6o"/>
+                        <constraint firstItem="MRA-dV-Jsi" firstAttribute="bottom" secondItem="G6Z-OY-j8b" secondAttribute="bottom" id="SeK-mj-QeW"/>
+                        <constraint firstItem="MRA-dV-Jsi" firstAttribute="centerX" secondItem="G6Z-OY-j8b" secondAttribute="centerX" id="ZJ4-wP-OaX"/>
+                        <constraint firstItem="xil-fO-vBl" firstAttribute="leading" secondItem="VzD-CL-Kma" secondAttribute="leading" id="aFy-aZ-cnD"/>
+                        <constraint firstItem="MRA-dV-Jsi" firstAttribute="top" secondItem="G6Z-OY-j8b" secondAttribute="top" id="mpF-h5-V3Z"/>
+                        <constraint firstItem="xil-fO-vBl" firstAttribute="bottom" secondItem="VzD-CL-Kma" secondAttribute="bottom" id="oVm-SR-7Fh"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="VzD-CL-Kma"/>
+                </view>
+            </objects>
+            <point key="canvasLocation" x="3252" y="-512"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="spiderman" width="1200" height="800"/>
+    </resources>
+</document>
