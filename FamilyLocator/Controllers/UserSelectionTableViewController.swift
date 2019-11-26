@@ -102,13 +102,13 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                         if let family = fc.value{
                             self.familyCodes.append(family as! String)
                             print("Code: \(self.familyCodes)")
-                            //                        self.tableView.reloadData()
+                            self.tableView.reloadData()
                             self.reference.child("family").child("\(family as! String)").child("name").observeSingleEvent(of: .value, with: { (snapshot) in
                                 //set name
                                 if let name = snapshot.value as? String{
                                     self.familyNames.append(name)
                                     print("Name: \(self.familyNames)")
-                                    //                                    self.tableView.reloadData()
+                                    self.tableView.reloadData()
                                 }
                             }) { print($0) }
                             var index: Int = 0

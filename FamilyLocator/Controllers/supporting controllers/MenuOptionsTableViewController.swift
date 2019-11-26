@@ -66,13 +66,13 @@ class MenuOptionsTableViewController: UITableViewController {
                     ref.observe(.value, with: { (snapshot: DataSnapshot!) in
                         print("Got snapshot");
                         print(snapshot.childrenCount)
-                        count = Int(snapshot.childrenCount + 1)
+                        count = Int(snapshot.childrenCount)
+                        print("count inside observe: \(count)")
                     })
-                    
-                    
-                    self.reference.child("family").child(familyCode).child("members").setValue(["0" : self.user])
-                    self.reference.child("family").child(familyCode).updateChildValues(["name" : textField])
-                    self.reference.child("users").child(self.user).child("families").updateChildValues([String(count) : familyCode])
+                    print("count outside observe: \(count)")
+//                    self.reference.child("family").child(familyCode).child("members").setValue(["0" : self.user])
+//                    self.reference.child("family").child(familyCode).updateChildValues(["name" : textField])
+//                    self.reference.child("users").child(self.user).child("families").updateChildValues([String(count) : familyCode])
                 }
                 
                 let alert = UIAlertController(title: "Create Family", message: "Successfully created the family", preferredStyle: .alert)
