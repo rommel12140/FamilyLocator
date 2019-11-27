@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		3628DACE04F72A659AEA445D /* Pods_FamilyLocator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 609F5FC83FFE37AC968B2A31 /* Pods_FamilyLocator.framework */; };
 		7E041861238436BF00F36F87 /* testViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E041860238436BF00F36F87 /* testViewController.swift */; };
-		7E534976238D77120090A1AF /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E534975238D77120090A1AF /* Notification.storyboard */; };
-		7E534978238D771D0090A1AF /* NotificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E534977238D771D0090A1AF /* NotificationTableViewController.swift */; };
 		C91BC2D923824CC200988A95 /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BC2D823824CC200988A95 /* MemberTableViewCell.swift */; };
 		C9AEAD20237904750042E476 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AEAD1F237904750042E476 /* AppDelegate.swift */; };
 		C9AEAD22237904750042E476 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AEAD21237904750042E476 /* LoginViewController.swift */; };
@@ -34,6 +32,8 @@
 		C9C3A84C2383C22D003FFB03 /* headerxib.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9C3A84B2383C22D003FFB03 /* headerxib.xib */; };
 		C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */; };
 		C9C500AE237A627900A13953 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500AD237A627900A13953 /* MapViewController.swift */; };
+		C9CAEBD9238E3D1A002FF88B /* NotificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CAEBD8238E3D1A002FF88B /* NotificationTableViewController.swift */; };
+		C9CAEBDB238E3D24002FF88B /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9CAEBDA238E3D24002FF88B /* Notification.storyboard */; };
 		C9CDA00D2387B14F0026C7EF /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CDA00C2387B14F0026C7EF /* BlurView.swift */; };
 		C9CDA0112387DA130026C7EF /* MenuOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CDA0102387DA130026C7EF /* MenuOptionsTableViewController.swift */; };
 		C9CDA0142387DA9D0026C7EF /* MenuOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CDA0132387DA9D0026C7EF /* MenuOptionsTableViewCell.swift */; };
@@ -51,8 +51,6 @@
 		3FBA0A19DBCAFC42060F685F /* Pods-FamilyLocator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyLocator.debug.xcconfig"; path = "Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator.debug.xcconfig"; sourceTree = "<group>"; };
 		609F5FC83FFE37AC968B2A31 /* Pods_FamilyLocator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FamilyLocator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E041860238436BF00F36F87 /* testViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testViewController.swift; sourceTree = "<group>"; };
-		7E534975238D77120090A1AF /* Notification.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Notification.storyboard; path = ../../../../Downloads/FamilyLocator/Storyboards/Notification.storyboard; sourceTree = "<group>"; };
-		7E534977238D771D0090A1AF /* NotificationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationTableViewController.swift; path = ../../../../Downloads/FamilyLocator/Controllers/NotificationTableViewController.swift; sourceTree = "<group>"; };
 		C91BC2D823824CC200988A95 /* MemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
 		C9AEAD1C237904750042E476 /* FamilyLocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamilyLocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9AEAD1F237904750042E476 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +77,8 @@
 		C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C9C500AD237A627900A13953 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C9C500B8237A85A900A13953 /* FamilyLocator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FamilyLocator.entitlements; sourceTree = "<group>"; };
+		C9CAEBD8238E3D1A002FF88B /* NotificationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTableViewController.swift; sourceTree = "<group>"; };
+		C9CAEBDA238E3D24002FF88B /* Notification.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
 		C9CDA00C2387B14F0026C7EF /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		C9CDA0102387DA130026C7EF /* MenuOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOptionsTableViewController.swift; sourceTree = "<group>"; };
 		C9CDA0132387DA9D0026C7EF /* MenuOptionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOptionsTableViewCell.swift; sourceTree = "<group>"; };
@@ -162,7 +162,7 @@
 				C9C500AD237A627900A13953 /* MapViewController.swift */,
 				7E041860238436BF00F36F87 /* testViewController.swift */,
 				C9B13B7C238526E900169223 /* UserSelectionTableViewController.swift */,
-				7E534977238D771D0090A1AF /* NotificationTableViewController.swift */,
+				C9CAEBD8238E3D1A002FF88B /* NotificationTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -170,11 +170,11 @@
 		C9AEAD34237952EA0042E476 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				7E534975238D77120090A1AF /* Notification.storyboard */,
 				C9B13B782385082100169223 /* temporary.storyboard */,
 				C9B13B762385082000169223 /* Map.storyboard */,
 				C9B13B772385082100169223 /* UserSelection.storyboard */,
 				C9AEAD23237904750042E476 /* Main.storyboard */,
+				C9CAEBDA238E3D24002FF88B /* Notification.storyboard */,
 				C9AEAD28237904780042E476 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
@@ -342,11 +342,11 @@
 				C9B13B7A2385082100169223 /* UserSelection.storyboard in Resources */,
 				C9AEAD3223790CD30042E476 /* GoogleService-Info.plist in Resources */,
 				C9B13B792385082100169223 /* Map.storyboard in Resources */,
+				C9CAEBDB238E3D24002FF88B /* Notification.storyboard in Resources */,
 				C9C3A84C2383C22D003FFB03 /* headerxib.xib in Resources */,
 				C9DC24F0238B6F6C0062B915 /* MapInfo.xib in Resources */,
 				C9AEAD27237904780042E476 /* Assets.xcassets in Resources */,
 				C9AED00C2386857B007FDFF3 /* stickyheaderxib.xib in Resources */,
-				7E534976238D77120090A1AF /* Notification.storyboard in Resources */,
 				C9AEAD25237904750042E476 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,7 +417,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E534978238D771D0090A1AF /* NotificationTableViewController.swift in Sources */,
+				C9CAEBD9238E3D1A002FF88B /* NotificationTableViewController.swift in Sources */,
 				C9B13B65238504E400169223 /* AuthButton.swift in Sources */,
 				C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */,
 				C9B13B66238504E400169223 /* CommonGreenColor.swift in Sources */,

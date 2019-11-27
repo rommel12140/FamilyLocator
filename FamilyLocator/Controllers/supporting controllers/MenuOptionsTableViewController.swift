@@ -57,7 +57,7 @@ class MenuOptionsTableViewController: UITableViewController {
             // 3. Grab the value from the text field, and print it when the user clicks OK.
             createFamily.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak createFamily] (_) in
                 if createFamily?.textFields![0].text == nil{
-                    print(createFamily?.textFields![0].text)
+                    print(createFamily?.textFields![0].text as Any)
                     print("nil")
                 }
                 if let textField = createFamily?.textFields![0].text{
@@ -70,7 +70,7 @@ class MenuOptionsTableViewController: UITableViewController {
                     print("Starting observing");
                     ref.observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
                         print("Got snapshot");
-                        print(snapshot.value)
+                        print(snapshot.value as Any)
                         print(snapshot.childrenCount)
                         count = Int(snapshot.childrenCount)
                         print("count inside observe: \(count)")
@@ -97,6 +97,10 @@ class MenuOptionsTableViewController: UITableViewController {
                 
                 self.present(alert, animated: true, completion: nil)
             }))
+            createFamily.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [weak createFamily] (_) in
+                self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
+                
+            }))
             
             // 4. Present the alert.
             self.present(createFamily, animated: true, completion: nil)
@@ -108,12 +112,11 @@ class MenuOptionsTableViewController: UITableViewController {
             print("notification")
             
             let viewController = UIStoryboard(name: "Notification", bundle: nil).instantiateViewController(withIdentifier: "notificationScreen") as! NotificationTableViewController
-            let navController = UINavigationController()
-//            self.dismiss(animated: true, completion: {
-//                print("dismissed")
-//                navController.pushViewController(viewController, animated: true)
-//            })
-                self.present(viewController, animated: true, completion: nil)
+            let navController = UINavigationController(rootViewController: viewController)
+            
+            viewController.user = self.user
+            self.present(navController, animated: true, completion: nil)
+            
             
         case 3:
             let reference = Database.database().reference()

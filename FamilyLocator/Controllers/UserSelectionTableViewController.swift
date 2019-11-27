@@ -80,7 +80,6 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     }
     
     func displayUserData(){
-        let reference = Database.database().reference()
         if let user = user{
             reference.child("users").child("\(user)" ).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let firstname = (snapshot.value as AnyObject).value(forKey: "firstname") as? String, let lastname = (snapshot.value as AnyObject).value(forKey: "lastname") as? String{
@@ -115,11 +114,10 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                             }) { print($0) }
                             var index: Int = 0
                             self.reference.child("family").child("\(family)").child("members").observeSingleEvent(of: .value, with: { (snapshot) in
-                                //set name
-                                print("family: \(family)")
                                 
                                 for member in (snapshot.children.allObjects as! [DataSnapshot]){
                                     if self.user != (member.value as! String){
+                                        index += 1
                                         self.familyMembers[section].append("")
                                         self.memberStatus[section].append("")
                                         self.reference.child("users").child("\(member.value as! String)").observe(.value, with: { (snapshot) in
@@ -127,12 +125,12 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                                             if let name = snapshot.value{
                                                 if let fName = (name as AnyObject) .value(forKey: "firstname") as? String, let lName = (name as AnyObject) .value(forKey: "lastname") as? String, let onlineCheck = (name as AnyObject) .value(forKey: "isOnline") as? String {
                                                     self.fullname = ("\(fName) \(lName)")
-                                                    self.familyMembers[section][index] = self.fullname
-                                                    self.memberStatus[section][index] = onlineCheck
+                                                    self.familyMembers[section][index - 1] = self.fullname
+                                                    self.memberStatus[section][index - 1] = onlineCheck
                                                     self.tableView.reloadData()
                                                 }
                                             }
-                                            index += 1
+                                            //index += 1
                                         }) { print($0) }
                                         
                                     }
@@ -279,10 +277,12 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         cell.memberImageView.image = UIImage(named: "spiderman")
         
         if memberStatus[indexPath.section][indexPath.row] == "true"{
-           cell.memberstatusLabel.text = "status: online"
+            cell.memberstatusLabel.text = "online"
+            cell.memberstatusLabel.textColor = .green
         }
         else{
-            cell.memberstatusLabel.text = "status: offline"
+            cell.memberstatusLabel.text = "offline"
+            cell.memberstatusLabel.textColor = .red
         }
         
         return cell

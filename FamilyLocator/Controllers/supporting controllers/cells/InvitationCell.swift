@@ -9,17 +9,10 @@
 import UIKit
 import MaterialComponents.MDCFloatingButton
 
-protocol NotificationDelegate: class {
-    func acceptFamily()
-    func declineFamily()
-}
-
 class InvitationCell: UITableViewCell {
     @IBOutlet weak var notificationLabel: UILabel!
     @IBOutlet weak var acceptButton: MDCFloatingButton!
     @IBOutlet weak var rejectButton: MDCFloatingButton!
-    
-    weak var delegate: NotificationDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,13 +23,6 @@ class InvitationCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-    }
-    @IBAction func acceptButton(_ sender: Any) {
-        delegate?.acceptFamily()
-    }
-    
-    @IBAction func rejectButton(_ sender: Any) {
-        delegate?.declineFamily()
     }
 }
 
