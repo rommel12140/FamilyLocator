@@ -12,11 +12,13 @@ class MemberTableViewCell: UITableViewCell {
     @IBOutlet weak var memberImageView: UIImageView!
     @IBOutlet weak var membernameLabel: UILabel!
     @IBOutlet weak var memberstatusLabel: UILabel!
+    @IBOutlet weak var statusIndicator: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         memberImageView.layer.cornerRadius = memberImageView.frame.height/2
+        statusIndicator.layer.cornerRadius = statusIndicator.frame.height/2
     }
     
     

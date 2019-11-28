@@ -10,6 +10,7 @@
 		3628DACE04F72A659AEA445D /* Pods_FamilyLocator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 609F5FC83FFE37AC968B2A31 /* Pods_FamilyLocator.framework */; };
 		7E041861238436BF00F36F87 /* testViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E041860238436BF00F36F87 /* testViewController.swift */; };
 		C91BC2D923824CC200988A95 /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BC2D823824CC200988A95 /* MemberTableViewCell.swift */; };
+		C9917F59238FDFCA005F68B0 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9917F58238FDFCA005F68B0 /* RequestCell.swift */; };
 		C9AEAD20237904750042E476 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AEAD1F237904750042E476 /* AppDelegate.swift */; };
 		C9AEAD22237904750042E476 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AEAD21237904750042E476 /* LoginViewController.swift */; };
 		C9AEAD25237904750042E476 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9AEAD23237904750042E476 /* Main.storyboard */; };
@@ -52,6 +53,7 @@
 		609F5FC83FFE37AC968B2A31 /* Pods_FamilyLocator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FamilyLocator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E041860238436BF00F36F87 /* testViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testViewController.swift; sourceTree = "<group>"; };
 		C91BC2D823824CC200988A95 /* MemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
+		C9917F58238FDFCA005F68B0 /* RequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
 		C9AEAD1C237904750042E476 /* FamilyLocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamilyLocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9AEAD1F237904750042E476 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9AEAD21237904750042E476 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				C9DC24DE238B6EDA0062B915 /* InvitationCell.swift */,
+				C9917F58238FDFCA005F68B0 /* RequestCell.swift */,
 				C9DC24DF238B6EDA0062B915 /* NotificationCell.swift */,
 				C91BC2D823824CC200988A95 /* MemberTableViewCell.swift */,
 				C9AED00523863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift */,
@@ -442,6 +445,7 @@
 				C9D19D62238CCBD5005DA6A6 /* Polyline.swift in Sources */,
 				C9B13B63238504E400169223 /* ResizeImage.swift in Sources */,
 				C9B13B64238504E400169223 /* AuthTextField.swift in Sources */,
+				C9917F59238FDFCA005F68B0 /* RequestCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

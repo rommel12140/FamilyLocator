@@ -20,6 +20,7 @@
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var signupLabel: UILabel!
     @IBOutlet weak var appTitle: UILabel!
+    @IBOutlet weak var contentView: UIView!
     
     //TEMPORARY (SUBSTITUTE FOR USER SELECTION)
     var users = Array<String>()
@@ -138,7 +139,7 @@
                         //TEMPORARY (SUBSTITUTE FOR USER SELECTION)
                         reference.child("users").child("\(userCode)").updateChildValues(["isOnline" : "true"])
                         viewController.user = userCode
-                        viewController.users = self.users
+//                        viewController.users = self.users
                         self.present(navController, animated: true, completion: {
                             self.view.addSubview(progressHUD)
                             progressHUD.removeFromSuperview()

@@ -5,13 +5,14 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Notification Table View Controller-->
         <scene sceneID="fSZ-KX-ReG">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="npP-re-TKV" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="notificationScreen" id="dbe-h8-Cdp" customClass="NotificationTableViewController" customModule="FamilyLocator" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="O6Q-ir-yO9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -73,8 +74,62 @@
                                     <outlet property="rejectButton" destination="TM8-mD-W1Z" id="0wv-IF-ByV"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" restorationIdentifier="request" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="requests" rowHeight="150" id="IMS-1P-WAD" customClass="RequestCell" customModule="FamilyLocator" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="205.5" width="375" height="150"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IMS-1P-WAD" id="vgA-dD-mCN">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dFz-Sl-5I0">
+                                            <rect key="frame" x="16" y="23" width="215" height="99"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EAx-1U-362" customClass="MDCFloatingButton">
+                                            <rect key="frame" x="293" y="81" width="60" height="60"/>
+                                            <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="EAx-1U-362" secondAttribute="height" multiplier="1:1" id="06c-Wp-xYT"/>
+                                            </constraints>
+                                            <state key="normal" title="Decline"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="766-PJ-kdv" customClass="MDCFloatingButton">
+                                            <rect key="frame" x="293" y="13" width="60" height="60"/>
+                                            <color key="backgroundColor" red="0.45009386540000001" green="0.98132258650000004" blue="0.4743030667" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="60" id="6R3-vm-gOJ"/>
+                                                <constraint firstAttribute="width" constant="60" id="EB2-Os-oCU"/>
+                                                <constraint firstAttribute="width" secondItem="766-PJ-kdv" secondAttribute="height" multiplier="1:1" id="sZ6-18-etj"/>
+                                            </constraints>
+                                            <state key="normal" title="Accept"/>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="766-PJ-kdv" firstAttribute="leading" secondItem="dFz-Sl-5I0" secondAttribute="trailing" constant="62" id="1HN-ta-kOB"/>
+                                        <constraint firstItem="dFz-Sl-5I0" firstAttribute="top" secondItem="vgA-dD-mCN" secondAttribute="topMargin" constant="12" id="2lS-xm-c7L"/>
+                                        <constraint firstItem="766-PJ-kdv" firstAttribute="leading" secondItem="EAx-1U-362" secondAttribute="leading" id="GFQ-y4-48m"/>
+                                        <constraint firstItem="dFz-Sl-5I0" firstAttribute="leading" secondItem="vgA-dD-mCN" secondAttribute="leadingMargin" id="Gp3-EP-FPs"/>
+                                        <constraint firstItem="EAx-1U-362" firstAttribute="top" secondItem="766-PJ-kdv" secondAttribute="bottom" constant="8" id="Kv9-Vn-hAK"/>
+                                        <constraint firstItem="EAx-1U-362" firstAttribute="height" secondItem="766-PJ-kdv" secondAttribute="height" id="QCi-Bb-6Ns"/>
+                                        <constraint firstItem="EAx-1U-362" firstAttribute="width" secondItem="766-PJ-kdv" secondAttribute="width" id="V5g-mM-d8y"/>
+                                        <constraint firstItem="766-PJ-kdv" firstAttribute="top" secondItem="vgA-dD-mCN" secondAttribute="topMargin" constant="2" id="aWc-EM-656"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="766-PJ-kdv" secondAttribute="trailing" constant="6" id="h4m-Jq-SLv"/>
+                                        <constraint firstItem="766-PJ-kdv" firstAttribute="trailing" secondItem="EAx-1U-362" secondAttribute="trailing" id="nX3-P1-g9z"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="dFz-Sl-5I0" secondAttribute="bottom" constant="17" id="p6r-hA-1oS"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="EAx-1U-362" secondAttribute="bottom" constant="-2" id="qEJ-cC-RMR"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                <connections>
+                                    <outlet property="acceptButton" destination="766-PJ-kdv" id="mb5-vE-0ex"/>
+                                    <outlet property="notificationLabel" destination="dFz-Sl-5I0" id="0qM-ok-ssV"/>
+                                    <outlet property="rejectButton" destination="EAx-1U-362" id="i23-Vh-tDy"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" restorationIdentifier="notification" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="notification" rowHeight="100" id="MLT-VP-RoQ" customClass="NotificationCell" customModule="FamilyLocator" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="205.5" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="355.5" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MLT-VP-RoQ" id="vVc-VP-hfj">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
@@ -105,21 +160,20 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="d2p-O7-j1u">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="mIi-h2-hcN">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pAF-Ua-ILU">
-                                <rect key="frame" x="16" y="5.5" width="83" height="33"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="QNC-zw-GYt">
+                            <button key="customView" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aPM-lG-SbQ">
+                                <rect key="frame" x="16" y="5" width="66" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <state key="normal" title="〈 Back"/>
                                 <connections>
-                                    <action selector="goBack:" destination="dbe-h8-Cdp" eventType="touchUpInside" id="tZT-Wi-OJc"/>
+                                    <action selector="goBack:" destination="dbe-h8-Cdp" eventType="touchUpInside" id="aYy-LY-Go1"/>
                                 </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="npP-re-TKV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1800.8" y="131.78410794602701"/>
         </scene>

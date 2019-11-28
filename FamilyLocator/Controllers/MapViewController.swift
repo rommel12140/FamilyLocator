@@ -44,7 +44,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         reference = Database.database().reference()
         
         //insert user to users
-        //users.append(user)
+        users.append(user)
         
         //request authorization
         self.locationManager.requestWhenInUseAuthorization()
@@ -266,12 +266,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                         self.fetchRoute(src: src, dst: CLLocationCoordinate2D(latitude: lat, longitude: long))
                     }
                 }
-                self.observationdst = markers[userIndex!].observe(
+                self.observationsrc = markers[userIndex!].observe(
                     \.position,
                     options: [.old, .new]
                 ) { object, change in
                     if let lat = (change.newValue?.latitude), let long = (change.newValue?.longitude){
-                        self.fetchRoute(src: src, dst: CLLocationCoordinate2D(latitude: lat, longitude: long))
+                        self.fetchRoute(src: CLLocationCoordinate2D(latitude: lat, longitude: long), dst: marker.position)
                     }
                 }
                 

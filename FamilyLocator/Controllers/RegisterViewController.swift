@@ -91,7 +91,7 @@ class RegisterViewController: UIViewController {
                         str = self.createRandomHex()
                     }
                     //initialize user with name and location
-                    reference.child("users").child("\(str)").setValue(["firstname": firstname, "lastname": lastname])
+                    reference.child("users").child("\(str)").setValue(["firstname": firstname, "lastname": lastname, "isOnline" : "false"])
                     reference.child("location").child(str).setValue(["longitude": 0,"latitude":0])
                 })
                 reference.child("uids").child("\(user!.user.uid)").setValue(["code": str])
