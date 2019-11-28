@@ -16,8 +16,10 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
 
     var user: String!
     var users: Array<String>!
+    var selectedUsers: Array<String>!
     var familyCodes = Array<String>()
     var familyNames = Array<String>()
+    var memberKeys = Array<String>()
     var familyMembers = Array<Array<String>>()
     var memberStatus = Array<Array<String>>()
     var firstName: String!
@@ -122,6 +124,10 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                                         self.memberStatus[section].append("")
                                         self.reference.child("users").child("\(member.value as! String)").observe(.value, with: { (snapshot) in
                                             //set name
+                                            self.memberKeys.removeAll()
+                                            print(member.value as! String)
+                                            self.memberKeys.append(member.value as! String)
+                                            print(self.memberKeys)
                                             if let name = snapshot.value{
                                                 if let fName = (name as AnyObject) .value(forKey: "firstname") as? String, let lName = (name as AnyObject) .value(forKey: "lastname") as? String, let onlineCheck = (name as AnyObject) .value(forKey: "isOnline") as? String {
                                                     self.fullname = ("\(fName) \(lName)")
@@ -288,6 +294,14 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         return cell
     }
     
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        selectedUsers.append(memberKeys[indexPath.row])
+//        print("selected: \(selectedUsers)")
+    }
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    }
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 //            print(tempUserArray.object(at: indexPath.section))
@@ -297,55 +311,3 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         }
     }
 }
-
-//if let currentUser = user{
-//    reference.child("users").child("\(currentUser)").child("families").observeSingleEvent(of: .value, with: { (snapshot) in
-//        //set name
-//        for (index,familyCode) in snapshot.children.allObjects.enumerated(){
-//            if let fc = familyCode as? DataSnapshot{
-//                if let family = fc.value{
-//                    self.familyCodes.append(family as! String)
-//                    print("Code: \(self.familyCodes)")
-//                    //                        self.tableView.reloadData()
-//                    self.reference.child("family").child("\(family as! String)").child("name").observeSingleEvent(of: .value, with: { (snapshot) in
-//                        //set name
-//                        if let name = snapshot.value as? String{
-//                            print(name)
-//                            self.familyNames.append(name)
-//                            print("Name: \(self.familyNames)")
-//                            //                                    self.tableView.reloadData()
-//                        }
-//                    }) { print($0) }
-//                    self.reference.child("family").child("\(family)").child("members").observeSingleEvent(of: .value, with: { (snapshot) in
-//                        //set name
-//                        //print(snapshot.value)
-//                        for member in snapshot.children.allObjects as! [DataSnapshot]{
-//                            self.familyMembers.append("")
-//                            self.memberStatus.append("")
-//                            if self.user != (member.value as! String){
-//                                print(self.familyMembers)
-//                                self.reference.child("users").child("\(member.value as! String)").observe(.value, with: { (snapshot) in
-//                                    //set name
-//                                    if let name = snapshot.value{
-//                                        if let fName = (name as AnyObject) .value(forKey: "firstname") as? String, let lName = (name as AnyObject) .value(forKey: "lastname") as? String, let onlineCheck = (name as AnyObject) .value(forKey: "isOnline") as? String {
-//                                            self.fullname = ("\(fName) \(lName)")
-//                                            self.familyMembers[index] = self.fullname
-//                                            self.memberStatus[index] = onlineCheck
-//                                            self.tableView.reloadData()
-//                                        }
-//                                    }
-//                                }) { print($0) }
-//                            }
-//                        }
-//                    }) { print($0) }
-//                }
-//
-//            }
-//
-//
-//
-//
-//
-//        }
-//    }) { print($0) }
-//}

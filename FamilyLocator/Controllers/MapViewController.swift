@@ -26,19 +26,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var buttonProperties = ButtonProperties()
     var markers = Array<GMSMarker>()
     var polylines = Array<GMSPolyline>()
-    var userLocation: CLLocationCoordinate2D?
     let locationManager = CLLocationManager()
-    
-    
+    var observationsrc: NSKeyValueObservation?
+    var observationdst: NSKeyValueObservation?
+    var userLocation: CLLocation!
+    var isRouting: Bool = false
+    var buffer: Bool = false
     //temporary data
     var user: String!
     var users: Array<String>!
+    var userIndex: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //create database reference
         reference = Database.database().reference()
+        
+        //insert user to users
+        //users.append(user)
         
         //request authorization
         self.locationManager.requestWhenInUseAuthorization()
@@ -66,9 +72,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //update current user location
-        let locValue: CLLocationCoordinate2D = (manager.location?.coordinate)!
-        self.reference.child("location").child(user as! String).setValue(["longitude": locValue.longitude,"latitude":locValue.latitude])
-        userLocation = locValue
+        self.userLocation = (manager.location)!
+        self.reference.child("location").child(user as! String).setValue(["longitude": userLocation.coordinate.longitude,"latitude":userLocation.coordinate.latitude])
+        
     }
     
     func listenToUserLocation(){
@@ -80,6 +86,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 var marker = GMSMarker()
                 marker.tracksInfoWindowChanges = true;
                 markers.append(marker)
+                
+                if element == user{
+                    userIndex = index
+                }
                 
                 //add all markers (for fitting to bounds/map)
                 //get user name
@@ -102,7 +112,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                             marker.icon = UIImage.resizeImage(image: UIImage(named: "logo")!, targetSize: CGSize.init(width: 70, height: 70))
                             marker.map = self.mapView   //add marker to map
                             marker.snippet = name
-                            marker.accessibilityLabel = "\(index)"
+                            marker.accessibilityLabel = "\(element)"
+                            marker.accessibilityValue = "\(index)"
                         }
                         else{
                             CATransaction.begin()
@@ -111,6 +122,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                             CATransaction.commit()
                         }
                         
+                        //get the address
                         let g = GMSGeocoder()
                         g.reverseGeocodeCoordinate(CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)) { response , error in
                             if let address = response?.firstResult() {
@@ -123,8 +135,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                             }
                         }
                         
-                        if self.mapView.selectedMarker == marker{
-                            self.mapView.animate(to: GMSCameraPosition(latitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 50))
+                        //focus on user if selected and not routing
+                        if self.mapView.selectedMarker == marker, self.isRouting == false{
+                            self.mapView.animate(to: GMSCameraPosition(latitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17))
                         }
                         
                     }
@@ -223,7 +236,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         {
             bounds = bounds.includingCoordinate(marker.position)
         }
-        let update = GMSCameraUpdate.fit(bounds, withPadding: 0)
+        let update = GMSCameraUpdate.fit(bounds, withPadding: 17)
         mapView.selectedMarker = nil
         mapView.animate(with: update)
     }
@@ -234,20 +247,41 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        print("tapped")
-        
-        for polyline in self.polylines {
-            polyline.map = nil
-        }
-        if userLocation != nil{
-            if let src = userLocation{
-                fetchRoute(src: src, dst: marker.position)
+        let markerID = Int(marker.accessibilityValue!)
+        if userLocation?.coordinate != nil{
+            if let src = userLocation!.coordinate as? CLLocationCoordinate2D{
+                var bounds = GMSCoordinateBounds()
+                bounds = bounds.includingCoordinate(src)
+                bounds = bounds.includingCoordinate(marker.position)
+                let update = GMSCameraUpdate.fit(bounds, withPadding: 17)
+                mapView.animate(with: update)
+                //initialize
+                self.fetchRoute(src: src, dst: CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude))
+                //update
+                self.observationdst = markers[markerID!].observe(
+                    \.position,
+                    options: [.old, .new]
+                ) { object, change in
+                    if let lat = (change.newValue?.latitude), let long = (change.newValue?.longitude){
+                        self.fetchRoute(src: src, dst: CLLocationCoordinate2D(latitude: lat, longitude: long))
+                    }
+                }
+                self.observationdst = markers[userIndex!].observe(
+                    \.position,
+                    options: [.old, .new]
+                ) { object, change in
+                    if let lat = (change.newValue?.latitude), let long = (change.newValue?.longitude){
+                        self.fetchRoute(src: src, dst: CLLocationCoordinate2D(latitude: lat, longitude: long))
+                    }
+                }
+                
             }
         }
         
     }
     
     func fetchRoute(src: CLLocationCoordinate2D, dst: CLLocationCoordinate2D){
+        self.isRouting = true
         let source = MKMapItem(placemark: MKPlacemark(coordinate: src))
         let destination = MKMapItem(placemark: MKPlacemark(coordinate: dst))
         let request = MKDirections.Request()
@@ -271,20 +305,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 }
             }
             if error != nil{
-                let alert = UIAlertController(title: "Error",
-                                              message: error?.localizedDescription,
-                                              preferredStyle: .alert)
-                
-                //alert with error
-                alert.addAction(UIAlertAction(title: "OK", style: .default))
-                self.present(alert, animated: true, completion: nil)
+//                let alert = UIAlertController(title: "Error",
+//                                              message: error?.localizedDescription,
+//                                              preferredStyle: .alert)
+//
+//                //alert with error
+//                alert.addAction(UIAlertAction(title: "OK", style: .default))
+//                self.present(alert, animated: true, completion: nil)
             }
         })
-        var bounds = GMSCoordinateBounds()
-        bounds = bounds.includingCoordinate(src)
-        bounds = bounds.includingCoordinate(dst)
-        let update = GMSCameraUpdate.fit(bounds, withPadding: self.view.frame.width/5)
-        mapView.animate(with: update)
         
     }
     
@@ -307,6 +336,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func show(polylines: [GMSPolyline]) {
+        self.polylines.forEach { polyline in
+            polyline.map = nil
+        }
         self.polylines = polylines
         self.polylines.forEach { polyline in
             let strokeStyles = [

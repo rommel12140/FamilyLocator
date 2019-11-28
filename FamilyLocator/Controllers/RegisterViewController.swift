@@ -19,10 +19,18 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var firstNameTextField: AuthTextField!
     @IBOutlet weak var lastNameTextField: AuthTextField!
     @IBOutlet weak var appTitle: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.contentOffset.x = 0
+        scrollView.contentSize = CGSize(width: self.view.frame.width, height: UIScreen.main.bounds.height)
+        self.view.addSubview(scrollView)
+        
         self.hideKeyboardWhenTappedAround()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         appTitle.textColor = .white
         signInButton.backgroundColor = UIColor.commonGreenColor()
         signInButton.setTitleColor(.white, for: UIControl.State.normal)
@@ -35,6 +43,13 @@ class RegisterViewController: UIViewController {
         UIGraphicsEndImageContext()
         self.view.backgroundColor = UIColor(patternImage: image)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.x>0 {
+            scrollView.contentOffset.x = 0
+        }
+    }
+    
     @IBAction func signin(_ sender: Any) {
         //redirect to log in after sign in
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "LoginScreen") as! LoginViewController
@@ -142,5 +157,35 @@ class RegisterViewController: UIViewController {
     //generates random hexadecimal string
     func createRandomHex() -> String{
         return String(format: "%03X%03X", Int(arc4random() % 655), Int(arc4random() % 655))
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if emailTextField.isEditing{
+            let buttonAbsoluteY = emailTextField.convert(emailTextField.bounds, to: self.view)
+            self.scrollView.setContentOffset(CGPoint(x: emailTextField.bounds.origin.x, y: buttonAbsoluteY.origin.y), animated: true)
+        }
+        if passwordTextField.isEditing{
+            let buttonAbsoluteY = passwordTextField.convert(passwordTextField.bounds, to: self.view)
+            self.scrollView.setContentOffset(CGPoint(x: passwordTextField.bounds.origin.x, y: buttonAbsoluteY.origin.y), animated: true)
+        }
+        if confirmPasswordTextField.isEditing{
+            let buttonAbsoluteY = confirmPasswordTextField.convert(confirmPasswordTextField.bounds, to: self.view)
+            self.scrollView.setContentOffset(CGPoint(x: confirmPasswordTextField.bounds.origin.x, y: buttonAbsoluteY.origin.y), animated: true)
+        }
+        if firstNameTextField.isEditing{
+            let buttonAbsoluteY = firstNameTextField.convert(firstNameTextField.bounds, to: self.view)
+            self.scrollView.setContentOffset(CGPoint(x: firstNameTextField.bounds.origin.x, y: buttonAbsoluteY.origin.y), animated: true)
+        }
+        if lastNameTextField.isEditing{
+            let buttonAbsoluteY = lastNameTextField.convert(lastNameTextField.bounds, to: self.view)
+            self.scrollView.setContentOffset(CGPoint(x: lastNameTextField.bounds.origin.x, y: buttonAbsoluteY.origin.y), animated: true)
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if(!self.scrollView.isDragging){
+            self.scrollView.setContentOffset(CGPoint(x: self.view.frame.minX, y: self.view.frame.minY), animated: true)
+        }
+        
     }
 }
