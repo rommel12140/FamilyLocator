@@ -16,12 +16,30 @@ class MenuOptionsTableViewController: UITableViewController {
     let optionList:NSArray = ["CREATE A FAMILY", "JOIN A FAMILY", "NOTIFICATIONS", "LOGOUT"]
     let reference = Database.database().reference()
     var user:String!
+    var familyCodes = Array<String>()
+    var memberCodes = Array<String>()
+    var familyExist = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.tableFooterView = UIView()
+        getFamilies()
         
+    }
+    
+    func getFamilies() {
+        self.reference.child("family").observe( .value, with: { (snapshot) in
+            self.familyCodes = Array<String>()
+            for key in snapshot.children.allObjects{
+                if let code = key as? DataSnapshot {
+                    if let fc = code.key as? String{
+                        self.familyCodes.append(fc)
+                        
+                    }
+                }
+            }
+        })
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,9 +67,7 @@ class MenuOptionsTableViewController: UITableViewController {
             let ref = self.reference.child("users").child(self.user).child("families")
             
             ref.observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
-                print(snapshot.childrenCount)
                 let count = Int(snapshot.childrenCount)
-                print("count inside observe: \(count)")
                 
                 
                 if count < 3{
@@ -66,9 +82,6 @@ class MenuOptionsTableViewController: UITableViewController {
                     // 3. Grab the value from the text field, and print it when the user clicks OK.
                     createFamily.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak createFamily] (_) in
                         if createFamily?.textFields![0].text == ""{
-                            print(createFamily?.textFields![0].text as Any)
-                            print("nil")
-                            
                             let error = UIAlertController(title: "Create Family", message: "Please input a family name", preferredStyle: .alert)
                             error.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak error] (_) in
                                 self.dismiss(animated: true, completion: nil)
@@ -79,7 +92,6 @@ class MenuOptionsTableViewController: UITableViewController {
                         else if let textField = createFamily?.textFields![0].text{
                             let code = self.createRandomHex()
                             let familyCode = "\(String(describing: textField))-\(code)"
-                            print(familyCode)
                             
                             let alert = UIAlertController(title: "Create Family", message: "Successfully created the family", preferredStyle: .alert)
                             
@@ -88,7 +100,7 @@ class MenuOptionsTableViewController: UITableViewController {
                                 self.reference.child("family").child(familyCode).child("members").setValue(["0" : self.user])
                                 self.reference.child("family").child(familyCode).updateChildValues(["name" : textField])
                                 self.reference.child("family").child(familyCode).child("requests")
-                                self.reference.child("users").child(self.user).child("families").updateChildValues([String(count) : familyCode])
+                                self.reference.child("users").child(self.user).child("families").updateChildValues([familyCode : "joined"])
                                 tableView.reloadData()
                             }))
                             
@@ -129,8 +141,6 @@ class MenuOptionsTableViewController: UITableViewController {
             // 3. Grab the value from the text field, and print it when the user clicks OK.
             joinFamily.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak joinFamily] (_) in
                 if joinFamily?.textFields![0].text == ""{
-                    print(joinFamily?.textFields![0].text as Any)
-                    print("nil")
                     
                     let error = UIAlertController(title: "Join Family", message: "Please input a family code", preferredStyle: .alert)
                     error.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak error] (_) in
@@ -141,34 +151,48 @@ class MenuOptionsTableViewController: UITableViewController {
                 }
                 else if let textField = joinFamily?.textFields![0].text{
                     let familyCode = "\(String(describing: textField))"
-                    print(familyCode)
                     
-                    let alert = UIAlertController(title: "Join Family", message: "Request to join this family is sent", preferredStyle: .alert)
+                    for fc in self.familyCodes{
+                        if fc == familyCode{
+                            self.familyExist = true
+                            break
+                        }
+                    }
                     
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-                        self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
+                    if self.familyExist == false{
+                        let alert = UIAlertController(title: "Join Family", message: "Family does not exist", preferredStyle: .alert)
                         
-                        let ref = self.reference.child("family").child(familyCode).child("requests")
+                        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { [weak alert] (_) in
+                            self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
+                        }))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    else{
+                        let alert = UIAlertController(title: "Join Family", message: "Request to join this family is sent", preferredStyle: .alert)
                         
-                        ref.observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
-                            let count = Int(snapshot.childrenCount)
-                            print("count inside observe: \(count)")
-
-                            if count > 0{
-                                print(self.user)
-                                self.reference.child("family").child(familyCode).child("requests").updateChildValues([self.user as! String : "pending"])
-                            }
-                            else{
-                                self.reference.child("family").child(familyCode).child("requests").setValue([self.user as! String : "pending"])
-                            }
-
-                        })
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+                            self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
+                            
+                            let ref = self.reference.child("family").child(familyCode).child("requests")
+                            
+                            ref.observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
+                                let count = Int(snapshot.childrenCount)
+                                
+                                if count > 0{
+                                    self.reference.child("family").child(familyCode).child("requests").updateChildValues([self.user as! String : "pending"])
+                                }
+                                else{
+                                    self.reference.child("family").child(familyCode).child("requests").setValue([self.user as! String : "pending"])
+                                }
+                                
+                            })
+                            
+                            
+                            tableView.reloadData()
+                        }))
                         
-                        
-                        tableView.reloadData()
-                    }))
-                    
-                    self.present(alert, animated: true, completion: nil)
+                        self.present(alert, animated: true, completion: nil)
+                    }
                 }
             }))
             joinFamily.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [weak joinFamily] (_) in
@@ -187,6 +211,7 @@ class MenuOptionsTableViewController: UITableViewController {
             
             viewController.user = self.user
             self.present(navController, animated: true, completion: nil)
+//            self.navigationController?.pushViewController(viewController, animated: true)
             
             
         case 3:
@@ -194,6 +219,8 @@ class MenuOptionsTableViewController: UITableViewController {
         reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                 if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
                     try! Auth.auth().signOut()
+                        UserDefaults.standard.set("", forKey: "currentUser")
+                        UserDefaults.standard.synchronize()
                         reference.child("users").child("\(userCode)").updateChildValues(["isOnline" : "false"])
                         let root = UIApplication.shared.keyWindow?.rootViewController
                         root?.dismiss(animated: true, completion: nil)

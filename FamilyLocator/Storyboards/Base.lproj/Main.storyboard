@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,30 +17,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" ambiguous="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="BDj-qv-bkg">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <scrollView autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="BDj-qv-bkg">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KVz-Mt-Wnd">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    <view autoresizesSubviews="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="KVz-Mt-Wnd">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="852"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="rfq-Y7-gJu">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="rfq-Y7-gJu">
                                                 <rect key="frame" x="107.5" y="93" width="199" height="141"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="199" id="Vq1-r1-kX3"/>
                                                     <constraint firstAttribute="height" constant="141" id="e7q-4g-vsp"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="FAMILY LOCATOR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mqh-Br-wEw">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="FAMILY LOCATOR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mqh-Br-wEw">
                                                 <rect key="frame" x="41" y="271" width="332" height="40"/>
                                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="33"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O5z-cU-O25" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O5z-cU-O25" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
                                                 <rect key="frame" x="41" y="351" width="334" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done" textContentType="email"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done" enablesReturnKeyAutomatically="YES" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -76,7 +75,7 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Email"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="e8o-HI-QOW" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="e8o-HI-QOW" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
                                                 <rect key="frame" x="41" y="407" width="334" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -114,7 +113,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6Z-vU-Gsp" customClass="AuthButton" customModule="FamilyLocator" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6Z-vU-Gsp" customClass="AuthButton" customModule="FamilyLocator" customModuleProvider="target">
                                                 <rect key="frame" x="40" y="473" width="333" height="50"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
@@ -125,13 +124,13 @@
                                                     <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kdf-Qe-Pgy"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Don't have an account?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yHz-np-FJf">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Don't have an account?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yHz-np-FJf">
                                                 <rect key="frame" x="41" y="541" width="332" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtK-rU-u0m" customClass="AuthButton" customModule="FamilyLocator" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtK-rU-u0m" customClass="AuthButton" customModule="FamilyLocator" customModuleProvider="target">
                                                 <rect key="frame" x="40" y="570" width="333" height="50"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
@@ -153,7 +152,6 @@
                                             <constraint firstItem="yHz-np-FJf" firstAttribute="top" secondItem="d6Z-vU-Gsp" secondAttribute="bottom" constant="18" id="DS5-11-FOr"/>
                                             <constraint firstItem="yHz-np-FJf" firstAttribute="leading" secondItem="d6Z-vU-Gsp" secondAttribute="leading" constant="1" id="GQc-dV-qy5"/>
                                             <constraint firstItem="O5z-cU-O25" firstAttribute="leading" secondItem="e8o-HI-QOW" secondAttribute="leading" id="LVx-OG-eVS"/>
-                                            <constraint firstItem="rfq-Y7-gJu" firstAttribute="top" secondItem="KVz-Mt-Wnd" secondAttribute="top" constant="93" id="OzZ-Ve-NBm"/>
                                             <constraint firstItem="dtK-rU-u0m" firstAttribute="centerX" secondItem="KVz-Mt-Wnd" secondAttribute="centerX" id="UQc-IE-RLi"/>
                                             <constraint firstItem="dtK-rU-u0m" firstAttribute="top" secondItem="yHz-np-FJf" secondAttribute="bottom" constant="8" id="Vmk-ay-yDN"/>
                                             <constraint firstItem="d6Z-vU-Gsp" firstAttribute="top" secondItem="e8o-HI-QOW" secondAttribute="bottom" constant="36" id="XNe-s1-EdH"/>
@@ -169,10 +167,12 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="KVz-Mt-Wnd" firstAttribute="centerY" secondItem="BDj-qv-bkg" secondAttribute="centerY" id="FP0-yC-Yti"/>
-                                    <constraint firstItem="KVz-Mt-Wnd" firstAttribute="centerX" secondItem="BDj-qv-bkg" secondAttribute="centerX" id="S8g-e5-qeu"/>
-                                    <constraint firstItem="KVz-Mt-Wnd" firstAttribute="height" secondItem="BDj-qv-bkg" secondAttribute="height" id="TPY-Wq-xsE"/>
-                                    <constraint firstItem="KVz-Mt-Wnd" firstAttribute="width" secondItem="BDj-qv-bkg" secondAttribute="width" id="Tk5-Uz-Wjr"/>
+                                    <constraint firstAttribute="bottom" secondItem="KVz-Mt-Wnd" secondAttribute="bottom" id="Hm8-0j-waM"/>
+                                    <constraint firstItem="KVz-Mt-Wnd" firstAttribute="centerY" secondItem="BDj-qv-bkg" secondAttribute="centerY" id="Oi1-0G-F7U"/>
+                                    <constraint firstItem="KVz-Mt-Wnd" firstAttribute="centerX" secondItem="BDj-qv-bkg" secondAttribute="centerX" id="VP9-9s-TfK"/>
+                                    <constraint firstItem="KVz-Mt-Wnd" firstAttribute="top" secondItem="BDj-qv-bkg" secondAttribute="top" id="gNG-FF-GaQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="KVz-Mt-Wnd" secondAttribute="trailing" id="oOx-qZ-CNe"/>
+                                    <constraint firstItem="KVz-Mt-Wnd" firstAttribute="leading" secondItem="BDj-qv-bkg" secondAttribute="leading" id="pIO-Gw-zJO"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="6GP-xh-YDK"/>
@@ -181,17 +181,18 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="BDj-qv-bkg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="JJo-yt-2lh"/>
-                            <constraint firstItem="BDj-qv-bkg" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="TxJ-K6-lFE"/>
+                            <constraint firstItem="BDj-qv-bkg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JJo-yt-2lh"/>
+                            <constraint firstItem="BDj-qv-bkg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="TxJ-K6-lFE"/>
                             <constraint firstAttribute="bottom" secondItem="BDj-qv-bkg" secondAttribute="bottom" id="nEO-3C-0DC"/>
-                            <constraint firstItem="BDj-qv-bkg" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="ppR-AA-ods"/>
+                            <constraint firstItem="BDj-qv-bkg" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ppR-AA-ods"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="TbX-25-gCP"/>
                     <connections>
+                        <outlet property="appLogo" destination="rfq-Y7-gJu" id="67y-0r-lBI"/>
                         <outlet property="appTitle" destination="Mqh-Br-wEw" id="foZ-ZB-wHU"/>
-                        <outlet property="contentView" destination="KVz-Mt-Wnd" id="T5k-pt-SEp"/>
+                        <outlet property="contentView" destination="KVz-Mt-Wnd" id="Nny-lv-caC"/>
                         <outlet property="emailTextField" destination="O5z-cU-O25" id="Ohb-gI-kak"/>
                         <outlet property="loginButton" destination="d6Z-vU-Gsp" id="g5J-xr-4JX"/>
                         <outlet property="passwordTextField" destination="e8o-HI-QOW" id="NLH-jP-r3A"/>
@@ -213,29 +214,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4lg-6X-EwP">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fyA-Cl-WFP">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="852"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="M5L-w0-nwY">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="M5L-w0-nwY">
                                                 <rect key="frame" x="157" y="58" width="100" height="70"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="70" id="mzS-Hs-GVE"/>
                                                     <constraint firstAttribute="width" constant="100" id="n9e-0J-k5j"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="FAMILY LOCATOR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XY5-zq-3tm">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="FAMILY LOCATOR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XY5-zq-3tm">
                                                 <rect key="frame" x="41" y="142" width="333" height="40"/>
                                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="33"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Vhq-iq-5yu" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Vhq-iq-5yu" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
                                                 <rect key="frame" x="41" y="214" width="333" height="50"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" textContentType="email"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -270,11 +271,11 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0qp-Yy-PJf" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0qp-Yy-PJf" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
                                                 <rect key="frame" x="41" y="272" width="333" height="50"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -309,11 +310,11 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UDE-L9-3dk" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UDE-L9-3dk" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
                                                 <rect key="frame" x="41" y="330" width="333" height="50"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -348,11 +349,11 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="nmm-1V-qzd" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="nmm-1V-qzd" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
                                                 <rect key="frame" x="41" y="388" width="333" height="50"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="given-name"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done" textContentType="given-name"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -387,11 +388,11 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QSc-ji-ESa" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QSc-ji-ESa" customClass="AuthTextField" customModule="FamilyLocator" customModuleProvider="target">
                                                 <rect key="frame" x="41" y="446" width="333" height="50"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="family-name"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done" textContentType="family-name"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -426,7 +427,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="frA-MW-zHK" customClass="AuthButton" customModule="FamilyLocator" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="frA-MW-zHK" customClass="AuthButton" customModule="FamilyLocator" customModuleProvider="target">
                                                 <rect key="frame" x="41" y="522" width="333" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                 <state key="normal" title="Register"/>
@@ -434,7 +435,7 @@
                                                     <action selector="register:" destination="dgo-YA-ipV" eventType="touchUpInside" id="sed-Df-zbE"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htZ-ir-R5Y" customClass="AuthButton" customModule="FamilyLocator" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htZ-ir-R5Y" customClass="AuthButton" customModule="FamilyLocator" customModuleProvider="target">
                                                 <rect key="frame" x="41" y="592" width="333" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <state key="normal" title="Sign In"/>
@@ -443,7 +444,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="htZ-ir-R5Y" firstAttribute="top" secondItem="frA-MW-zHK" secondAttribute="bottom" constant="20" id="0qn-Wa-ASX"/>
                                             <constraint firstItem="M5L-w0-nwY" firstAttribute="centerX" secondItem="fyA-Cl-WFP" secondAttribute="centerX" id="1zI-CR-n8h"/>
@@ -463,13 +464,13 @@
                                             <constraint firstItem="QSc-ji-ESa" firstAttribute="top" secondItem="nmm-1V-qzd" secondAttribute="bottom" constant="8" id="blv-KZ-4Te"/>
                                             <constraint firstItem="Vhq-iq-5yu" firstAttribute="trailing" secondItem="XY5-zq-3tm" secondAttribute="trailing" id="cDy-Ac-AZQ"/>
                                             <constraint firstItem="frA-MW-zHK" firstAttribute="trailing" secondItem="QSc-ji-ESa" secondAttribute="trailing" id="cZo-aH-oFS"/>
-                                            <constraint firstItem="M5L-w0-nwY" firstAttribute="top" secondItem="fyA-Cl-WFP" secondAttribute="top" constant="58" id="cx8-LD-cSE"/>
                                             <constraint firstItem="nmm-1V-qzd" firstAttribute="trailing" secondItem="UDE-L9-3dk" secondAttribute="trailing" id="d5U-lB-ny1"/>
                                             <constraint firstItem="frA-MW-zHK" firstAttribute="leading" secondItem="QSc-ji-ESa" secondAttribute="leading" id="dwR-ML-W9m"/>
                                             <constraint firstItem="htZ-ir-R5Y" firstAttribute="centerX" secondItem="fyA-Cl-WFP" secondAttribute="centerX" id="mM2-Im-coU"/>
                                             <constraint firstItem="nmm-1V-qzd" firstAttribute="top" secondItem="UDE-L9-3dk" secondAttribute="bottom" constant="8" id="mmK-XH-1pZ"/>
                                             <constraint firstItem="XY5-zq-3tm" firstAttribute="top" secondItem="M5L-w0-nwY" secondAttribute="bottom" constant="14" id="oVz-hu-dmu"/>
                                             <constraint firstItem="htZ-ir-R5Y" firstAttribute="trailing" secondItem="frA-MW-zHK" secondAttribute="trailing" id="syx-4l-dPg"/>
+                                            <constraint firstAttribute="trailing" secondItem="XY5-zq-3tm" secondAttribute="trailing" constant="40" id="v1k-fw-bn0"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -487,12 +488,13 @@
                         <constraints>
                             <constraint firstItem="4lg-6X-EwP" firstAttribute="leading" secondItem="2sy-pK-M4m" secondAttribute="leading" id="9SM-ib-0r1"/>
                             <constraint firstItem="4lg-6X-EwP" firstAttribute="trailing" secondItem="2sy-pK-M4m" secondAttribute="trailing" id="9py-Bs-mG4"/>
-                            <constraint firstItem="4lg-6X-EwP" firstAttribute="top" secondItem="2SV-A5-lmr" secondAttribute="top" id="IPX-bx-Bma"/>
+                            <constraint firstItem="4lg-6X-EwP" firstAttribute="top" secondItem="2sy-pK-M4m" secondAttribute="top" id="IPX-bx-Bma"/>
                             <constraint firstAttribute="bottom" secondItem="4lg-6X-EwP" secondAttribute="bottom" id="QGL-n3-gav"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2sy-pK-M4m"/>
                     </view>
                     <connections>
+                        <outlet property="appLogo" destination="M5L-w0-nwY" id="8HU-0V-tkU"/>
                         <outlet property="appTitle" destination="XY5-zq-3tm" id="KLe-HU-G2V"/>
                         <outlet property="confirmPasswordTextField" destination="UDE-L9-3dk" id="bng-fL-JCT"/>
                         <outlet property="contentView" destination="fyA-Cl-WFP" id="lcK-Te-oFc"/>

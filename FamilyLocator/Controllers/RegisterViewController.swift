@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, UIScrollViewDelegate {
     //IBOUTLETS
     @IBOutlet weak var signInButton: AuthButton!
     @IBOutlet weak var registerButton: AuthButton!
@@ -20,16 +20,22 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var lastNameTextField: AuthTextField!
     @IBOutlet weak var appTitle: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var appLogo: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        scrollView.contentOffset.x = 0
-        scrollView.contentSize = CGSize(width: self.view.frame.width, height: UIScreen.main.bounds.height)
-        self.view.addSubview(scrollView)
+        scrollView.delegate = self
         
         self.hideKeyboardWhenTappedAround()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        self.emailTextField.addTarget(self, action: #selector(onReturn), for: UIControl.Event.editingDidEndOnExit)
+        self.passwordTextField.addTarget(self, action: #selector(onReturn), for: UIControl.Event.editingDidEndOnExit)
+        self.confirmPasswordTextField.addTarget(self, action: #selector(onReturn), for: UIControl.Event.editingDidEndOnExit)
+        self.firstNameTextField.addTarget(self, action: #selector(onReturn), for: UIControl.Event.editingDidEndOnExit)
+        self.lastNameTextField.addTarget(self, action: #selector(onReturn), for: UIControl.Event.editingDidEndOnExit)
         
         appTitle.textColor = .white
         signInButton.backgroundColor = UIColor.commonGreenColor()
@@ -44,10 +50,22 @@ class RegisterViewController: UIViewController {
         self.view.backgroundColor = UIColor(patternImage: image)
     }
     
+    override func viewDidLayoutSubviews() {
+        appLogo.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 30)
+        scrollView.contentOffset.x = 0
+        scrollView.contentSize = CGSize(width: self.scrollView.layer.frame.width, height: self.contentView.frame.height)
+        self.view.addSubview(scrollView)
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x>0 {
             scrollView.contentOffset.x = 0
         }
+    }
+    
+    @IBAction func onReturn() {
+        self.emailTextField.resignFirstResponder()
+        self.view.endEditing(true)
     }
     
     @IBAction func signin(_ sender: Any) {
@@ -69,7 +87,7 @@ class RegisterViewController: UIViewController {
     }
     
     func createUser(email: String, password: String, firstname: String, lastname: String) {
-        let progressHUD = ProgressHUD(text: "Logging in...")
+        let progressHUD = ProgressHUD(text: "Registering...")
         self.view.addSubview(progressHUD)
         self.view.alpha = 0.9
         
@@ -90,17 +108,23 @@ class RegisterViewController: UIViewController {
                         //Generate another key if another user already has the key
                         str = self.createRandomHex()
                     }
-                    //initialize user with name and location
-                    reference.child("users").child("\(str)").setValue(["firstname": firstname, "lastname": lastname, "isOnline" : "false"])
-                    reference.child("location").child(str).setValue(["longitude": 0,"latitude":0])
                 })
+                //initialize user with name and location
+                reference.child("users").child("\(str)").setValue(["firstname": firstname, "lastname": lastname])
+                reference.child("location").child(str).setValue(["longitude": 0,"latitude":0])
+                reference.child("users").child("\(str)").updateChildValues(["isOnline" : "true"])
                 reference.child("uids").child("\(user!.user.uid)").setValue(["code": str])
                 
-                //redirect to log in after sign in
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginScreen") as! LoginViewController
-                
-                self.dismiss(animated: true, completion: nil)
-                self.present(vc, animated: true, completion: nil)
+                //present view controller while passing userCode from database
+                let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "userSelection") as! UserSelectionTableViewController
+                let navController = UINavigationController(rootViewController: viewController)
+                let userCode = str
+                viewController.user = userCode
+                self.present(navController, animated: true, completion: {
+                    self.view.addSubview(progressHUD)
+                    progressHUD.removeFromSuperview()
+                    self.view.alpha = 1.0
+                })
             }
             else{
                 let alert = UIAlertController(title: "Sign In Failed",
@@ -110,13 +134,13 @@ class RegisterViewController: UIViewController {
                 //alert with error
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 self.present(alert, animated: true, completion: nil)
-                self.signInButton.isEnabled = false
-                self.registerButton.isEnabled = false
-                self.emailTextField.isEnabled = false
-                self.passwordTextField.isEnabled = false
-                self.confirmPasswordTextField.isEnabled = false
-                self.firstNameTextField.isEnabled = false
-                self.lastNameTextField.isEnabled = false
+                self.signInButton.isEnabled = true
+                self.registerButton.isEnabled = true
+                self.emailTextField.isEnabled = true
+                self.passwordTextField.isEnabled = true
+                self.confirmPasswordTextField.isEnabled = true
+                self.firstNameTextField.isEnabled = true
+                self.lastNameTextField.isEnabled = true
                 self.view.alpha = 1
                 progressHUD.removeFromSuperview()
             }

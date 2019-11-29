@@ -86,12 +86,37 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     
     func displayUserData(){
         if let user = user{
-            reference.child("users").child("\(user)" ).observeSingleEvent(of: .value, with: { (snapshot) in
+            reference.child("users").child("\(user)" ).observe(.value, with: { (snapshot) in
                 if let firstname = (snapshot.value as AnyObject).value(forKey: "firstname") as? String, let lastname = (snapshot.value as AnyObject).value(forKey: "lastname") as? String{
                     self.fullNameLabel.text = "\(firstname)  \(lastname)"
                     self.accountCode.text = user
-                    self.tableView.reloadData()
+                    
                 }
+                
+                // Get download URL from snapshot
+                if let downloadUrl = (snapshot.value as AnyObject).value(forKey: "imageUrl") as? String{
+                    // Create a storage reference from the URL
+                    let imageStorage = self.storageRef.reference(forURL: downloadUrl)
+                    // Download the data, assuming a max size of 1MB (you can change this as necessary)
+                    imageStorage.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
+                        if error == nil{
+                            // Create a UIImage, add it to the array
+                            self.profileImage.contentMode = .scaleAspectFill
+                            self.profileImage.image = UIImage(data: data!)
+                        }
+                        else{
+                            let alert = UIAlertController(title: "Upload Failed",
+                                                          message: "File too big.",
+                                                          preferredStyle: .alert)
+                            
+                            //alert with error
+                            alert.addAction(UIAlertAction(title: "OK", style: .default))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        
+                    }
+                }
+                self.tableView.reloadData()
                 
             })
         }
@@ -105,13 +130,16 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                 self.memberStatus = Array<Array<String>>()
                 self.memberKeys = Array<Array<String>>()
                 self.familyNames = Array<String>()
+                self.familyCodes = Array<String>()
                 for (section,familyCode) in snapshot.children.allObjects.enumerated(){
                     self.familyMembers.append([])
                     self.memberStatus.append([])
                     self.memberKeys.append([])
+                    
                     if let fc = familyCode as? DataSnapshot{
-                        if let family = fc.value{
-                            self.familyCodes.append(family as! String)
+                        if let family = fc.key as? String{
+                            print(family)
+                            self.familyCodes.append(family)
                             self.reference.child("family").child("\(family as! String)").child("name").observe( .value, with: { (snapshot) in
                                 //set name
                                 if let name = snapshot.value as? String{
@@ -120,6 +148,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                             }) { print($0) }
                             
                             self.reference.child("family").child("\(family)").child("members").observe( .value, with: { (snapshot) in
+                                
                                 for (index, memberSnap) in (snapshot.children.allObjects.enumerated()){
                                     if let member = memberSnap  as? DataSnapshot{
                                         if self.user != (member.value as! String){
@@ -129,29 +158,40 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                                                 if let name = snapshot.value{
                                                     if let fName = (name as AnyObject) .value(forKey: "firstname") as? String, let lName = (name as AnyObject) .value(forKey: "lastname") as? String, let onlineCheck = (name as AnyObject) .value(forKey: "isOnline") as? String {
                                                         let fullname = ("\(fName) \(lName)")
-                                                        if self.memberKeys[section].contains(member.value as! String){
-                                                            self.memberStatus[section][index] = (onlineCheck)
+                                                        if self.memberKeys[section].contains(member.value as! String){                                                            //self.memberStatus[section][index] = (onlineCheck)
                                                         }
                                                         else{
                                                             self.familyMembers[section].append(fullname)
                                                             self.memberStatus[section].append(onlineCheck)
                                                             self.memberKeys[section].append(member.value as! String)
-
+                                                            
                                                         }
-                                                        self.tableView.reloadData()
                                                     }
                                                 }
-                                                
+                                                 self.tableView.reloadData()
+                                            self.listenToStatus(section: section)
                                             }) { print($0) }
                                         }
                                     }
                                  }
+                                
                             }) { print($0) }
                         }
                     }
                 }
             }) { print($0) }
         }
+    }
+    
+    func listenToStatus(section: Int){
+        for (index, member) in self.memberKeys[section].enumerated(){
+            self.reference.child("users").child("\(member)/isOnline").observe( .value, with: { (snapshot) in
+                let isOnline = snapshot.value as? String
+                self.memberStatus[section][index] = isOnline!
+                self.tableView.reloadData()
+            }) { print($0) }
+        }
+        
     }
     
     func navBarModifications() {
@@ -207,27 +247,23 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            profileImage.contentMode = .scaleAspectFill
-            profileImage.image = pickedImage
-    
-            let data = Data()
-
-            // 2 Create a reference to the file you want to upload
-            let image = storageRef.reference().child("images/\(profileImage.image)")
-
-            // 3 Upload the file to the path "images/"
-            let uploadTask = image.putData(data, metadata: nil) { (metadata, error) in
-                if error != nil {
-                // 4 error occurred!
-                return
-              }
-
-              // 5
-                self.storageRef.reference().downloadURL(completion: { (url, error) in
-                    if error != nil { return }
-                // 6
-              })
+        if let userCode = user {
+            if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                let imageStorage = storageRef.reference().child("userImages/\(userCode)")
+                let compressedImage = pickedImage.jpegData(compressionQuality: 0.3)
+                imageStorage.putData(compressedImage!).observe(.success) { (snapshot) in
+                    // When the image has successfully uploaded, we get its download URL
+                    if let bucket = snapshot.metadata?.bucket, let name = snapshot.metadata?.name {
+                        let downloadUrl = "gs://\(bucket)/userImages/\(name)"
+                        // Write the download URL to the Realtime Database
+                        let dbRefImg = self.reference.child("users/\(userCode)/imageUrl")
+                        dbRefImg.setValue(downloadUrl)
+                        let dbRefChg = self.reference.child("users/\(userCode)/buffer")
+                        if let autoId = self.reference.childByAutoId().key {
+                            dbRefChg.setValue(autoId)
+                        }
+                    }
+                }
             }
         }
         

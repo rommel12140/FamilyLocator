@@ -21,22 +21,18 @@
     @IBOutlet weak var signupLabel: UILabel!
     @IBOutlet weak var appTitle: UILabel!
     @IBOutlet weak var contentView: UIView!
-    
-    //TEMPORARY (SUBSTITUTE FOR USER SELECTION)
-    var users = Array<String>()
+    @IBOutlet weak var appLogo: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.scrollView.delegate = self
-        scrollView.contentOffset.x = 0
-        scrollView.contentSize = CGSize(width: self.scrollView.layer.frame.width, height: self.scrollView.layer.frame.height)
-        self.view.addSubview(scrollView)
         
         self.hideKeyboardWhenTappedAround()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        self.initializeTempUsers()
+        self.emailTextField.addTarget(self, action: #selector(onReturn), for: UIControl.Event.editingDidEndOnExit)
+        self.passwordTextField.addTarget(self, action: #selector(onReturn), for: UIControl.Event.editingDidEndOnExit)
         
         //background
         appTitle.textColor = .white
@@ -54,24 +50,54 @@
         self.view.backgroundColor = UIColor(patternImage: image)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        autoLogin()
+    }
+    
+    func autoLogin(){
+        
+        print(Auth.auth().currentUser?.uid)
+        if Auth.auth().currentUser != nil {
+            let progressHUD = ProgressHUD(text: "Logging in...")
+            let reference = Database.database().reference()
+            self.view.addSubview(progressHUD)
+            self.view.alpha = 0.9
+            reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
+                //present view controller while passing userCode from database
+                let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "userSelection") as! UserSelectionTableViewController
+                let navController = UINavigationController(rootViewController: viewController)
+                print((snapshot.value as AnyObject).value(forKey: "code") as? String)
+                if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
+                    reference.child("users").child("\(userCode)").updateChildValues(["isOnline" : "true"])
+                    viewController.user = userCode
+                    self.present(navController, animated: true, completion: {
+                        self.view.addSubview(progressHUD)
+                        progressHUD.removeFromSuperview()
+                        self.view.alpha = 1.0
+                        
+                        self.loginButton.isEnabled = true
+                        self.emailTextField.isEnabled = true
+                        self.signupButton.isEnabled = true
+                        self.passwordTextField.isEnabled = true
+                    })
+                }
+            })
+            
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        appLogo.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 30)
+        scrollView.contentOffset.x = 0
+        scrollView.contentSize = CGSize(width: self.scrollView.layer.frame.width, height: self.contentView.frame.height)
+        self.view.addSubview(scrollView)
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x>0 {
             scrollView.contentOffset.x = 0
         }
     }
-    
-    //TEMPORARY (SUBSTITUTE FOR USER SELECTION)
-    func initializeTempUsers(){
-        //create database reference
-        let reference = Database.database().reference()
-        reference.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
-            for a in ((snapshot.value as AnyObject).allKeys)!{
-                self.users.append(a as! String)
-                
-            }
-        }) { print($0) }
-    }
-    
     
     
     @IBAction func login(_ sender: Any) {
@@ -80,6 +106,10 @@
         }
     }
     
+    @IBAction func onReturn() {
+        self.emailTextField.resignFirstResponder()
+        self.view.endEditing(true)
+    }
     
     
     func checkValid() -> Bool{
@@ -136,10 +166,8 @@
                     let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "userSelection") as! UserSelectionTableViewController
                     let navController = UINavigationController(rootViewController: viewController)
                     if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
-                        //TEMPORARY (SUBSTITUTE FOR USER SELECTION)
                         reference.child("users").child("\(userCode)").updateChildValues(["isOnline" : "true"])
                         viewController.user = userCode
-//                        viewController.users = self.users
                         self.present(navController, animated: true, completion: {
                             self.view.addSubview(progressHUD)
                             progressHUD.removeFromSuperview()
