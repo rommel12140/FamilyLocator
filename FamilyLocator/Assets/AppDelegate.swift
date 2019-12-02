@@ -9,11 +9,14 @@
 import UIKit
 import Firebase
 import GoogleMaps
+import FirebaseAuth
+import FirebaseDatabase
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -44,9 +47,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+       let reference = Database.database().reference()
+        if Auth.auth().currentUser != nil{
+            if let userCode = UserDefaults.standard.object(forKey: "currentUser") as? String {
+                reference.child("users").child(userCode).updateChildValues(["isOnline":"false"])
+            }
+        }
     }
-
-
 }
 

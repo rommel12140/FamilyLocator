@@ -34,8 +34,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var buffer: Bool = false
     //temporary data
     var user: String!
+    var userImage: UIImage!
     var users: Array<String>!
     var userIndex: Int!
+    var userImages: Array<UIImage>!
+    var isInit = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +48,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         
         //insert user to users
         users.append(user)
+        userImages.append(userImage)
         
         //request authorization
         self.locationManager.requestWhenInUseAuthorization()
@@ -74,77 +78,89 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         //update current user location
         self.userLocation = (manager.location)!
         self.reference.child("location").child(user as! String).setValue(["longitude": userLocation.coordinate.longitude,"latitude":userLocation.coordinate.latitude])
+        if self.isInit == false{
+            self.mapView.animate(to: GMSCameraPosition(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 17))
+            self.isInit = true
+        }
         
     }
     
     func listenToUserLocation(){
         //listen to each user
         for (index,element) in users.enumerated(){
-            if true { //if not user, do not add marker
-                
-                //initialize a marker
-                var marker = GMSMarker()
-                marker.tracksInfoWindowChanges = true;
-                markers.append(marker)
-                
-                if element == user{
-                    userIndex = index
-                }
-                
-                //add all markers (for fitting to bounds/map)
-                //get user name
-                var name: String?
-                reference.child("users").child("\(element)").observe(.value, with: { (snapshot) in
-                    //set name
-                    name = (snapshot.value as AnyObject).value(forKey: "firstname") as? String
-                }) { print($0) }
-                
-                //listen for location (longitude and latitude)
-                reference.child("location").child("\(element)").observe(.value, with: { (snapshot) in
-                    
-                    //set latitude and longitude
-                    if let lat = (snapshot.value as AnyObject).value(forKey: "latitude")  as? CLLocationDegrees, let long = (snapshot.value as AnyObject).value(forKey: "longitude") as? CLLocationDegrees{
-                        //update marker for each user
-                        if marker.accessibilityLabel == nil{
-                            marker = GMSMarker(position: CLLocationCoordinate2D(latitude: lat, longitude: long))
-                            self.markers[index] = marker
-                            marker.appearAnimation = GMSMarkerAnimation.pop
-                            marker.icon = UIImage.resizeImage(image: UIImage(named: "logo")!, targetSize: CGSize.init(width: 70, height: 70))
-                            marker.map = self.mapView   //add marker to map
-                            marker.snippet = name
-                            marker.accessibilityLabel = "\(element)"
-                            marker.accessibilityValue = "\(index)"
-                        }
-                        else{
-                            CATransaction.begin()
-                            CATransaction.setAnimationDuration(0.1)
-                            marker.position = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                            CATransaction.commit()
-                        }
-                        
-                        //get the address
-                        let g = GMSGeocoder()
-                        g.reverseGeocodeCoordinate(CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)) { response , error in
-                            if let address = response?.firstResult() {
-                                var dict = [String: String]()
-                                dict["city"] = address.locality
-                                dict["country"] = address.country
-                                dict["street"] = address.thoroughfare
-                                marker.userData = dict
-                                
-                            }
-                        }
-                        
-                        //focus on user if selected and not routing
-                        if self.mapView.selectedMarker == marker, self.isRouting == false{
-                            self.mapView.animate(to: GMSCameraPosition(latitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17))
-                        }
-                        
-                    }
-                }) { print($0) }
+            //initialize a marker
+            var marker = GMSMarker()
+            marker.tracksInfoWindowChanges = true;
+            markers.append(marker)
+            
+            if element == user{
+                userIndex = index
             }
+            
+            //add all markers (for fitting to bounds/map)
+            //get user name
+            var name: String?
+            reference.child("users").child("\(element)").observe(.value, with: { (snapshot) in
+                //set name
+                name = (snapshot.value as AnyObject).value(forKey: "firstname") as? String
+            }) { print($0) }
+            
+            //listen for location (longitude and latitude)
+            reference.child("location").child("\(element)").observe(.value, with: { (snapshot) in
+                
+                //set latitude and longitude
+                if let lat = (snapshot.value as AnyObject).value(forKey: "latitude")  as? CLLocationDegrees, let long = (snapshot.value as AnyObject).value(forKey: "longitude") as? CLLocationDegrees{
+                    //update marker for each user
+                    if marker.accessibilityLabel == nil{
+                        marker = GMSMarker(position: CLLocationCoordinate2D(latitude: lat, longitude: long))
+                        self.markers[index] = marker
+                        if element != self.user {
+                            marker.appearAnimation = GMSMarkerAnimation.pop
+                            let newView = UIImageView()
+                            newView.frame.size.width = 70
+                            newView.frame.size.height = 70
+                            newView.image = UIImage.resizeImage(image: self.userImages![index], targetSize: CGSize.init(width: 70, height: 70))
+                        
+                            marker.iconView = newView
+                            marker.iconView?.layer.cornerRadius = (marker.iconView?.frame.height)!/2
+                            marker.iconView?.layer.borderWidth = 2
+                            marker.iconView?.clipsToBounds = true
+                            marker.iconView?.layer.borderColor = UIColor.commonGreenColor().cgColor
+                            marker.map = self.mapView   //add marker to map
+                        }
+                        
+                        marker.snippet = name
+                        marker.accessibilityLabel = "\(element)"
+                        marker.accessibilityValue = "\(index)"
+                    }
+                    else{
+                        CATransaction.begin()
+                        CATransaction.setAnimationDuration(0.1)
+                        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                        CATransaction.commit()
+                    }
+                    
+                    //get the address
+                    let g = GMSGeocoder()
+                    g.reverseGeocodeCoordinate(CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)) { response , error in
+                        if let address = response?.firstResult() {
+                            var dict = [String: String]()
+                            dict["city"] = address.locality
+                            dict["country"] = address.country
+                            dict["street"] = address.thoroughfare
+                            marker.userData = dict
+                            
+                        }
+                    }
+                    
+                    //focus on user if selected and not routing
+                    if self.mapView.selectedMarker == marker, self.isRouting == false{
+                        self.mapView.animate(to: GMSCameraPosition(latitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17))
+                    }
+                    
+                }
+            }) { print($0) }
         }
-
     }
     
     func createButtons(){
@@ -157,7 +173,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         buttonProperties.currentYPosition = viewAllUsersButton(buttonSize: buttonProperties.buttonSize, yPos: buttonProperties.currentYPosition, rightMargin: buttonProperties.rightMargin, offset: buttonProperties.offset)
         
         for (index,element) in users.enumerated() {
-            if true{
+            if element != user{
                 //create button for each user
                 buttonProperties.currentYPosition = userButton(buttonSize: buttonProperties.buttonSize, yPos: buttonProperties.currentYPosition, rightMargin: buttonProperties.rightMargin, index: index, offset: buttonProperties.offset)
             }
@@ -172,9 +188,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             addressInfo = info
         }
         
+        customInfoWindow.userImage.image = (marker.iconView as! UIImageView).image
         customInfoWindow.userName.text = marker.snippet
         customInfoWindow.userNumber = marker.accessibilityLabel
         customInfoWindow.layer.cornerRadius = customInfoWindow.layer.frame.height/4
+        
+        marker.iconView = nil
+        marker.icon = UIImage.resizeImage(image: UIImage(named: "logo")!, targetSize: CGSize.init(width: 70, height: 70))
         
         if let street = addressInfo["street"] as? String{
             customInfoWindow.userStreet.text = street
@@ -196,6 +216,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
         
         return customInfoWindow
+    }
+    
+    func mapView(_ mapView: GMSMapView, didCloseInfoWindowOf marker: GMSMarker) {
+        let newView = UIImageView()
+        newView.frame.size.width = 70
+        newView.frame.size.height = 70
+        newView.image = UIImage.resizeImage(image: self.userImages![Int(marker.accessibilityValue!)!], targetSize: CGSize.init(width: 70, height: 70))
+        
+        marker.iconView = newView
+        marker.iconView?.layer.cornerRadius = (marker.iconView?.frame.height)!/2
+        marker.iconView?.layer.borderWidth = 2
+        marker.iconView?.clipsToBounds = true
+        marker.iconView?.layer.borderColor = UIColor.commonGreenColor().cgColor
     }
     
     func viewAllUsersButton(buttonSize: CGFloat, yPos: CGFloat, rightMargin: CGFloat, offset: CGFloat) -> CGFloat{

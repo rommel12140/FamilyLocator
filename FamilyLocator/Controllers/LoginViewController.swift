@@ -40,7 +40,7 @@
         signupButton.backgroundColor = UIColor.commonGreenColor()
         signupButton.setTitleColor(.white, for: UIControl.State.normal)
         loginButton.setTitleColor(UIColor.commonGreenColor(), for: UIControl.State.normal)
-        emailTextField.text = "rommelngallofin@yahoo.com"
+        emailTextField.text = "rommer@yahoo.com"
         passwordTextField.text = "123456"
         
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -55,26 +55,26 @@
     }
     
     func autoLogin(){
-        
-        print(Auth.auth().currentUser?.uid)
         if Auth.auth().currentUser != nil {
             let progressHUD = ProgressHUD(text: "Logging in...")
-            let reference = Database.database().reference()
             self.view.addSubview(progressHUD)
             self.view.alpha = 0.9
+            let reference = Database.database().reference()
+            
             reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                 //present view controller while passing userCode from database
                 let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "userSelection") as! UserSelectionTableViewController
                 let navController = UINavigationController(rootViewController: viewController)
-                print((snapshot.value as AnyObject).value(forKey: "code") as? String)
                 if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
                     reference.child("users").child("\(userCode)").updateChildValues(["isOnline" : "true"])
+                    UserDefaults.standard.set(userCode, forKey: "currentUser")
+                    UserDefaults.standard.synchronize()
+                    
                     viewController.user = userCode
                     self.present(navController, animated: true, completion: {
                         self.view.addSubview(progressHUD)
                         progressHUD.removeFromSuperview()
                         self.view.alpha = 1.0
-                        
                         self.loginButton.isEnabled = true
                         self.emailTextField.isEnabled = true
                         self.signupButton.isEnabled = true

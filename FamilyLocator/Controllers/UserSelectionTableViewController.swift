@@ -17,11 +17,13 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     var user: String!
     var users: Array<String>!
     var selectedUsers = NSMutableArray()
+    var selectedUsersImages = NSMutableArray()
     var familyCodes = Array<String>()
     var familyNames = Array<String>()
     var memberKeys = Array<Array<String>>()
     var familyMembers = Array<Array<String>>()
     var memberStatus = Array<Array<String>>()
+    var memberImages = Array<Array<UIImage>>()
     var firstName: String!
     var lastName: String!
     let reference = Database.database().reference()
@@ -115,6 +117,8 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                         }
                         
                     }
+                    self.view.alpha = 1
+                    self.view.isUserInteractionEnabled = true
                 }
                 self.tableView.reloadData()
                 
@@ -129,12 +133,14 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                 self.familyMembers = Array<Array<String>>()
                 self.memberStatus = Array<Array<String>>()
                 self.memberKeys = Array<Array<String>>()
+                self.memberImages = Array<Array<UIImage>>()
                 self.familyNames = Array<String>()
                 self.familyCodes = Array<String>()
                 for (section,familyCode) in snapshot.children.allObjects.enumerated(){
                     self.familyMembers.append([])
                     self.memberStatus.append([])
                     self.memberKeys.append([])
+                    self.memberImages.append([])
                     
                     if let fc = familyCode as? DataSnapshot{
                         if let family = fc.key as? String{
@@ -164,7 +170,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                                                             self.familyMembers[section].append(fullname)
                                                             self.memberStatus[section].append(onlineCheck)
                                                             self.memberKeys[section].append(member.value as! String)
-                                                            
+                                                            self.appendUserImage(currentUser: member.value as! String, section: section)
                                                         }
                                                     }
                                                 }
@@ -181,6 +187,28 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                 }
             }) { print($0) }
         }
+    }
+    
+    func appendUserImage(currentUser: String, section: Int){
+        self.memberImages[section].append(UIImage())
+        let index = self.memberImages[section].count
+        reference.child("users").child("\(currentUser)" ).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get download URL from snapshot
+            if let downloadUrl = (snapshot.value as AnyObject).value(forKey: "imageUrl") as? String{
+                // Create a storage reference from the URL
+                let imageStorage = self.storageRef.reference(forURL: downloadUrl)
+                // Download the data, assuming a max size of 1MB (you can change this as necessary)
+                imageStorage.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
+                    if error == nil{
+                        // Create a UIImage, add it to the array
+                        self.memberImages[section][index-1] = UIImage(data: data!)!
+                        self.tableView.reloadData()
+                    }
+                    
+                }
+            }
+            
+        })
     }
     
     func listenToStatus(section: Int){
@@ -221,7 +249,9 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         
         let map = UIStoryboard(name: "Map", bundle: nil).instantiateViewController(withIdentifier: "mapScreen") as! MapViewController
         map.user = user
-        map.users = self.selectedUsers.mutableCopy() as! Array<String>
+        map.userImage = self.profileImage.image
+        map.users = self.selectedUsers.mutableCopy() as? Array<String>
+        map.userImages = self.selectedUsersImages.mutableCopy() as? Array<UIImage>
         if let navigator = navigationController {
             navigator.pushViewController(map, animated: true)
         }
@@ -334,9 +364,9 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
             cell.memberstatusLabel.isHidden = false
             cell.memberImageView.isHidden = false
             cell.isUserInteractionEnabled = true
-            
+            cell.memberImageView.backgroundColor = .gray
             cell.membernameLabel.text = familyMembers[indexPath.section][indexPath.row]
-            cell.memberImageView.image = UIImage(named: "spiderman")
+            cell.memberImageView.image = memberImages[indexPath.section][indexPath.row]
             
             if memberStatus[indexPath.section][indexPath.row] == "true"{
                 cell.memberstatusLabel.text = "online"
@@ -359,13 +389,19 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         if let key = memberKeys[indexPath.section][indexPath.row] as? String{
             selectedUsers.add(key)
         }
-        
-        
+        if let image = memberImages[indexPath.section][indexPath.row] as? UIImage{
+            selectedUsersImages.add(image)
+        }
+
     }
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if let key = memberKeys[indexPath.section][indexPath.row] as? String{
             selectedUsers.remove(key)
         }
+        if let image = memberImages[indexPath.section][indexPath.row] as? UIImage{
+            selectedUsersImages.remove(image)
+        }
+
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -378,4 +414,3 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         }
     }
 }
-
