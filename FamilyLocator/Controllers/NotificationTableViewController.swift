@@ -31,7 +31,6 @@ class NotificationTableViewController: UITableViewController {
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         self.tableView.backgroundColor = UIColor(patternImage: image)
-        print(self.user)
         getNotifs()
     }
     
@@ -47,14 +46,15 @@ class NotificationTableViewController: UITableViewController {
                 self.invites.removeAll()
                 for invite in (snapshot.children.allObjects as! [DataSnapshot]){
                     if let inviteKey = invite.key as? String{
-                        self.reference.child("family").child("\(inviteKey)").child("name").observe(.value, with: { (snapshot) in
-                            if let name = snapshot.value{
-                                print(self.inviteKeys)
-                                self.inviteKeys.append(inviteKey)
-                                self.invites.append(name as! String)
-                                self.tableView.reloadData()
-                            }
-                        }) { print($0) }
+                        if invite.value as? String == "pending"{
+                            self.reference.child("family").child("\(inviteKey)").child("name").observe(.value, with: { (snapshot) in
+                                if let name = snapshot.value{
+                                    self.inviteKeys.append(inviteKey)
+                                    self.invites.append(name as! String)
+                                    self.tableView.reloadData()
+                                }
+                            }) { print($0) }
+                        }
                     }
                     
                 }
@@ -68,32 +68,38 @@ class NotificationTableViewController: UITableViewController {
                     }
                 }
             }) { print($0) }
+            
             reference.child("users").child("\(user)").child("families").observe( .value, with: { (snapshot) in
-                
                 for familyCode in (snapshot.children.allObjects as! [DataSnapshot]){
                     if let code = familyCode.key as? String{
-                        self.reference.child("family").child("\(code)").child("requests").observe( .value, with: { (snapshot) in
-                            self.requests.removeAll()
-                            self.requestKeys.removeAll()
-                            self.requestFamilyKeys.removeAll()
+                        self.reference.child("family").child("\(code)").observe( .value, with: { (snapshot) in
                             self.requestFamilyNames.removeAll()
-                            for request in (snapshot.children.allObjects as! [DataSnapshot]){
-                                if let requestKey = request.key as? String{
-                                    self.reference.child("users").child("\(requestKey)").observe(.value, with: { (snapshot) in
-                                        if let fName = (snapshot.value as AnyObject) .value(forKey: "firstname") as? String, let lName = (snapshot.value as AnyObject) .value(forKey: "lastname") as? String{
-                                            let fullname = ("\(fName) \(lName)")
-                                            self.requestKeys.append(requestKey)
-                                            self.requests.append(fullname)
-                                            self.requestFamilyKeys.append(code)
-                                            self.requestFamilyNames.append(familyCode.value as! String)
-                                            self.tableView.reloadData()
+                            for request in (snapshot.childSnapshot(forPath: "requests").children.allObjects as! [DataSnapshot]){
+                                self.requests.removeAll()
+                                self.requestKeys.removeAll()
+                                self.requestFamilyKeys.removeAll()
+                                if request.value as? String == "pending"{
+                                    if let name = snapshot.childSnapshot(forPath: "name").value{
+                                        if let requestKey = request.key as? String{
+                                            self.reference.child("users").child("\(requestKey)").observe( .value, with: { (snapshot) in
+                                                if let fName = (snapshot.value as AnyObject) .value(forKey: "firstname") as? String, let lName = (snapshot.value as AnyObject) .value(forKey: "lastname") as? String{
+                                                    let fullname = ("\(fName) \(lName)")
+                                                    self.requestKeys.append(requestKey)
+                                                    self.requests.append(fullname)
+                                                    self.requestFamilyKeys.append(code)
+                                                    self.requestFamilyNames.append(name as! String)
+                                                    self.tableView.reloadData()
+                                                }
+                                                self.tableView.reloadData()
+                                            }) { print($0) }
                                         }
-                                    }) { print($0) }
+                                    }
                                 }
                             }
                         })
                     }
                 }
+                self.tableView.reloadData()
             }) { print($0) }
         }
     }
@@ -169,29 +175,18 @@ class NotificationTableViewController: UITableViewController {
                 
                 reference.child("notifications").child(self.user as! String).child("invites").child(inviteKeys[indexPath.row]).observe( .value, with: { (snapshot) in
                     if let key = snapshot.value as? String{
-                        if key == "accepted"{
-                            cell.notificationLabel.textColor = UIColor.green
-                            cell.acceptButton.isHidden = true
-                            cell.rejectButton.isHidden = true
-                        }
-                        else if key == "rejected"{
-                            cell.notificationLabel.textColor = UIColor.red
-                            cell.acceptButton.isHidden = true
-                            cell.rejectButton.isHidden = true
-                        }
-                        else{
-                            cell.notificationLabel.textColor = UIColor.black
-                            cell.acceptButton.isHidden = false
-                            cell.rejectButton.isHidden = false
-                            cell.acceptButton.tag = indexPath.row
-                            cell.acceptButton.addTarget(self, action: #selector(self.acceptFamily(_:)), for: .touchUpInside)
-                            
-                            cell.rejectButton.tag = indexPath.row
-                            cell.rejectButton.addTarget(self, action: #selector(self.declineFamily(_:)), for: .touchUpInside)
-                        }
+                        cell.notificationLabel.textColor = UIColor.black
+                        cell.acceptButton.isHidden = false
+                        cell.rejectButton.isHidden = false
+                        cell.acceptButton.tag = indexPath.row
+                        cell.acceptButton.addTarget(self, action: #selector(self.acceptFamily(_:)), for: .touchUpInside)
+                        
+                        cell.rejectButton.tag = indexPath.row
+                        cell.rejectButton.addTarget(self, action: #selector(self.declineFamily(_:)), for: .touchUpInside)
+                        
+                        cell.notificationLabel.text = "You have been added to \(self.invites[indexPath.row])"
                     }
                     cell.contentView.alpha = 0.8;
-                    cell.notificationLabel.text = "You have been added to \(self.invites[indexPath.row])"
                     cell.selectionStyle = UITableViewCell.SelectionStyle.none
                     
                 }) { print($0) }
@@ -214,32 +209,18 @@ class NotificationTableViewController: UITableViewController {
                 cell.isUserInteractionEnabled = true
             reference.child("family").child(requestFamilyKeys[indexPath.row]).child("requests").child(requestKeys[indexPath.row]).observe( .value, with: { (snapshot) in
                     if let key = snapshot.value as? String{
-                        print(key)
-                        if key == "accepted"{
-                            cell.notificationLabel.textColor = UIColor.green
-                            cell.acceptButton.isHidden = true
-                            cell.rejectButton.isHidden = true
-                        }
-                        else if key == "rejected"{
-                            cell.notificationLabel.textColor = UIColor.red
-                            cell.acceptButton.isHidden = true
-                            cell.rejectButton.isHidden = true
-                        }
-                        else{
-                            cell.notificationLabel.textColor = UIColor.black
-                            cell.acceptButton.isHidden = false
-                            cell.rejectButton.isHidden = false
-                            cell.acceptButton.tag = indexPath.row
-                            cell.acceptButton.addTarget(self, action: #selector(self.acceptRequest(_:)), for: .touchUpInside)
-                            
-                            cell.rejectButton.tag = indexPath.row
-                            cell.rejectButton.addTarget(self, action: #selector(self.declineRequest(_:)), for: .touchUpInside)
-                        }
+                        cell.notificationLabel.textColor = UIColor.black
+                        cell.acceptButton.isHidden = false
+                        cell.rejectButton.isHidden = false
+                        cell.acceptButton.tag = indexPath.row
+                        cell.acceptButton.addTarget(self, action: #selector(self.acceptRequest(_:)), for: .touchUpInside)
+                        
+                        cell.rejectButton.tag = indexPath.row
+                        cell.rejectButton.addTarget(self, action: #selector(self.declineRequest(_:)), for: .touchUpInside)
+                        cell.notificationLabel.text = "\(self.requests[indexPath.row]) wants to join to \(self.requestFamilyNames[indexPath.row])"
                     }
                     cell.contentView.alpha = 0.8;
-                    cell.notificationLabel.text = "\(self.requests[indexPath.row]) wants to join to \(self.requestFamilyNames[indexPath.row])"
                     cell.selectionStyle = UITableViewCell.SelectionStyle.none
-                    
                 }) { print($0) }
             
                 return cell
@@ -280,10 +261,34 @@ class NotificationTableViewController: UITableViewController {
         
         //alert with error
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-            self.reference.child("notifications").child("\(self.user as! String)").child("invites").updateChildValues([self.inviteKeys[sender.tag] : "accepted"])
             
-            let message = "Welcome to \(self.invites[sender.tag])"
-            self.reference.child("notifications").child(self.user as! String).child("notifications").updateChildValues([self.inviteKeys[sender.tag] : message])
+            let refCount = self.reference.child("users").child(self.user!).child("families")
+            
+            refCount.observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
+                let count = Int(snapshot.childrenCount)
+                print(count)
+                if count < 3{
+                    self.reference.child("notifications").child("\(self.user!)").child("invites").updateChildValues([self.inviteKeys[sender.tag] : "accepted"])
+                    
+                    self.reference.child("family").child("\(self.inviteKeys[sender.tag])").child("members").updateChildValues([self.user! : "joined"])
+                    
+                    self.reference.child("users").child("\(self.user!)").child("families").updateChildValues([self.inviteKeys[sender.tag] : "joined"])
+                    
+                    
+                    
+                    let message = "Welcome to \(self.invites[sender.tag])"
+                    self.reference.child("notifications").child(self.user!).child("notifications").childByAutoId().setValue(message)
+                }
+                else{
+                    let alert = UIAlertController(title: "Join Family", message: "You have reached the maximum limit of families you can join", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    
+                    self.present(alert, animated: true, completion: nil)
+                }
+            })
+            
+           
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
@@ -297,10 +302,11 @@ class NotificationTableViewController: UITableViewController {
         
         //alert with error
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-            self.reference.child("notifications").child("\(self.user as! String)").child("invites").updateChildValues([self.inviteKeys[sender.tag] : "rejected"])
             
-            let message = "You have been removed from \(self.invites[sender.tag])"
-            self.reference.child("notifications").child(self.user as! String).child("notifications").updateChildValues([self.inviteKeys[sender.tag] : message])
+            self.reference.child("notifications").child("\(self.user!)").child("invites").updateChildValues([self.inviteKeys[sender.tag] : "rejected"])
+            
+            let message = "You have declined to join \(self.invites[sender.tag])"
+            self.reference.child("notifications").child(self.user!).child("notifications").childByAutoId().setValue(message)
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -319,16 +325,20 @@ class NotificationTableViewController: UITableViewController {
         //alert with error
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
             self.reference.child("family").child(self.requestFamilyKeys[sender.tag]).child("requests").updateChildValues([self.requestKeys[sender.tag] : "accepted"])
+//            self.reference.child("family").child(self.requestFamilyKeys[sender.tag]).child("requests").child(self.requestKeys[sender.tag]).removeValue()
             
-            let message = "Request of \(self.requests[sender.tag]) to join \(self.requestFamilyNames[sender.tag]) is accepted"
+            
+            let message = "Request of \(self.requests[sender.tag]) to join \(self.requestFamilyNames[sender.tag]) has been accepted"
            
-            self.reference.child("notifications").child(self.user as! String).child("notifications").updateChildValues([self.requestKeys[sender.tag] : message])
+            self.reference.child("notifications").child(self.user!).child("notifications").childByAutoId().setValue(message)
+            
+            let message2 = "Your request to join \(self.requestFamilyNames[sender.tag]) has been accepted"
+            
+            self.reference.child("notifications").child(self.requestKeys[sender.tag]).child("notifications").childByAutoId().setValue(message2)
            
             //add to members
             self.reference.child("users").child(self.requestKeys[sender.tag]).child("families").updateChildValues([self.requestFamilyKeys[sender.tag] : "joined"])
-            self.reference.child("family").child(self.requestFamilyKeys[sender.tag]).child("members").childByAutoId().setValue(self.requestKeys[sender.tag])
-            
-            self.tableView.reloadData()
+            self.reference.child("family").child(self.requestFamilyKeys[sender.tag]).child("members").updateChildValues([self.requestKeys[sender.tag] : "joined"])
 
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -342,11 +352,17 @@ class NotificationTableViewController: UITableViewController {
                                       preferredStyle: .alert)
         
         //alert with error
-       alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in self.reference.child("family").child(self.inviteKeys[sender.tag]).child("requests").updateChildValues([self.requestKeys[sender.tag] : "rejected"])
+       alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+        self.reference.child("family").child(self.inviteKeys[sender.tag]).child("requests").updateChildValues([self.requestKeys[sender.tag] : "rejected"])
+//        self.reference.child("family").child(self.requestFamilyKeys[sender.tag]).child("requests").child(self.requestKeys[sender.tag]).removeValue()
         
-        let message = "Request of \(self.requests[sender.tag]) to join \(self.requestFamilyKeys[sender.tag]) is rejected"
+        let message = "Request of \(self.requests[sender.tag]) to join \(self.requestFamilyKeys[sender.tag]) has been rejected"
        
-        self.reference.child("notifications").child(self.user as! String).child("notifications").updateChildValues([self.requestFamilyNames[sender.tag] : message])
+        self.reference.child("notifications").child(self.user!).child("notifications").childByAutoId().setValue(message)
+        
+        let message2 = "Your request to join \(self.requestFamilyNames[sender.tag]) has been rejected"
+        
+        self.reference.child("notifications").child(self.requestKeys[sender.tag]).child("notifications").childByAutoId().setValue(message2)
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -356,4 +372,3 @@ class NotificationTableViewController: UITableViewController {
     //-----------------
     
 }
-

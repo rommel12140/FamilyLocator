@@ -168,30 +168,50 @@ class MenuOptionsTableViewController: UITableViewController {
                         self.present(alert, animated: true, completion: nil)
                     }
                     else{
-                        let alert = UIAlertController(title: "Join Family", message: "Request to join this family is sent", preferredStyle: .alert)
                         
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-                            self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
-                            
-                            let ref = self.reference.child("family").child(familyCode).child("requests")
-                            
-                            ref.observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
-                                let count = Int(snapshot.childrenCount)
-                                
-                                if count > 0{
-                                    self.reference.child("family").child(familyCode).child("requests").updateChildValues([self.user as! String : "pending"])
-                                }
-                                else{
-                                    self.reference.child("family").child(familyCode).child("requests").setValue([self.user as! String : "pending"])
-                                }
-                                
-                            })
-                            
-                            
-                            tableView.reloadData()
-                        }))
+                        let refCount = self.reference.child("users").child(self.user!).child("families")
                         
-                        self.present(alert, animated: true, completion: nil)
+                        refCount.observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
+                            let count = Int(snapshot.childrenCount)
+                            print(count)
+                            if count < 3{
+                                let alert = UIAlertController(title: "Join Family", message: "Request to join this family is sent", preferredStyle: .alert)
+                                
+                                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+                                    self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
+                                    
+                                    let ref = self.reference.child("family").child(familyCode).child("requests")
+                                    
+                                    ref.observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
+                                        let count = Int(snapshot.childrenCount)
+                                        
+                                        if count > 0{
+                                            self.reference.child("family").child(familyCode).child("requests").updateChildValues([self.user as! String : "pending"])
+                                        }
+                                        else{
+                                            self.reference.child("family").child(familyCode).child("requests").setValue([self.user as! String : "pending"])
+                                        }
+                                        
+                                    })
+                                    
+                                    
+                                    tableView.reloadData()
+                                }))
+                                
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                            else{
+                                let alert = UIAlertController(title: "Join Family", message: "You have reached the maximum limit of families you can join", preferredStyle: .alert)
+                                
+                                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+                                    self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
+                                }))
+                                
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        })
+                        
+                        
                     }
                 }
             }))
@@ -211,7 +231,6 @@ class MenuOptionsTableViewController: UITableViewController {
             
             viewController.user = self.user
             self.present(navController, animated: true, completion: nil)
-//            self.navigationController?.pushViewController(viewController, animated: true)
             
             
         case 3:
@@ -236,61 +255,5 @@ class MenuOptionsTableViewController: UITableViewController {
     func createRandomHex() -> String{
         return String(format: "%04X", Int(arc4random() % 655), Int(arc4random() % 655))
     }
-
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
