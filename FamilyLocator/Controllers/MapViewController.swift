@@ -35,9 +35,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     //temporary data
     var user: String!
     var userImage: UIImage!
+    var firstName: String!
     var users: Array<String>!
     var userIndex: Int!
     var userImages: Array<UIImage>!
+    var userFirstNames: Array<String>!
     var isInit = false
     
     override func viewDidLoad() {
@@ -49,6 +51,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         //insert user to users
         users.append(user)
         userImages.append(userImage)
+        userFirstNames.append(firstName)
         
         //request authorization
         self.locationManager.requestWhenInUseAuthorization()
@@ -259,11 +262,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let xFrame = self.view.frame.maxX - buttonSize - rightMargin
         let yFrame = (self.view.frame.minY) + yPosition
         let button = MDCFloatingButton(frame: CGRect(x: xFrame, y: yFrame , width: buttonSize, height: buttonSize))
-        button.setTitle(users[index], for: .normal)
+        button.setTitle(userFirstNames[index], for: .normal)
         button.tag = index
-        button.setBackgroundColor(UIColor.commonGreenColor())
+        button.setBackgroundImage(userImages[index], for: UIControl.State.normal)
         button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(viewUser), for: .touchUpInside)
+        button.clipsToBounds = true
         self.view.addSubview(button)
         
         return yPosition + offset
@@ -275,7 +279,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         {
             bounds = bounds.includingCoordinate(marker.position)
         }
-        let update = GMSCameraUpdate.fit(bounds, withPadding: 17)
+        let update = GMSCameraUpdate.fit(bounds, withPadding: 35)
         mapView.selectedMarker = nil
         mapView.animate(with: update)
     }

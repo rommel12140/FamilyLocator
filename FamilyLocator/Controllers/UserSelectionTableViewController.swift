@@ -15,6 +15,7 @@ import FirebaseStorage
 struct Member{
     var key: String!
     var name: String!
+    var firstName: String!
     var status: String!
     var image: UIImage!
 }
@@ -23,6 +24,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     
     var user: String!
     var selectedUsers = NSMutableArray()
+    var selectedUsersFirstName = NSMutableArray()
     var selectedUsersImages = NSMutableArray()
     var familyCodes = Array<String>()
     var familyNames = Array<String>()
@@ -98,6 +100,8 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         if let user = user{
             reference.child("users").child("\(user)" ).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let firstname = (snapshot.value as AnyObject).value(forKey: "firstname") as? String, let lastname = (snapshot.value as AnyObject).value(forKey: "lastname") as? String{
+                    self.firstName = firstname
+                    self.lastName = lastname
                     self.fullNameLabel.text = "\(firstname)  \(lastname)"
                     self.accountCode.text = user
                     self.profileImage.image = UIImage(named: "user-placeholder")
@@ -194,6 +198,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                                                             var holder = Member()
                                                             holder.key = member
                                                             holder.name = fullname
+                                                            holder.firstName = fName
                                                             holder.status = onlineCheck
                                                             if let image = UIImage(named: "user-placeholder"){
                                                                 holder.image = image
@@ -204,7 +209,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                                                             
                                                             self.families[section][index] = holder
                                                             
-                                                            self.reference.child("users").child("\(member)/imageUrl" ).observeSingleEvent(of: .value, with: { (snapshot) in
+                                                            self.reference.child("users").child("\(member)/imageUrl" ).observe( .value, with: { (snapshot) in
                                                                 // Get download URL from snapshot
                                                                 if let downloadUrl = snapshot.value as? String{
                                                                     // Create a storage reference from the URL
@@ -271,8 +276,10 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         
         let map = UIStoryboard(name: "Map", bundle: nil).instantiateViewController(withIdentifier: "mapScreen") as! MapViewController
         map.user = user
+        map.firstName = self.firstName
         map.userImage = self.profileImage.image
         map.users = self.selectedUsers.mutableCopy() as? Array<String>
+        map.userFirstNames =  self.selectedUsersFirstName.mutableCopy() as? Array<String>
         map.userImages = self.selectedUsersImages.mutableCopy() as? Array<UIImage>
         if let navigator = navigationController {
             navigator.pushViewController(map, animated: true)
@@ -463,6 +470,9 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
             if let image = families[indexPath.section][indexPath.row].image{
                 selectedUsersImages.add(image)
             }
+            if let firstName = families[indexPath.section][indexPath.row].firstName{
+                selectedUsersFirstName.add(firstName)
+            }
         }
         
     }
@@ -484,6 +494,9 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         }
         if let image = families[indexPath.section][indexPath.row].image{
             selectedUsersImages.remove(image)
+        }
+        if let firstName = families[indexPath.section][indexPath.row].firstName{
+            selectedUsersFirstName.remove(firstName)
         }
         
     }

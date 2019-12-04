@@ -22,6 +22,10 @@ class RegisterViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var appLogo: UIImageView!
+    @IBOutlet weak var showConfirmPassword: UIButton!
+    @IBOutlet weak var showPassword: UIButton!
+    
+    var show = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +52,16 @@ class RegisterViewController: UIViewController, UIScrollViewDelegate {
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         self.view.backgroundColor = UIColor(patternImage: image)
+        
+        showPassword.addTarget(self, action: #selector(showPass(_:)), for: .touchDown)
+        showPassword.addTarget(self, action: #selector(hidePass(_:)), for: .touchUpInside)
+        showConfirmPassword.addTarget(self, action: #selector(showConfirmPass(_:)), for: .touchDown)
+        showConfirmPassword.addTarget(self, action: #selector(hideConfirmPass(_:)), for: .touchUpInside)
+        
+        passwordTextField.addTarget(self, action: #selector(isEmptyField), for: .editingChanged)
+        
+        confirmPasswordTextField.addTarget(self, action: #selector(isEmptyConfirmField), for: .editingChanged)
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -62,6 +76,37 @@ class RegisterViewController: UIViewController, UIScrollViewDelegate {
             scrollView.contentOffset.x = 0
         }
     }
+    
+    
+    @objc func showPass(_ sender: UIButton){
+        passwordTextField.isSecureTextEntry = false
+    }
+    @objc func hidePass(_ sender: UIButton){
+        passwordTextField.isSecureTextEntry = true
+    }
+    @objc func showConfirmPass(_ sender: UIButton){
+        confirmPasswordTextField.isSecureTextEntry = false
+    }
+    @objc func hideConfirmPass(_ sender: UIButton){
+        confirmPasswordTextField.isSecureTextEntry = true
+    }
+    @objc func isEmptyField(_ sender: UITextField){
+        if passwordTextField.text != ""{
+            showPassword.isHidden = false
+        }
+        else{
+            showPassword.isHidden = true
+        }
+    }
+    @objc func isEmptyConfirmField(_ sender: UITextField){
+        if confirmPasswordTextField.text != ""{
+            showConfirmPassword.isHidden = false
+        }
+        else{
+            showConfirmPassword.isHidden = true
+        }
+    }
+    
     
     @IBAction func onReturn() {
         self.emailTextField.resignFirstResponder()

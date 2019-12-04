@@ -22,6 +22,7 @@
     @IBOutlet weak var appTitle: UILabel!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var appLogo: UIImageView!
+    @IBOutlet weak var showPassword: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,10 +49,30 @@
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         self.view.backgroundColor = UIColor(patternImage: image)
+
+        showPassword.addTarget(self, action: #selector(showPass(_:)), for: .touchDown)
+        showPassword.addTarget(self, action: #selector(hidePass(_:)), for: .touchUpInside)
+        
+        passwordTextField.addTarget(self, action: #selector(isEmptyField), for: .allEvents)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         autoLogin()
+    }
+
+    @objc func showPass(_ sender: UIButton){
+        passwordTextField.isSecureTextEntry = false
+    }
+    @objc func hidePass(_ sender: UIButton){
+        passwordTextField.isSecureTextEntry = true
+    }
+    @objc func isEmptyField(_ sender: UITextField){
+        if passwordTextField.text != ""{
+            showPassword.isHidden = false
+        }
+        else{
+            showPassword.isHidden = true
+        }
     }
     
     func autoLogin(){
