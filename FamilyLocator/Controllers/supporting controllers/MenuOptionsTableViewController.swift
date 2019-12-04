@@ -175,7 +175,7 @@ class MenuOptionsTableViewController: UITableViewController {
                             let count = Int(snapshot.childrenCount)
                             print(count)
                             if count < 3{
-                                let alert = UIAlertController(title: "Join Family", message: "Request to join this family is sent", preferredStyle: .alert)
+                                let alert = UIAlertController(title: "Join Family", message: "Request to join this family has been sent", preferredStyle: .alert)
                                 
                                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
                                     self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.

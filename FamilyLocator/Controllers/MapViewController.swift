@@ -116,16 +116,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                         self.markers[index] = marker
                         if element != self.user {
                             marker.appearAnimation = GMSMarkerAnimation.pop
-                            let newView = UIImageView()
-                            newView.frame.size.width = 70
-                            newView.frame.size.height = 70
-                            newView.image = UIImage.resizeImage(image: self.userImages![index], targetSize: CGSize.init(width: 70, height: 70))
-                        
-                            marker.iconView = newView
-                            marker.iconView?.layer.cornerRadius = (marker.iconView?.frame.height)!/2
-                            marker.iconView?.layer.borderWidth = 2
-                            marker.iconView?.clipsToBounds = true
-                            marker.iconView?.layer.borderColor = UIColor.commonGreenColor().cgColor
+                            marker.iconView = self.showIconView(index: index)
                             marker.map = self.mapView   //add marker to map
                         }
                         
@@ -188,7 +179,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             addressInfo = info
         }
         
-        customInfoWindow.userImage.image = (marker.iconView as! UIImageView).image
+        customInfoWindow.userImage.image = userImages?[Int(marker.accessibilityValue!)!]
         customInfoWindow.userName.text = marker.snippet
         customInfoWindow.userNumber = marker.accessibilityLabel
         customInfoWindow.layer.cornerRadius = customInfoWindow.layer.frame.height/4
@@ -219,16 +210,31 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func mapView(_ mapView: GMSMapView, didCloseInfoWindowOf marker: GMSMarker) {
+        let index = Int(marker.accessibilityValue!)!
+        self.polylines.forEach { polyline in
+            polyline.map = nil
+        }
+        
+        marker.icon = nil
+        marker.iconView = showIconView(index: index)
+    }
+    
+    func showIconView(index: Int) -> UIView{
         let newView = UIImageView()
+        let marker = GMSMarker()
+        
         newView.frame.size.width = 70
         newView.frame.size.height = 70
-        newView.image = UIImage.resizeImage(image: self.userImages![Int(marker.accessibilityValue!)!], targetSize: CGSize.init(width: 70, height: 70))
+        
+        newView.image = UIImage.resizeImage(image: self.userImages![index], targetSize: CGSize.init(width: 70, height: 70))
         
         marker.iconView = newView
         marker.iconView?.layer.cornerRadius = (marker.iconView?.frame.height)!/2
-        marker.iconView?.layer.borderWidth = 2
+        marker.iconView?.layer.borderWidth = 4
         marker.iconView?.clipsToBounds = true
         marker.iconView?.layer.borderColor = UIColor.commonGreenColor().cgColor
+        
+        return marker.iconView!
     }
     
     func viewAllUsersButton(buttonSize: CGFloat, yPos: CGFloat, rightMargin: CGFloat, offset: CGFloat) -> CGFloat{
@@ -334,7 +340,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 )
                 
                 if let resp = response{
-                    self.show(polylines: self.googlePolylines(from: resp))
+                    if let currentMarker = self.mapView.selectedMarker{
+                            self.show(polylines: self.googlePolylines(from: resp), currentMarker: currentMarker)
+                    }
                 }
             }
             if error != nil{
@@ -368,26 +376,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         return polylines
     }
     
-    func show(polylines: [GMSPolyline]) {
+    func show(polylines: [GMSPolyline], currentMarker: GMSMarker) {
         self.polylines.forEach { polyline in
             polyline.map = nil
         }
         self.polylines = polylines
-        self.polylines.forEach { polyline in
-            let strokeStyles = [
-                GMSStrokeStyle.solidColor(UIColor.commonGreenColor()),
-                GMSStrokeStyle.solidColor(.clear)
-            ]
-            let strokeLengths = [
-                NSNumber(value: 10),
-                NSNumber(value: 6)
-            ]
-            if let path = polyline.path {
-                polyline.spans = GMSStyleSpans(path, strokeStyles, strokeLengths, .rhumb)
+        if self.mapView.selectedMarker == currentMarker{
+            self.polylines.forEach { polyline in
+                let strokeStyles = [
+                    GMSStrokeStyle.solidColor(UIColor.commonGreenColor()),
+                    GMSStrokeStyle.solidColor(.clear)
+                ]
+                let strokeLengths = [
+                    NSNumber(value: 10),
+                    NSNumber(value: 6)
+                ]
+                if let path = polyline.path {
+                    polyline.spans = GMSStyleSpans(path, strokeStyles, strokeLengths, .rhumb)
+                }
+                polyline.strokeWidth = 3
+                polyline.map = mapView
             }
-            polyline.strokeWidth = 3
-            polyline.map = mapView
         }
-        
     }
 }

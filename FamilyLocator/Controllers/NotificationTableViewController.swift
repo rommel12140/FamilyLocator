@@ -74,11 +74,11 @@ class NotificationTableViewController: UITableViewController {
                     if let code = familyCode.key as? String{
                         self.reference.child("family").child("\(code)").observe( .value, with: { (snapshot) in
                             self.requestFamilyNames.removeAll()
+                            self.requests.removeAll()
+                            self.requestKeys.removeAll()
+                            self.requestFamilyKeys.removeAll()
                             for request in (snapshot.childSnapshot(forPath: "requests").children.allObjects as! [DataSnapshot]){
-                                self.requests.removeAll()
-                                self.requestKeys.removeAll()
-                                self.requestFamilyKeys.removeAll()
-                                if request.value as? String == "pending"{
+//                                if request.value as? String == "pending"{
                                     if let name = snapshot.childSnapshot(forPath: "name").value{
                                         if let requestKey = request.key as? String{
                                             self.reference.child("users").child("\(requestKey)").observe( .value, with: { (snapshot) in
@@ -94,7 +94,7 @@ class NotificationTableViewController: UITableViewController {
                                             }) { print($0) }
                                         }
                                     }
-                                }
+//                                }
                             }
                         })
                     }
@@ -175,6 +175,30 @@ class NotificationTableViewController: UITableViewController {
                 
                 reference.child("notifications").child(self.user as! String).child("invites").child(inviteKeys[indexPath.row]).observe( .value, with: { (snapshot) in
                     if let key = snapshot.value as? String{
+                        if key == "accepted"{
+                            cell.acceptButton.isHidden = false
+                            cell.rejectButton.isHidden = false
+                            cell.isUserInteractionEnabled = true
+                            cell.notificationLabel.text = "You have accepted to join \(self.invites[indexPath.row])"
+                        }
+                        else if key == "rejected"{
+                            cell.acceptButton.isHidden = false
+                            cell.rejectButton.isHidden = false
+                            cell.isUserInteractionEnabled = true
+                            cell.notificationLabel.text = "You have declined to join \(self.invites[indexPath.row])"
+                        }
+                        else{
+                            cell.notificationLabel.textColor = UIColor.black
+                            cell.acceptButton.isHidden = false
+                            cell.rejectButton.isHidden = false
+                            cell.acceptButton.tag = indexPath.row
+                            cell.acceptButton.addTarget(self, action: #selector(self.acceptFamily(_:)), for: .touchUpInside)
+                            
+                            cell.rejectButton.tag = indexPath.row
+                            cell.rejectButton.addTarget(self, action: #selector(self.declineFamily(_:)), for: .touchUpInside)
+                            
+                            cell.notificationLabel.text = "You have been added to \(self.invites[indexPath.row])"
+                        }
                         cell.notificationLabel.textColor = UIColor.black
                         cell.acceptButton.isHidden = false
                         cell.rejectButton.isHidden = false
@@ -209,20 +233,34 @@ class NotificationTableViewController: UITableViewController {
                 cell.isUserInteractionEnabled = true
             reference.child("family").child(requestFamilyKeys[indexPath.row]).child("requests").child(requestKeys[indexPath.row]).observe( .value, with: { (snapshot) in
                     if let key = snapshot.value as? String{
-                        cell.notificationLabel.textColor = UIColor.black
-                        cell.acceptButton.isHidden = false
-                        cell.rejectButton.isHidden = false
-                        cell.acceptButton.tag = indexPath.row
-                        cell.acceptButton.addTarget(self, action: #selector(self.acceptRequest(_:)), for: .touchUpInside)
-                        
-                        cell.rejectButton.tag = indexPath.row
-                        cell.rejectButton.addTarget(self, action: #selector(self.declineRequest(_:)), for: .touchUpInside)
-                        cell.notificationLabel.text = "\(self.requests[indexPath.row]) wants to join to \(self.requestFamilyNames[indexPath.row])"
+                        if key == "accepted"{
+                            cell.acceptButton.isHidden = false
+                            cell.rejectButton.isHidden = false
+                            cell.isUserInteractionEnabled = true
+                            cell.notificationLabel.text = "Request of \(self.requests[indexPath.row]) to join \(self.requestFamilyNames[indexPath.row]) has been rejected"
+                        }
+                        else if key == "rejected"{
+                            cell.acceptButton.isHidden = false
+                            cell.rejectButton.isHidden = false
+                            cell.isUserInteractionEnabled = true
+                            cell.notificationLabel.text = "Request of \(self.requests[indexPath.row]) to join \(self.requestFamilyNames[indexPath.row]) has been rejected"
+                        }
+                        else{
+                            cell.notificationLabel.textColor = UIColor.black
+                            cell.acceptButton.isHidden = false
+                            cell.rejectButton.isHidden = false
+                            cell.acceptButton.tag = indexPath.row
+                            cell.acceptButton.addTarget(self, action: #selector(self.acceptRequest(_:)), for: .touchUpInside)
+                            
+                            cell.rejectButton.tag = indexPath.row
+                            cell.rejectButton.addTarget(self, action: #selector(self.declineRequest(_:)), for: .touchUpInside)
+                            cell.notificationLabel.text = "\(self.requests[indexPath.row]) wants to join to \(self.requestFamilyNames[indexPath.row])"
+                        }
                     }
                     cell.contentView.alpha = 0.8;
                     cell.selectionStyle = UITableViewCell.SelectionStyle.none
                 }) { print($0) }
-            
+
                 return cell
             }
         case 2:

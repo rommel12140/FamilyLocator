@@ -109,9 +109,6 @@ class FamilyOptionsViewController: UIViewController, UITableViewDelegate, UITabl
                         
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
                             self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
-                           
-                            print(accountCode)
-                            print(self.familyCode)
                             self.reference.child("notifications").child(accountCode).child("invites").setValue([self.familyCode as! String: "pending"])
                         
                         }))
@@ -143,6 +140,10 @@ class FamilyOptionsViewController: UIViewController, UITableViewDelegate, UITabl
                 
                 self.reference.child("users").child(self.userCode!).child("families").updateChildValues([self.familyCode! : "deleted"])
                 self.reference.child("family").child(self.familyCode!).child("members").updateChildValues([self.userCode! : "deleted"])
+                
+                let message = "You have left \(self.familyCode!)"
+                
+                self.reference.child("notifications").child(self.userCode!).child("notifications").childByAutoId().setValue(message)
             }))
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [weak alert] (_) in
