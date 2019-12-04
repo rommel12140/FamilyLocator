@@ -11,7 +11,7 @@ import FirebaseDatabase
 
 class NotificationTableViewController: UITableViewController {
     
-
+    
     let reference = Database.database().reference()
     var user: String!
     var invites = Array<String>()
@@ -70,18 +70,18 @@ class NotificationTableViewController: UITableViewController {
             }) { print($0) }
             
             reference.child("users").child("\(user)").child("families").observe( .value, with: { (snapshot) in
+                self.requestFamilyKeys.removeAll()
+                self.requestFamilyNames.removeAll()
+                self.requests.removeAll()
+                self.requestKeys.removeAll()
                 for familyCode in (snapshot.children.allObjects as! [DataSnapshot]){
                     if let code = familyCode.key as? String{
                         self.reference.child("family").child("\(code)").observe( .value, with: { (snapshot) in
-                            self.requestFamilyNames.removeAll()
-                            self.requests.removeAll()
-                            self.requestKeys.removeAll()
-                            self.requestFamilyKeys.removeAll()
                             for request in (snapshot.childSnapshot(forPath: "requests").children.allObjects as! [DataSnapshot]){
-//                                if request.value as? String == "pending"{
+                                if request.value as? String == "pending"{
                                     if let name = snapshot.childSnapshot(forPath: "name").value{
                                         if let requestKey = request.key as? String{
-                                            self.reference.child("users").child("\(requestKey)").observe( .value, with: { (snapshot) in
+                                            self.reference.child("users").child("\(requestKey)").observeSingleEvent(of: .value, with: { (snapshot) in
                                                 if let fName = (snapshot.value as AnyObject) .value(forKey: "firstname") as? String, let lName = (snapshot.value as AnyObject) .value(forKey: "lastname") as? String{
                                                     let fullname = ("\(fName) \(lName)")
                                                     self.requestKeys.append(requestKey)
@@ -94,7 +94,7 @@ class NotificationTableViewController: UITableViewController {
                                             }) { print($0) }
                                         }
                                     }
-//                                }
+                                }
                             }
                         })
                     }
@@ -123,7 +123,7 @@ class NotificationTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         switch section {
@@ -154,7 +154,7 @@ class NotificationTableViewController: UITableViewController {
         
     }
     
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.section {
@@ -173,18 +173,18 @@ class NotificationTableViewController: UITableViewController {
                 cell.rejectButton.isHidden = false
                 cell.isUserInteractionEnabled = true
                 
-                reference.child("notifications").child(self.user as! String).child("invites").child(inviteKeys[indexPath.row]).observe( .value, with: { (snapshot) in
+                reference.child("notifications").child(self.user as! String).child("invites").child(inviteKeys[indexPath.row]).observeSingleEvent(of: .value, with: { (snapshot) in
                     if let key = snapshot.value as? String{
                         if key == "accepted"{
-                            cell.acceptButton.isHidden = false
-                            cell.rejectButton.isHidden = false
-                            cell.isUserInteractionEnabled = true
+                            cell.acceptButton.isHidden = true
+                            cell.rejectButton.isHidden = true
+                            cell.isUserInteractionEnabled = false
                             cell.notificationLabel.text = "You have accepted to join \(self.invites[indexPath.row])"
                         }
                         else if key == "rejected"{
-                            cell.acceptButton.isHidden = false
-                            cell.rejectButton.isHidden = false
-                            cell.isUserInteractionEnabled = true
+                            cell.acceptButton.isHidden = true
+                            cell.rejectButton.isHidden = true
+                            cell.isUserInteractionEnabled = false
                             cell.notificationLabel.text = "You have declined to join \(self.invites[indexPath.row])"
                         }
                         else{
@@ -231,18 +231,18 @@ class NotificationTableViewController: UITableViewController {
                 cell.acceptButton.isHidden = false
                 cell.rejectButton.isHidden = false
                 cell.isUserInteractionEnabled = true
-            reference.child("family").child(requestFamilyKeys[indexPath.row]).child("requests").child(requestKeys[indexPath.row]).observe( .value, with: { (snapshot) in
+                reference.child("family").child(requestFamilyKeys[indexPath.row]).child("requests").child(requestKeys[indexPath.row]).observeSingleEvent(of: .value, with: { (snapshot) in
                     if let key = snapshot.value as? String{
                         if key == "accepted"{
-                            cell.acceptButton.isHidden = false
-                            cell.rejectButton.isHidden = false
-                            cell.isUserInteractionEnabled = true
-                            cell.notificationLabel.text = "Request of \(self.requests[indexPath.row]) to join \(self.requestFamilyNames[indexPath.row]) has been rejected"
+                            cell.acceptButton.isHidden = true
+                            cell.rejectButton.isHidden = true
+                            cell.isUserInteractionEnabled = false
+                            cell.notificationLabel.text = "Request of \(self.requests[indexPath.row]) to join \(self.requestFamilyNames[indexPath.row]) has been accepted"
                         }
                         else if key == "rejected"{
-                            cell.acceptButton.isHidden = false
-                            cell.rejectButton.isHidden = false
-                            cell.isUserInteractionEnabled = true
+                            cell.acceptButton.isHidden = true
+                            cell.rejectButton.isHidden = true
+                            cell.isUserInteractionEnabled = false
                             cell.notificationLabel.text = "Request of \(self.requests[indexPath.row]) to join \(self.requestFamilyNames[indexPath.row]) has been rejected"
                         }
                         else{
@@ -260,7 +260,7 @@ class NotificationTableViewController: UITableViewController {
                     cell.contentView.alpha = 0.8;
                     cell.selectionStyle = UITableViewCell.SelectionStyle.none
                 }) { print($0) }
-
+                
                 return cell
             }
         case 2:
@@ -326,7 +326,7 @@ class NotificationTableViewController: UITableViewController {
                 }
             })
             
-           
+            
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
@@ -363,21 +363,21 @@ class NotificationTableViewController: UITableViewController {
         //alert with error
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
             self.reference.child("family").child(self.requestFamilyKeys[sender.tag]).child("requests").updateChildValues([self.requestKeys[sender.tag] : "accepted"])
-//            self.reference.child("family").child(self.requestFamilyKeys[sender.tag]).child("requests").child(self.requestKeys[sender.tag]).removeValue()
+            //            self.reference.child("family").child(self.requestFamilyKeys[sender.tag]).child("requests").child(self.requestKeys[sender.tag]).removeValue()
             
             
             let message = "Request of \(self.requests[sender.tag]) to join \(self.requestFamilyNames[sender.tag]) has been accepted"
-           
+            
             self.reference.child("notifications").child(self.user!).child("notifications").childByAutoId().setValue(message)
             
             let message2 = "Your request to join \(self.requestFamilyNames[sender.tag]) has been accepted"
             
             self.reference.child("notifications").child(self.requestKeys[sender.tag]).child("notifications").childByAutoId().setValue(message2)
-           
+            
             //add to members
             self.reference.child("users").child(self.requestKeys[sender.tag]).child("families").updateChildValues([self.requestFamilyKeys[sender.tag] : "joined"])
             self.reference.child("family").child(self.requestFamilyKeys[sender.tag]).child("members").updateChildValues([self.requestKeys[sender.tag] : "joined"])
-
+            
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
@@ -390,17 +390,17 @@ class NotificationTableViewController: UITableViewController {
                                       preferredStyle: .alert)
         
         //alert with error
-       alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-        self.reference.child("family").child(self.inviteKeys[sender.tag]).child("requests").updateChildValues([self.requestKeys[sender.tag] : "rejected"])
-//        self.reference.child("family").child(self.requestFamilyKeys[sender.tag]).child("requests").child(self.requestKeys[sender.tag]).removeValue()
-        
-        let message = "Request of \(self.requests[sender.tag]) to join \(self.requestFamilyKeys[sender.tag]) has been rejected"
-       
-        self.reference.child("notifications").child(self.user!).child("notifications").childByAutoId().setValue(message)
-        
-        let message2 = "Your request to join \(self.requestFamilyNames[sender.tag]) has been rejected"
-        
-        self.reference.child("notifications").child(self.requestKeys[sender.tag]).child("notifications").childByAutoId().setValue(message2)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            self.reference.child("family").child(self.inviteKeys[sender.tag]).child("requests").updateChildValues([self.requestKeys[sender.tag] : "rejected"])
+            //        self.reference.child("family").child(self.requestFamilyKeys[sender.tag]).child("requests").child(self.requestKeys[sender.tag]).removeValue()
+            
+            let message = "Request of \(self.requests[sender.tag]) to join \(self.requestFamilyKeys[sender.tag]) has been rejected"
+            
+            self.reference.child("notifications").child(self.user!).child("notifications").childByAutoId().setValue(message)
+            
+            let message2 = "Your request to join \(self.requestFamilyNames[sender.tag]) has been rejected"
+            
+            self.reference.child("notifications").child(self.requestKeys[sender.tag]).child("notifications").childByAutoId().setValue(message2)
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))

@@ -31,6 +31,7 @@
 		C9B13B7D238526E900169223 /* UserSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B13B7C238526E900169223 /* UserSelectionTableViewController.swift */; };
 		C9C3A84A2383C200003FFB03 /* HeaderXIB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C3A8492383C200003FFB03 /* HeaderXIB.swift */; };
 		C9C3A84C2383C22D003FFB03 /* headerxib.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9C3A84B2383C22D003FFB03 /* headerxib.xib */; };
+		C9C4811B239763A900665C95 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4811A239763A900665C95 /* EmptyTableViewCell.swift */; };
 		C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */; };
 		C9C500AE237A627900A13953 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500AD237A627900A13953 /* MapViewController.swift */; };
 		C9CAEBD9238E3D1A002FF88B /* NotificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CAEBD8238E3D1A002FF88B /* NotificationTableViewController.swift */; };
@@ -76,6 +77,7 @@
 		C9B13B7C238526E900169223 /* UserSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSelectionTableViewController.swift; sourceTree = "<group>"; };
 		C9C3A8492383C200003FFB03 /* HeaderXIB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderXIB.swift; sourceTree = "<group>"; };
 		C9C3A84B2383C22D003FFB03 /* headerxib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = headerxib.xib; sourceTree = "<group>"; };
+		C9C4811A239763A900665C95 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
 		C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C9C500AD237A627900A13953 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C9C500B8237A85A900A13953 /* FamilyLocator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FamilyLocator.entitlements; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				C91BC2D823824CC200988A95 /* MemberTableViewCell.swift */,
 				C9AED00523863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift */,
 				C9CDA0132387DA9D0026C7EF /* MenuOptionsTableViewCell.swift */,
+				C9C4811A239763A900665C95 /* EmptyTableViewCell.swift */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 			files = (
 				C9CAEBD9238E3D1A002FF88B /* NotificationTableViewController.swift in Sources */,
 				C9B13B65238504E400169223 /* AuthButton.swift in Sources */,
+				C9C4811B239763A900665C95 /* EmptyTableViewCell.swift in Sources */,
 				C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */,
 				C9B13B66238504E400169223 /* CommonGreenColor.swift in Sources */,
 				C9CDA0142387DA9D0026C7EF /* MenuOptionsTableViewCell.swift in Sources */,

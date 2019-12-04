@@ -40,7 +40,7 @@
         signupButton.backgroundColor = UIColor.commonGreenColor()
         signupButton.setTitleColor(.white, for: UIControl.State.normal)
         loginButton.setTitleColor(UIColor.commonGreenColor(), for: UIControl.State.normal)
-        emailTextField.text = "rommer@yahoo.com"
+        emailTextField.text = "rommelngallofin@yahoo.com"
         passwordTextField.text = "123456"
         
         UIGraphicsBeginImageContext(self.view.frame.size)
