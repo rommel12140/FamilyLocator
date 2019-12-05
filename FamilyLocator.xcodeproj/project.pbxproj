@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3628DACE04F72A659AEA445D /* Pods_FamilyLocator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 609F5FC83FFE37AC968B2A31 /* Pods_FamilyLocator.framework */; };
-		7E041861238436BF00F36F87 /* testViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E041860238436BF00F36F87 /* testViewController.swift */; };
 		C91BC2D923824CC200988A95 /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BC2D823824CC200988A95 /* MemberTableViewCell.swift */; };
 		C9917F59238FDFCA005F68B0 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9917F58238FDFCA005F68B0 /* RequestCell.swift */; };
 		C9AEAD20237904750042E476 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AEAD1F237904750042E476 /* AppDelegate.swift */; };
@@ -17,7 +16,6 @@
 		C9AEAD27237904780042E476 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9AEAD26237904780042E476 /* Assets.xcassets */; };
 		C9AEAD2A237904780042E476 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9AEAD28237904780042E476 /* LaunchScreen.storyboard */; };
 		C9AEAD3223790CD30042E476 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9AEAD3123790CD30042E476 /* GoogleService-Info.plist */; };
-		C9AED00423863954007FDFF3 /* FamilyOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AED00323863954007FDFF3 /* FamilyOptionsViewController.swift */; };
 		C9AED00623863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AED00523863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift */; };
 		C9AED00C2386857B007FDFF3 /* stickyheaderxib.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9AED00B2386857B007FDFF3 /* stickyheaderxib.xib */; };
 		C9AED00E23868612007FDFF3 /* StickyHeaderXIB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AED00D23868612007FDFF3 /* StickyHeaderXIB.swift */; };
@@ -27,13 +25,13 @@
 		C9B13B66238504E400169223 /* CommonGreenColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B13B62238504E400169223 /* CommonGreenColor.swift */; };
 		C9B13B792385082100169223 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B13B762385082000169223 /* Map.storyboard */; };
 		C9B13B7A2385082100169223 /* UserSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B13B772385082100169223 /* UserSelection.storyboard */; };
-		C9B13B7B2385082100169223 /* temporary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B13B782385082100169223 /* temporary.storyboard */; };
 		C9B13B7D238526E900169223 /* UserSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B13B7C238526E900169223 /* UserSelectionTableViewController.swift */; };
 		C9C3A84A2383C200003FFB03 /* HeaderXIB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C3A8492383C200003FFB03 /* HeaderXIB.swift */; };
 		C9C3A84C2383C22D003FFB03 /* headerxib.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9C3A84B2383C22D003FFB03 /* headerxib.xib */; };
 		C9C4811B239763A900665C95 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4811A239763A900665C95 /* EmptyTableViewCell.swift */; };
 		C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */; };
 		C9C500AE237A627900A13953 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C500AD237A627900A13953 /* MapViewController.swift */; };
+		C9C7121D2398A56800157B46 /* FamilyOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C7121C2398A56800157B46 /* FamilyOptionsTableViewController.swift */; };
 		C9CAEBD9238E3D1A002FF88B /* NotificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CAEBD8238E3D1A002FF88B /* NotificationTableViewController.swift */; };
 		C9CAEBDB238E3D24002FF88B /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9CAEBDA238E3D24002FF88B /* Notification.storyboard */; };
 		C9CDA00D2387B14F0026C7EF /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CDA00C2387B14F0026C7EF /* BlurView.swift */; };
@@ -52,7 +50,6 @@
 		36AB2E8E2B7883FC6F04AA45 /* Pods-FamilyLocator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyLocator.release.xcconfig"; path = "Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator.release.xcconfig"; sourceTree = "<group>"; };
 		3FBA0A19DBCAFC42060F685F /* Pods-FamilyLocator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyLocator.debug.xcconfig"; path = "Target Support Files/Pods-FamilyLocator/Pods-FamilyLocator.debug.xcconfig"; sourceTree = "<group>"; };
 		609F5FC83FFE37AC968B2A31 /* Pods_FamilyLocator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FamilyLocator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E041860238436BF00F36F87 /* testViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testViewController.swift; sourceTree = "<group>"; };
 		C91BC2D823824CC200988A95 /* MemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
 		C9917F58238FDFCA005F68B0 /* RequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
 		C9AEAD1C237904750042E476 /* FamilyLocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamilyLocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,7 +60,6 @@
 		C9AEAD29237904780042E476 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9AEAD2B237904780042E476 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9AEAD3123790CD30042E476 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C9AED00323863954007FDFF3 /* FamilyOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyOptionsViewController.swift; sourceTree = "<group>"; };
 		C9AED00523863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyOptionsTableViewCell.swift; sourceTree = "<group>"; };
 		C9AED00B2386857B007FDFF3 /* stickyheaderxib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = stickyheaderxib.xib; sourceTree = "<group>"; };
 		C9AED00D23868612007FDFF3 /* StickyHeaderXIB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyHeaderXIB.swift; sourceTree = "<group>"; };
@@ -73,7 +69,6 @@
 		C9B13B62238504E400169223 /* CommonGreenColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonGreenColor.swift; sourceTree = "<group>"; };
 		C9B13B762385082000169223 /* Map.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		C9B13B772385082100169223 /* UserSelection.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserSelection.storyboard; sourceTree = "<group>"; };
-		C9B13B782385082100169223 /* temporary.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = temporary.storyboard; sourceTree = "<group>"; };
 		C9B13B7C238526E900169223 /* UserSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSelectionTableViewController.swift; sourceTree = "<group>"; };
 		C9C3A8492383C200003FFB03 /* HeaderXIB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderXIB.swift; sourceTree = "<group>"; };
 		C9C3A84B2383C22D003FFB03 /* headerxib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = headerxib.xib; sourceTree = "<group>"; };
@@ -81,6 +76,30 @@
 		C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C9C500AD237A627900A13953 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C9C500B8237A85A900A13953 /* FamilyLocator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FamilyLocator.entitlements; sourceTree = "<group>"; };
+		C9C7121C2398A56800157B46 /* FamilyOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyOptionsTableViewController.swift; sourceTree = "<group>"; };
+		C9C712412398B43E00157B46 /* SFUIText-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Semibold.otf"; sourceTree = "<group>"; };
+		C9C712422398B43E00157B46 /* SFUIText-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Bold.otf"; sourceTree = "<group>"; };
+		C9C712432398B43E00157B46 /* SFUIText-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Light.otf"; sourceTree = "<group>"; };
+		C9C712442398B43E00157B46 /* SFUIText-BoldG1.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-BoldG1.otf"; sourceTree = "<group>"; };
+		C9C712452398B43F00157B46 /* SFUIText-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-MediumItalic.otf"; sourceTree = "<group>"; };
+		C9C712462398B43F00157B46 /* SFUIText-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-HeavyItalic.otf"; sourceTree = "<group>"; };
+		C9C712472398B43F00157B46 /* SFUIText-ItalicG3.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-ItalicG3.otf"; sourceTree = "<group>"; };
+		C9C712482398B43F00157B46 /* SFUIText-BoldItalicG2.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-BoldItalicG2.otf"; sourceTree = "<group>"; };
+		C9C712492398B43F00157B46 /* SFUIText-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-LightItalic.otf"; sourceTree = "<group>"; };
+		C9C7124A2398B43F00157B46 /* SFUIText-BoldG2.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-BoldG2.otf"; sourceTree = "<group>"; };
+		C9C7124B2398B43F00157B46 /* SFUIText-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Regular.otf"; sourceTree = "<group>"; };
+		C9C7124C2398B43F00157B46 /* SFUIText-ItalicG1.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-ItalicG1.otf"; sourceTree = "<group>"; };
+		C9C7124D2398B44000157B46 /* SFUIText-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Heavy.otf"; sourceTree = "<group>"; };
+		C9C7124E2398B44000157B46 /* SFUIText-RegularG3.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-RegularG3.otf"; sourceTree = "<group>"; };
+		C9C7124F2398B44000157B46 /* SFUIText-SemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-SemiboldItalic.otf"; sourceTree = "<group>"; };
+		C9C712502398B44000157B46 /* SFUIText-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Italic.otf"; sourceTree = "<group>"; };
+		C9C712512398B44000157B46 /* SFUIText-BoldG3.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-BoldG3.otf"; sourceTree = "<group>"; };
+		C9C712522398B44000157B46 /* SFUIText-RegularG1.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-RegularG1.otf"; sourceTree = "<group>"; };
+		C9C712532398B44000157B46 /* SFUIText-RegularG2.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-RegularG2.otf"; sourceTree = "<group>"; };
+		C9C712542398B44000157B46 /* SFUIText-BoldItalicG3.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-BoldItalicG3.otf"; sourceTree = "<group>"; };
+		C9C712552398B44100157B46 /* SFUIText-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Medium.otf"; sourceTree = "<group>"; };
+		C9C712562398B44100157B46 /* SFUIText-BoldItalicG1.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-BoldItalicG1.otf"; sourceTree = "<group>"; };
+		C9C712572398B44100157B46 /* SFUIText-ItalicG2.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-ItalicG2.otf"; sourceTree = "<group>"; };
 		C9CAEBD8238E3D1A002FF88B /* NotificationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTableViewController.swift; sourceTree = "<group>"; };
 		C9CAEBDA238E3D24002FF88B /* Notification.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
 		C9CDA00C2387B14F0026C7EF /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
@@ -145,6 +164,7 @@
 		C9AEAD1E237904750042E476 /* FamilyLocator */ = {
 			isa = PBXGroup;
 			children = (
+				C9C7121E2398AC4E00157B46 /* Fonts */,
 				C9B13B5C238504E400169223 /* API */,
 				C9C500B8237A85A900A13953 /* FamilyLocator.entitlements */,
 				C9AEAD352379530F0042E476 /* Assets */,
@@ -164,7 +184,6 @@
 				C9AEAD21237904750042E476 /* LoginViewController.swift */,
 				C9C500A8237A4F4B00A13953 /* RegisterViewController.swift */,
 				C9C500AD237A627900A13953 /* MapViewController.swift */,
-				7E041860238436BF00F36F87 /* testViewController.swift */,
 				C9B13B7C238526E900169223 /* UserSelectionTableViewController.swift */,
 				C9CAEBD8238E3D1A002FF88B /* NotificationTableViewController.swift */,
 			);
@@ -174,7 +193,6 @@
 		C9AEAD34237952EA0042E476 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				C9B13B782385082100169223 /* temporary.storyboard */,
 				C9B13B762385082000169223 /* Map.storyboard */,
 				C9B13B772385082100169223 /* UserSelection.storyboard */,
 				C9AEAD23237904750042E476 /* Main.storyboard */,
@@ -249,10 +267,40 @@
 			isa = PBXGroup;
 			children = (
 				C9CDA0122387DA810026C7EF /* cells */,
-				C9AED00323863954007FDFF3 /* FamilyOptionsViewController.swift */,
 				C9CDA0102387DA130026C7EF /* MenuOptionsTableViewController.swift */,
+				C9C7121C2398A56800157B46 /* FamilyOptionsTableViewController.swift */,
 			);
 			path = "supporting controllers";
+			sourceTree = "<group>";
+		};
+		C9C7121E2398AC4E00157B46 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C9C712422398B43E00157B46 /* SFUIText-Bold.otf */,
+				C9C712442398B43E00157B46 /* SFUIText-BoldG1.otf */,
+				C9C7124A2398B43F00157B46 /* SFUIText-BoldG2.otf */,
+				C9C712512398B44000157B46 /* SFUIText-BoldG3.otf */,
+				C9C712562398B44100157B46 /* SFUIText-BoldItalicG1.otf */,
+				C9C712482398B43F00157B46 /* SFUIText-BoldItalicG2.otf */,
+				C9C712542398B44000157B46 /* SFUIText-BoldItalicG3.otf */,
+				C9C7124D2398B44000157B46 /* SFUIText-Heavy.otf */,
+				C9C712462398B43F00157B46 /* SFUIText-HeavyItalic.otf */,
+				C9C712502398B44000157B46 /* SFUIText-Italic.otf */,
+				C9C7124C2398B43F00157B46 /* SFUIText-ItalicG1.otf */,
+				C9C712572398B44100157B46 /* SFUIText-ItalicG2.otf */,
+				C9C712472398B43F00157B46 /* SFUIText-ItalicG3.otf */,
+				C9C712432398B43E00157B46 /* SFUIText-Light.otf */,
+				C9C712492398B43F00157B46 /* SFUIText-LightItalic.otf */,
+				C9C712552398B44100157B46 /* SFUIText-Medium.otf */,
+				C9C712452398B43F00157B46 /* SFUIText-MediumItalic.otf */,
+				C9C7124B2398B43F00157B46 /* SFUIText-Regular.otf */,
+				C9C712522398B44000157B46 /* SFUIText-RegularG1.otf */,
+				C9C712532398B44000157B46 /* SFUIText-RegularG2.otf */,
+				C9C7124E2398B44000157B46 /* SFUIText-RegularG3.otf */,
+				C9C712412398B43E00157B46 /* SFUIText-Semibold.otf */,
+				C9C7124F2398B44000157B46 /* SFUIText-SemiboldItalic.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		C9CDA0122387DA810026C7EF /* cells */ = {
@@ -343,7 +391,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9B13B7B2385082100169223 /* temporary.storyboard in Resources */,
 				C9AEAD2A237904780042E476 /* LaunchScreen.storyboard in Resources */,
 				C9B13B7A2385082100169223 /* UserSelection.storyboard in Resources */,
 				C9AEAD3223790CD30042E476 /* GoogleService-Info.plist in Resources */,
@@ -430,15 +477,14 @@
 				C9B13B66238504E400169223 /* CommonGreenColor.swift in Sources */,
 				C9CDA0142387DA9D0026C7EF /* MenuOptionsTableViewCell.swift in Sources */,
 				C9AEAD22237904750042E476 /* LoginViewController.swift in Sources */,
-				7E041861238436BF00F36F87 /* testViewController.swift in Sources */,
 				C91BC2D923824CC200988A95 /* MemberTableViewCell.swift in Sources */,
 				C9DC24E0238B6EDA0062B915 /* InvitationCell.swift in Sources */,
 				C9DC24E1238B6EDA0062B915 /* NotificationCell.swift in Sources */,
 				C9CDA0112387DA130026C7EF /* MenuOptionsTableViewController.swift in Sources */,
 				C9AED00623863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift in Sources */,
 				C9B13B7D238526E900169223 /* UserSelectionTableViewController.swift in Sources */,
+				C9C7121D2398A56800157B46 /* FamilyOptionsTableViewController.swift in Sources */,
 				C9DC24EC238B6F340062B915 /* KeyboardDismiss.swift in Sources */,
-				C9AED00423863954007FDFF3 /* FamilyOptionsViewController.swift in Sources */,
 				C9CDA00D2387B14F0026C7EF /* BlurView.swift in Sources */,
 				C9AED00E23868612007FDFF3 /* StickyHeaderXIB.swift in Sources */,
 				C9DC24ED238B6F340062B915 /* ProgressHUD.swift in Sources */,

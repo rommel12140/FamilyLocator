@@ -1,8 +1,8 @@
 //
-//  FamilyOptionsViewController.swift
+//  FamilyOptionsTableViewController.swift
 //  FamilyLocator
 //
-//  Created by Action Trainee on 21/11/2019.
+//  Created by Action Trainee on 05/12/2019.
 //  Copyright © 2019 Action Trainee. All rights reserved.
 //
 
@@ -11,9 +11,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import MaterialComponents.MaterialBottomSheet
 
-class FamilyOptionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    @IBOutlet weak var tableView: UITableView!
+class FamilyOptionsTableViewController: UITableViewController {
     
     let optionList:NSArray = ["Add Member", "Remove Members", "Leave Family"]
     let reference = Database.database().reference()
@@ -28,7 +26,7 @@ class FamilyOptionsViewController: UIViewController, UITableViewDelegate, UITabl
         
         tableView.tableFooterView = UIView()
         getAccounts()
-
+        
     }
     
     func getAccounts() {
@@ -46,11 +44,11 @@ class FamilyOptionsViewController: UIViewController, UITableViewDelegate, UITabl
         })
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return optionList.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FamilyOptionsTableViewCell
         
         cell.options.text = (optionList.object(at: indexPath.row) as! String)
@@ -58,11 +56,11 @@ class FamilyOptionsViewController: UIViewController, UITableViewDelegate, UITabl
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
             print("add member")
@@ -101,7 +99,7 @@ class FamilyOptionsViewController: UIViewController, UITableViewDelegate, UITabl
                         if let status = (snapshot.value as AnyObject).value(forKey: self.familyCode) as? String{
                             if status == "pending"{
                                 let alert = UIAlertController(title: "User Already Invited", message: "Account is already invited in the family", preferredStyle: .alert)
-
+                                
                                 alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { [weak alert] (_) in
                                     self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
                                 }))
@@ -205,13 +203,13 @@ class FamilyOptionsViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
 
 }

@@ -89,8 +89,8 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     
     func setupHeader() {
         
-        profileImage.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor)
-        profileImage.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
+//        profileImage.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor)
+//        profileImage.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
         
         profileImage.layer.cornerRadius = profileImage.frame.height/2
         changeProfilePictureButton.layer.cornerRadius = changeProfilePictureButton.frame.height/2
@@ -292,7 +292,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "menuOptions") as! MenuOptionsTableViewController
         viewController.user = user
         let bottomSheet: MDCBottomSheetController = MDCBottomSheetController(contentViewController: viewController)
-        bottomSheet.preferredContentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height/4)
+        bottomSheet.preferredContentSize = CGSize(width: self.view.frame.width, height: 60*4)
         // Present the bottom sheet
         present(bottomSheet, animated: true, completion: nil)
     }
@@ -359,13 +359,11 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         
     }
     
-    @objc func presentBottomSheet( _sender: UIButton) {
-        // Initialize the bottom sheet with the view controller just created
-        let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "familyOptions") as! FamilyOptionsViewController
+    @objc func presentBottomSheet(_ sender: Any) {
+        let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "familyOptions") as! FamilyOptionsTableViewController
         let bottomSheet: MDCBottomSheetController = MDCBottomSheetController(contentViewController: viewController)
-        viewController.familyCode = familyCodes[_sender.tag]
         viewController.userCode = self.user
-        bottomSheet.preferredContentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height/4)
+        bottomSheet.preferredContentSize = CGSize(width: self.view.frame.width, height: 60*3)
         // Present the bottom sheet
         present(bottomSheet, animated: true, completion: nil)
     }
