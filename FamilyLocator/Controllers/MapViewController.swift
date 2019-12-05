@@ -81,11 +81,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         //update current user location
         self.userLocation = (manager.location)!
         self.reference.child("location").child(user as! String).setValue(["longitude": userLocation.coordinate.longitude,"latitude":userLocation.coordinate.latitude])
-        if self.isInit == false{
-            self.mapView.animate(to: GMSCameraPosition(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 17))
-            self.isInit = true
-        }
-        
     }
     
     func listenToUserLocation(){
@@ -99,14 +94,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             if element == user{
                 userIndex = index
             }
-            
-            //add all markers (for fitting to bounds/map)
-            //get user name
-            var name: String?
-            reference.child("users").child("\(element)").observe(.value, with: { (snapshot) in
-                //set name
-                name = (snapshot.value as AnyObject).value(forKey: "firstname") as? String
-            }) { print($0) }
             
             //listen for location (longitude and latitude)
             reference.child("location").child("\(element)").observe(.value, with: { (snapshot) in
@@ -123,7 +110,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                             marker.map = self.mapView   //add marker to map
                         }
                         
-                        marker.snippet = name
+                        marker.snippet = self.userFirstNames[index]
                         marker.accessibilityLabel = "\(element)"
                         marker.accessibilityValue = "\(index)"
                     }
@@ -151,10 +138,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     if self.mapView.selectedMarker == marker, self.isRouting == false{
                         self.mapView.animate(to: GMSCameraPosition(latitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17))
                     }
-                    
                 }
+                
             }) { print($0) }
         }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        self.viewAll()
     }
     
     func createButtons(){

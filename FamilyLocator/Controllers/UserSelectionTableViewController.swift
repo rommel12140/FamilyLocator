@@ -98,7 +98,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     
     func displayUserData(){
         if let user = user{
-            reference.child("users").child("\(user)" ).observeSingleEvent(of: .value, with: { (snapshot) in
+            self.reference.child("users").child("\(user)" ).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let firstname = (snapshot.value as AnyObject).value(forKey: "firstname") as? String, let lastname = (snapshot.value as AnyObject).value(forKey: "lastname") as? String{
                     self.firstName = firstname
                     self.lastName = lastname
@@ -110,31 +110,34 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                 self.tableView.reloadData()
                 
             })
-            reference.child("users").child("\(user)/imageUrl" ).observe(.value, with: { (snapshot) in
-                // Get download URL from snapshot
-                if let downloadUrl = snapshot.value as? String{
-                    // Create a storage reference from the URL
-                    let imageStorage = self.storageRef.reference(forURL: downloadUrl)
-                    // Download the data, assuming a max size of 1MB (you can change this as necessary)
-                    imageStorage.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
-                        if error == nil{
-                            // Create a UIImage, add it to the array
-                            self.profileImage.contentMode = .scaleAspectFill
-                            self.profileImage.image = UIImage(data: data!)
-                        }
-                        else{
-                            let alert = UIAlertController(title: "Upload Failed",
-                                                          message: "File too big.",
-                                                          preferredStyle: .alert)
+            self.reference.child("users").child("\(user)/buffer" ).observe(.value, with: { (snapshot) in
+                self.reference.child("users").child("\(user)/imageUrl" ).observeSingleEvent(of: .value, with: { (snapshot) in
+                    // Get download URL from snapshot
+                    if let downloadUrl = snapshot.value as? String{
+                        // Create a storage reference from the URL
+                        let imageStorage = self.storageRef.reference(forURL: downloadUrl)
+                        // Download the data, assuming a max size of 1MB (you can change this as necessary)
+                        imageStorage.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
+                            if error == nil{
+                                // Create a UIImage, add it to the array
+                                self.profileImage.contentMode = .scaleAspectFill
+                                self.profileImage.image = UIImage(data: data!)
+                            }
+                            else{
+                                let alert = UIAlertController(title: "Upload Failed",
+                                                              message: "File too big.",
+                                                              preferredStyle: .alert)
+                                
+                                //alert with error
+                                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                                self.present(alert, animated: true, completion: nil)
+                            }
                             
-                            //alert with error
-                            alert.addAction(UIAlertAction(title: "OK", style: .default))
-                            self.present(alert, animated: true, completion: nil)
                         }
-                        
                     }
-                }
-                self.tableView.reloadData()
+                    self.tableView.reloadData()
+                    
+                })
                 
             })
         }
@@ -143,12 +146,6 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     func getFamilyCode(){
         if let currentUser = user{
             reference.child("users").child("\(currentUser)").child("families").observe( .value, with: { (snapshot) in
-                //set name
-                if self.familyRef.count != 0{
-                    for index in 0..<self.familyRef.count-1{
-                        self.familyRef[index].removeAllObservers()
-                    }
-                }
                 
                 self.familyRef.removeAll()
                 self.families.removeAll()
@@ -165,6 +162,13 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                             self.familyRef[section].observe( .value, with: { (snapshot) in
                                 print(self.families.count)
                                 print(section)
+                                if self.families.count-1 < section{
+                                    if self.familyRef.count != 0{
+                                        for index in 0..<self.familyRef.count-1{
+                                            self.familyRef[index].removeAllObservers()
+                                        }
+                                    }
+                                }
                                 if self.families.count-1 >= section{
                                     self.families[section] = []
                                     self.familyCodes[section] = ""
@@ -218,26 +222,28 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                                                         }
                                                     }
                                                 }) { print($0) }
-                                                self.reference.child("users").child("\(member)").child("imageUrl").observe( .value, with: { (snapshot) in
-                                                    // Get download URL from snapshot
-                                                    if let downloadUrl = snapshot.value as? String{
-                                                        // Create a storage reference from the URL
-                                                        let imageStorage = self.storageRef.reference(forURL: downloadUrl)
-                                                        // Download the data, assuming a max size of 1MB (you can change this as necessary)
-                                                        imageStorage.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
-                                                            if error == nil{
-                                                                // Create a UIImage, add it to the array
-                                                                if self.families.count-1 >= section{
-                                                                    if self.families[section].count-1 >= index{
-                                                                        self.families[section][index].image = UIImage(data: data!)!
+                                                self.reference.child("users").child("\(member)").child("buffer").observe( .value, with: { (snapshot) in
+                                                    self.reference.child("users").child("\(member)").child("imageUrl").observeSingleEvent(of: .value, with: { (snapshot) in
+                                                        // Get download URL from snapshot
+                                                        if let downloadUrl = snapshot.value as? String{
+                                                            // Create a storage reference from the URL
+                                                            let imageStorage = self.storageRef.reference(forURL: downloadUrl)
+                                                            // Download the data, assuming a max size of 1MB (you can change this as necessary)
+                                                            imageStorage.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
+                                                                if error == nil{
+                                                                    // Create a UIImage, add it to the array
+                                                                    if self.families.count-1 >= section{
+                                                                        if self.families[section].count-1 >= index{
+                                                                            self.families[section][index].image = UIImage(data: data!)!
+                                                                        }
+                                                                        self.tableView.reloadData()
                                                                     }
-                                                                    self.tableView.reloadData()
                                                                 }
+                                                                
                                                             }
-                                                            
                                                         }
-                                                    }
-                                                    
+                                                        
+                                                    })
                                                 })
                                             }
                                         }
@@ -310,6 +316,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        self.profileImage.image = UIImage(named: "user-placeholder")
         if let userCode = user {
             if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 let imageStorage = storageRef.reference().child("userImages/\(userCode)")

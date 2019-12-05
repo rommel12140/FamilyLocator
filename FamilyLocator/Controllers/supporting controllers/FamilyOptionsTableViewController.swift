@@ -95,7 +95,6 @@ class FamilyOptionsTableViewController: UITableViewController {
                         }
                     }
                     self.reference.child("notifications/\(accountCode)/invites").observeSingleEvent(of: .value, with: { (snapshot) in
-                        print(self.familyCode)
                         if let status = (snapshot.value as AnyObject).value(forKey: self.familyCode) as? String{
                             if status == "pending"{
                                 let alert = UIAlertController(title: "User Already Invited", message: "Account is already invited in the family", preferredStyle: .alert)
@@ -105,28 +104,18 @@ class FamilyOptionsTableViewController: UITableViewController {
                                 }))
                                 self.present(alert, animated: true, completion: nil)
                             }
-                        }
-                        else{
-                            self.reference.child("users/\(accountCode)/families").observeSingleEvent(of: .value, with: { (snapshot) in
-                                for key in snapshot.children.allObjects{
-                                    if let code = key as? DataSnapshot {
-                                        if let family = code.key as? String{
-                                            families.append(family)
-                                            
+                            else{
+                                self.reference.child("users/\(accountCode)/families").observeSingleEvent(of: .value, with: { (snapshot) in
+                                    for key in snapshot.children.allObjects{
+                                        if let code = key as? DataSnapshot {
+                                            if let family = code.key as? String{
+                                                families.append(family)
+                                                
+                                            }
                                         }
                                     }
-                                }
-                                if families.contains(self.familyCode){
-                                    let alert = UIAlertController(title: "User Already Exists", message: "Account already exists in the family", preferredStyle: .alert)
-                                    
-                                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { [weak alert] (_) in
-                                        self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
-                                    }))
-                                    self.present(alert, animated: true, completion: nil)
-                                }
-                                else{
-                                    if self.memberExist == false{
-                                        let alert = UIAlertController(title: "Add Member", message: "Account does not exist", preferredStyle: .alert)
+                                    if families.contains(self.familyCode){
+                                        let alert = UIAlertController(title: "User Already Exists", message: "Account already exists in the family", preferredStyle: .alert)
                                         
                                         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { [weak alert] (_) in
                                             self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
@@ -134,31 +123,42 @@ class FamilyOptionsTableViewController: UITableViewController {
                                         self.present(alert, animated: true, completion: nil)
                                     }
                                     else{
-                                        let alert = UIAlertController(title: "Add Member", message: "Invitation has been sent to the user", preferredStyle: .alert)
-                                        
-                                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-                                            self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
+                                        if self.memberExist == false{
+                                            let alert = UIAlertController(title: "Add Member", message: "Account does not exist", preferredStyle: .alert)
                                             
-                                            let ref = self.reference.child("notifications").child(accountCode).child("invites")
+                                            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { [weak alert] (_) in
+                                                self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
+                                            }))
+                                            self.present(alert, animated: true, completion: nil)
+                                        }
+                                        else{
+                                            let alert = UIAlertController(title: "Add Member", message: "Invitation has been sent to the user", preferredStyle: .alert)
                                             
-                                            ref.observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
-                                                let count = Int(snapshot.childrenCount)
+                                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+                                                self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
                                                 
-                                                if count > 0{
-                                                    self.reference.child("notifications").child(accountCode).child("invites").updateChildValues([self.familyCode!: "pending"])
-                                                }
-                                                else{
-                                                    self.reference.child("notifications").child(accountCode).child("invites").setValue([self.familyCode!: "pending"])
-                                                }
+                                                let ref = self.reference.child("notifications").child(accountCode).child("invites")
                                                 
-                                            })
-                                        }))
-                                        self.present(alert, animated: true, completion: nil)
+                                                ref.observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
+                                                    let count = Int(snapshot.childrenCount)
+                                                    
+                                                    if count > 0{
+                                                        self.reference.child("notifications").child(accountCode).child("invites").updateChildValues([self.familyCode!: "pending"])
+                                                    }
+                                                    else{
+                                                        self.reference.child("notifications").child(accountCode).child("invites").setValue([self.familyCode!: "pending"])
+                                                    }
+                                                    
+                                                })
+                                            }))
+                                            self.present(alert, animated: true, completion: nil)
+                                        }
                                     }
-                                }
-                                
-                            })
+                                    
+                                })
+                            }
                         }
+                        
                     })
                     
                 }
