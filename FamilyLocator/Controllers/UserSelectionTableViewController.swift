@@ -352,7 +352,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
             header.backgroundColor = UIColor(cgColor: #colorLiteral(red: 0.6963852048, green: 0.8679255843, blue: 0.8520774245, alpha: 1))
             
             header.familyOptions.tag = section
-            header.familyOptions.addTarget(self, action: #selector(UserSelectionTableViewController.presentBottomSheet), for: .touchUpInside)
+            header.familyOptions.addTarget(self, action: #selector(UserSelectionTableViewController.presentBottomSheet(_:)), for: .touchUpInside)
             return header
         }
         else{
@@ -367,6 +367,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "familyOptions") as! FamilyOptionsTableViewController
         let bottomSheet: MDCBottomSheetController = MDCBottomSheetController(contentViewController: viewController)
         viewController.userCode = self.user
+        viewController.familyCode = self.familyCodes[(sender as AnyObject).tag]
         bottomSheet.preferredContentSize = CGSize(width: self.view.frame.width, height: 60*3)
         // Present the bottom sheet
         present(bottomSheet, animated: true, completion: nil)

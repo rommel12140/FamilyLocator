@@ -184,7 +184,7 @@ class FamilyOptionsTableViewController: UITableViewController {
             
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
                 self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
-                
+                print(self.familyCode)
                 self.reference.child("users").child(self.userCode!).child("families").child(self.familyCode).removeValue()
                 self.reference.child("family").child(self.familyCode!).child("members").child(self.userCode).removeValue()
                 
