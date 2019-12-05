@@ -201,40 +201,44 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                                                             holder.firstName = fName
                                                             holder.status = onlineCheck
                                                             if let image = UIImage(named: "user-placeholder"){
-                                                                holder.image = image
+                                                                if self.families[section][index].image != nil{
+                                                                    holder.image = self.families[section][index].image
+                                                                }
+                                                                else{
+                                                                        holder.image = image
+                                                                }
+                                                                
                                                             }
                                                             else{
                                                                 holder.image = UIImage()
                                                             }
                                                             
                                                             self.families[section][index] = holder
-                                                            
-                                                            self.reference.child("users").child("\(member)/imageUrl" ).observe( .value, with: { (snapshot) in
-                                                                // Get download URL from snapshot
-                                                                if let downloadUrl = snapshot.value as? String{
-                                                                    // Create a storage reference from the URL
-                                                                    let imageStorage = self.storageRef.reference(forURL: downloadUrl)
-                                                                    // Download the data, assuming a max size of 1MB (you can change this as necessary)
-                                                                    imageStorage.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
-                                                                        if error == nil{
-                                                                            // Create a UIImage, add it to the array
-                                                                            if self.families.count-1 >= section{
-                                                                                if self.families[section].count-1 >= index{
-                                                                                    self.families[section][index].image = UIImage(data: data!)!
-                                                                                }
-                                                                                self.tableView.reloadData()
-                                                                            }
-                                                                        }
-                                                                        
+                                                            self.tableView.reloadData()
+                                                        }
+                                                    }
+                                                }) { print($0) }
+                                                self.reference.child("users").child("\(member)").child("imageUrl").observe( .value, with: { (snapshot) in
+                                                    // Get download URL from snapshot
+                                                    if let downloadUrl = snapshot.value as? String{
+                                                        // Create a storage reference from the URL
+                                                        let imageStorage = self.storageRef.reference(forURL: downloadUrl)
+                                                        // Download the data, assuming a max size of 1MB (you can change this as necessary)
+                                                        imageStorage.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
+                                                            if error == nil{
+                                                                // Create a UIImage, add it to the array
+                                                                if self.families.count-1 >= section{
+                                                                    if self.families[section].count-1 >= index{
+                                                                        self.families[section][index].image = UIImage(data: data!)!
                                                                     }
+                                                                    self.tableView.reloadData()
                                                                 }
-                                                                
-                                                            })
+                                                            }
                                                             
                                                         }
                                                     }
-                                                    self.tableView.reloadData()
-                                                }) { print($0) }
+                                                    
+                                                })
                                             }
                                         }
                                     }
