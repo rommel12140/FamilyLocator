@@ -4,6 +4,32 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SFUIText-Bold.otf</string>
+		<string>SFUIText-BoldG2.otf</string>
+		<string>SFUIText-BoldG1.otf</string>
+		<string>SFUIText-BoldG3.otf</string>
+		<string>SFUIText-BoldItalicG1.otf</string>
+		<string>SFUIText-BoldItalicG2.otf</string>
+		<string>SFUIText-BoldItalicG3.otf</string>
+		<string>SFUIText-Heavy.otf</string>
+		<string>SFUIText-HeavyItalic.otf</string>
+		<string>SFUIText-Italic.otf</string>
+		<string>SFUIText-ItalicG1.otf</string>
+		<string>SFUIText-ItalicG2.otf</string>
+		<string>SFUIText-ItalicG3.otf</string>
+		<string>SFUIText-LightItalic.otf</string>
+		<string>SFUIText-Light.otf</string>
+		<string>SFUIText-MediumItalic.otf</string>
+		<string>SFUIText-Medium.otf</string>
+		<string>SFUIText-Regular.otf</string>
+		<string>SFUIText-RegularG1.otf</string>
+		<string>SFUIText-RegularG2.otf</string>
+		<string>SFUIText-RegularG3.otf</string>
+		<string>SFUIText-Semibold.otf</string>
+		<string>SFUIText-SemiboldItalic.otf</string>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

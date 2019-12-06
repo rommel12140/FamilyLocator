@@ -236,6 +236,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let xFrame = self.view.frame.maxX - buttonSize - rightMargin
         let yFrame = (self.view.frame.minY) + yPosition
         let button = MDCFloatingButton(frame: CGRect(x: xFrame, y: yFrame , width: buttonSize, height: buttonSize))
+        button.titleLabel!.font = UIFont(name: "SFUIText-Bold", size: 16)
         button.setTitle("View All", for: .normal)
         button.titleLabel!.numberOfLines = 1
         button.titleLabel!.adjustsFontSizeToFitWidth = true
@@ -254,8 +255,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let yFrame = (self.view.frame.minY) + yPosition
         let button = MDCFloatingButton(frame: CGRect(x: xFrame, y: yFrame , width: buttonSize, height: buttonSize))
         button.setTitle(userFirstNames[index], for: .normal)
+        button.titleLabel!.font = UIFont(name: "SFUIText-Bold", size: 16)
+        button.titleLabel!.numberOfLines = 1
         button.tag = index
         button.setBackgroundImage(userImages[index], for: UIControl.State.normal)
+        button.titleLabel!.adjustsFontSizeToFitWidth = true
         button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(viewUser), for: .touchUpInside)
         button.clipsToBounds = true

@@ -26,6 +26,29 @@
 		C9B13B792385082100169223 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B13B762385082000169223 /* Map.storyboard */; };
 		C9B13B7A2385082100169223 /* UserSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B13B772385082100169223 /* UserSelection.storyboard */; };
 		C9B13B7D238526E900169223 /* UserSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B13B7C238526E900169223 /* UserSelectionTableViewController.swift */; };
+		C9C1F22C239A036500C2FB50 /* SFUIText-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712422398B43E00157B46 /* SFUIText-Bold.otf */; };
+		C9C1F22D239A036500C2FB50 /* SFUIText-BoldG1.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712442398B43E00157B46 /* SFUIText-BoldG1.otf */; };
+		C9C1F22E239A036500C2FB50 /* SFUIText-BoldG2.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C7124A2398B43F00157B46 /* SFUIText-BoldG2.otf */; };
+		C9C1F22F239A036500C2FB50 /* SFUIText-BoldG3.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712512398B44000157B46 /* SFUIText-BoldG3.otf */; };
+		C9C1F230239A036500C2FB50 /* SFUIText-BoldItalicG1.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712562398B44100157B46 /* SFUIText-BoldItalicG1.otf */; };
+		C9C1F231239A036500C2FB50 /* SFUIText-BoldItalicG2.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712482398B43F00157B46 /* SFUIText-BoldItalicG2.otf */; };
+		C9C1F232239A036500C2FB50 /* SFUIText-BoldItalicG3.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712542398B44000157B46 /* SFUIText-BoldItalicG3.otf */; };
+		C9C1F233239A036500C2FB50 /* SFUIText-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C7124D2398B44000157B46 /* SFUIText-Heavy.otf */; };
+		C9C1F234239A036500C2FB50 /* SFUIText-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712462398B43F00157B46 /* SFUIText-HeavyItalic.otf */; };
+		C9C1F235239A036500C2FB50 /* SFUIText-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712502398B44000157B46 /* SFUIText-Italic.otf */; };
+		C9C1F236239A036500C2FB50 /* SFUIText-ItalicG1.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C7124C2398B43F00157B46 /* SFUIText-ItalicG1.otf */; };
+		C9C1F237239A036500C2FB50 /* SFUIText-ItalicG2.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712572398B44100157B46 /* SFUIText-ItalicG2.otf */; };
+		C9C1F238239A036500C2FB50 /* SFUIText-ItalicG3.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712472398B43F00157B46 /* SFUIText-ItalicG3.otf */; };
+		C9C1F239239A036500C2FB50 /* SFUIText-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712432398B43E00157B46 /* SFUIText-Light.otf */; };
+		C9C1F23A239A036500C2FB50 /* SFUIText-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712492398B43F00157B46 /* SFUIText-LightItalic.otf */; };
+		C9C1F23B239A036500C2FB50 /* SFUIText-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712552398B44100157B46 /* SFUIText-Medium.otf */; };
+		C9C1F23C239A036500C2FB50 /* SFUIText-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712452398B43F00157B46 /* SFUIText-MediumItalic.otf */; };
+		C9C1F23D239A036500C2FB50 /* SFUIText-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C7124B2398B43F00157B46 /* SFUIText-Regular.otf */; };
+		C9C1F23E239A036500C2FB50 /* SFUIText-RegularG1.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712522398B44000157B46 /* SFUIText-RegularG1.otf */; };
+		C9C1F23F239A036500C2FB50 /* SFUIText-RegularG2.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712532398B44000157B46 /* SFUIText-RegularG2.otf */; };
+		C9C1F240239A036500C2FB50 /* SFUIText-RegularG3.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C7124E2398B44000157B46 /* SFUIText-RegularG3.otf */; };
+		C9C1F241239A036500C2FB50 /* SFUIText-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C712412398B43E00157B46 /* SFUIText-Semibold.otf */; };
+		C9C1F242239A036500C2FB50 /* SFUIText-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9C7124F2398B44000157B46 /* SFUIText-SemiboldItalic.otf */; };
 		C9C3A84A2383C200003FFB03 /* HeaderXIB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C3A8492383C200003FFB03 /* HeaderXIB.swift */; };
 		C9C3A84C2383C22D003FFB03 /* headerxib.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9C3A84B2383C22D003FFB03 /* headerxib.xib */; };
 		C9C4811B239763A900665C95 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4811A239763A900665C95 /* EmptyTableViewCell.swift */; };
@@ -391,16 +414,39 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9C1F242239A036500C2FB50 /* SFUIText-SemiboldItalic.otf in Resources */,
+				C9C1F230239A036500C2FB50 /* SFUIText-BoldItalicG1.otf in Resources */,
+				C9C1F240239A036500C2FB50 /* SFUIText-RegularG3.otf in Resources */,
+				C9C1F232239A036500C2FB50 /* SFUIText-BoldItalicG3.otf in Resources */,
+				C9C1F23D239A036500C2FB50 /* SFUIText-Regular.otf in Resources */,
+				C9C1F241239A036500C2FB50 /* SFUIText-Semibold.otf in Resources */,
 				C9AEAD2A237904780042E476 /* LaunchScreen.storyboard in Resources */,
+				C9C1F234239A036500C2FB50 /* SFUIText-HeavyItalic.otf in Resources */,
+				C9C1F22E239A036500C2FB50 /* SFUIText-BoldG2.otf in Resources */,
 				C9B13B7A2385082100169223 /* UserSelection.storyboard in Resources */,
 				C9AEAD3223790CD30042E476 /* GoogleService-Info.plist in Resources */,
+				C9C1F238239A036500C2FB50 /* SFUIText-ItalicG3.otf in Resources */,
 				C9B13B792385082100169223 /* Map.storyboard in Resources */,
+				C9C1F23C239A036500C2FB50 /* SFUIText-MediumItalic.otf in Resources */,
+				C9C1F23F239A036500C2FB50 /* SFUIText-RegularG2.otf in Resources */,
+				C9C1F233239A036500C2FB50 /* SFUIText-Heavy.otf in Resources */,
+				C9C1F235239A036500C2FB50 /* SFUIText-Italic.otf in Resources */,
+				C9C1F237239A036500C2FB50 /* SFUIText-ItalicG2.otf in Resources */,
+				C9C1F236239A036500C2FB50 /* SFUIText-ItalicG1.otf in Resources */,
+				C9C1F22D239A036500C2FB50 /* SFUIText-BoldG1.otf in Resources */,
 				C9CAEBDB238E3D24002FF88B /* Notification.storyboard in Resources */,
 				C9C3A84C2383C22D003FFB03 /* headerxib.xib in Resources */,
+				C9C1F231239A036500C2FB50 /* SFUIText-BoldItalicG2.otf in Resources */,
+				C9C1F23A239A036500C2FB50 /* SFUIText-LightItalic.otf in Resources */,
 				C9DC24F0238B6F6C0062B915 /* MapInfo.xib in Resources */,
+				C9C1F239239A036500C2FB50 /* SFUIText-Light.otf in Resources */,
+				C9C1F23B239A036500C2FB50 /* SFUIText-Medium.otf in Resources */,
 				C9AEAD27237904780042E476 /* Assets.xcassets in Resources */,
 				C9AED00C2386857B007FDFF3 /* stickyheaderxib.xib in Resources */,
+				C9C1F22C239A036500C2FB50 /* SFUIText-Bold.otf in Resources */,
+				C9C1F22F239A036500C2FB50 /* SFUIText-BoldG3.otf in Resources */,
 				C9AEAD25237904750042E476 /* Main.storyboard in Resources */,
+				C9C1F23E239A036500C2FB50 /* SFUIText-RegularG1.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
