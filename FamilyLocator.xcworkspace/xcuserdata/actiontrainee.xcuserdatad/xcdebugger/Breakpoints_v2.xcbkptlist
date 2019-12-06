@@ -38,12 +38,316 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FamilyLocator/Controllers/UserSelectionTableViewController.swift"
-            timestampString = "597215507.020876"
+            timestampString = "597312530.980415"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279"
-            landmarkName = "locate(_:)"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
+            landmarkName = "parallaxHeaderDidScroll(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FamilyLocator/Controllers/supporting controllers/FamilyOptionsTableViewController.swift"
+            timestampString = "597312530.980852"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.FIRDataSnapshot) -&gt; () in closure #2 (__C.UIAlertAction) -&gt; () in FamilyLocator.FamilyOptionsTableViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "FamilyLocator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/actiontrainee/Documents/action/OJT/FamilyLocator/FamilyLocator/Controllers/supporting%20controllers/FamilyOptionsTableViewController.swift"
+                  timestampString = "597312064.7046649"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "111"
+                  endingLineNumber = "111"
+                  offsetFromSymbolStart = "2477">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.FIRDataSnapshot) -&gt; () in closure #2 (__C.FIRDataSnapshot) -&gt; () in closure #2 (__C.UIAlertAction) -&gt; () in FamilyLocator.FamilyOptionsTableViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "FamilyLocator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/actiontrainee/Documents/action/OJT/FamilyLocator/FamilyLocator/Controllers/supporting%20controllers/FamilyOptionsTableViewController.swift"
+                  timestampString = "597312064.707691"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "60">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FamilyLocator/Controllers/supporting controllers/FamilyOptionsTableViewController.swift"
+            timestampString = "597312530.980934"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.UIAlertAction) -&gt; () in FamilyLocator.FamilyOptionsTableViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "FamilyLocator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/actiontrainee/Documents/action/OJT/FamilyLocator/FamilyLocator/Controllers/supporting%20controllers/FamilyOptionsTableViewController.swift"
+                  timestampString = "597312064.713896"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "3654">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.FIRDataSnapshot) -&gt; () in closure #2 (__C.UIAlertAction) -&gt; () in FamilyLocator.FamilyOptionsTableViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "FamilyLocator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/actiontrainee/Documents/action/OJT/FamilyLocator/FamilyLocator/Controllers/supporting%20controllers/FamilyOptionsTableViewController.swift"
+                  timestampString = "597312064.715885"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FamilyLocator/Controllers/supporting controllers/FamilyOptionsTableViewController.swift"
+            timestampString = "597312530.981004"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.FIRDataSnapshot) -&gt; () in closure #2 (__C.UIAlertAction) -&gt; () in FamilyLocator.FamilyOptionsTableViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "FamilyLocator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/actiontrainee/Documents/action/OJT/FamilyLocator/FamilyLocator/Controllers/supporting%20controllers/FamilyOptionsTableViewController.swift"
+                  timestampString = "597312064.720624"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "821">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.FIRDataSnapshot) -&gt; () in closure #2 (__C.UIAlertAction) -&gt; () in FamilyLocator.FamilyOptionsTableViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "FamilyLocator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/actiontrainee/Documents/action/OJT/FamilyLocator/FamilyLocator/Controllers/supporting%20controllers/FamilyOptionsTableViewController.swift"
+                  timestampString = "597312064.722998"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "3265">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FamilyLocator/Controllers/supporting controllers/FamilyOptionsTableViewController.swift"
+            timestampString = "597312530.981069"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.FIRDataSnapshot) -&gt; () in closure #2 (__C.UIAlertAction) -&gt; () in FamilyLocator.FamilyOptionsTableViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "FamilyLocator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/actiontrainee/Documents/action/OJT/FamilyLocator/FamilyLocator/Controllers/supporting%20controllers/FamilyOptionsTableViewController.swift"
+                  timestampString = "597312064.72831"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "111"
+                  endingLineNumber = "111"
+                  offsetFromSymbolStart = "2477">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.FIRDataSnapshot) -&gt; () in closure #2 (__C.FIRDataSnapshot) -&gt; () in closure #2 (__C.UIAlertAction) -&gt; () in FamilyLocator.FamilyOptionsTableViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "FamilyLocator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/actiontrainee/Documents/action/OJT/FamilyLocator/FamilyLocator/Controllers/supporting%20controllers/FamilyOptionsTableViewController.swift"
+                  timestampString = "597312064.730479"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "60">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FamilyLocator/Controllers/supporting controllers/FamilyOptionsTableViewController.swift"
+            timestampString = "597312530.981124"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FamilyLocator/Controllers/supporting controllers/FamilyOptionsTableViewController.swift"
+            timestampString = "597312530.981182"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.FIRDataSnapshot) -&gt; () in closure #2 (__C.UIAlertAction) -&gt; () in FamilyLocator.FamilyOptionsTableViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "FamilyLocator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/actiontrainee/Documents/action/OJT/FamilyLocator/FamilyLocator/Controllers/supporting%20controllers/FamilyOptionsTableViewController.swift"
+                  timestampString = "597303020.0776989"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "1438">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UIAlertAction) -&gt; () in closure #2 (__C.FIRDataSnapshot) -&gt; () in closure #2 (__C.UIAlertAction) -&gt; () in FamilyLocator.FamilyOptionsTableViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "FamilyLocator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/actiontrainee/Documents/action/OJT/FamilyLocator/FamilyLocator/Controllers/supporting%20controllers/FamilyOptionsTableViewController.swift"
+                  timestampString = "597303020.0828871"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FamilyLocator/Controllers/supporting controllers/FamilyOptionsTableViewController.swift"
+            timestampString = "597312530.981245"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FamilyLocator/Controllers/UserSelectionTableViewController.swift"
+            timestampString = "597312530.981308"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "422"
+            endingLineNumber = "422"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FamilyLocator/Controllers/UserSelectionTableViewController.swift"
+            timestampString = "597312530.981586"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "420"
+            endingLineNumber = "420"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

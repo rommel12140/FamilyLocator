@@ -89,33 +89,45 @@ class FamilyOptionsTableViewController: UITableViewController {
                     for ac in self.accountCodes{
                         if ac == accountCode{
                             self.memberExist = true
-                            print(self.memberExist)
+//                            print(self.memberExist)
                             break
                             
                         }
                     }
+                    print(accountCode)
                     self.reference.child("notifications/\(accountCode)/invites").observeSingleEvent(of: .value, with: { (snapshot) in
-                        if let status = (snapshot.value as AnyObject).value(forKey: self.familyCode) as? String{
-                            if status == "pending"{
-                                let alert = UIAlertController(title: "User Already Invited", message: "Account is already invited in the family", preferredStyle: .alert)
-                                
-                                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { [weak alert] (_) in
-                                    self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
-                                }))
-                                self.present(alert, animated: true, completion: nil)
-                            }
-                            else{
-                                self.reference.child("users/\(accountCode)/families").observeSingleEvent(of: .value, with: { (snapshot) in
-                                    for key in snapshot.children.allObjects{
-                                        if let code = key as? DataSnapshot {
-                                            if let family = code.key as? String{
-                                                families.append(family)
-                                                
-                                            }
+                        print(snapshot.value)
+                        print(self.familyCode)
+                        let status = (snapshot.value as AnyObject).value(forKey: (self.familyCode as? String)!) as? String
+                        if status == "pending"{
+                            let alert = UIAlertController(title: "User Already Invited", message: "Account is already invited in the family", preferredStyle: .alert)
+                            
+                            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { [weak alert] (_) in
+                                self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
+                            }))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        else{
+                            self.reference.child("users/\(accountCode)/families").observeSingleEvent(of: .value, with: { (snapshot) in
+                                for key in snapshot.children.allObjects{
+                                    if let code = key as? DataSnapshot {
+                                        if let family = code.key as? String{
+                                            families.append(family)
+                                            
                                         }
                                     }
-                                    if families.contains(self.familyCode){
-                                        let alert = UIAlertController(title: "User Already Exists", message: "Account already exists in the family", preferredStyle: .alert)
+                                }
+                                if families.contains(self.familyCode){
+                                    let alert = UIAlertController(title: "User Already Exists", message: "Account already exists in the family", preferredStyle: .alert)
+                                    
+                                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { [weak alert] (_) in
+                                        self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
+                                    }))
+                                    self.present(alert, animated: true, completion: nil)
+                                }
+                                else{
+                                    if self.memberExist == false{
+                                        let alert = UIAlertController(title: "Add Member", message: "Account does not exist", preferredStyle: .alert)
                                         
                                         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { [weak alert] (_) in
                                             self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
@@ -123,40 +135,30 @@ class FamilyOptionsTableViewController: UITableViewController {
                                         self.present(alert, animated: true, completion: nil)
                                     }
                                     else{
-                                        if self.memberExist == false{
-                                            let alert = UIAlertController(title: "Add Member", message: "Account does not exist", preferredStyle: .alert)
+                                        let alert = UIAlertController(title: "Add Member", message: "Invitation has been sent to the user", preferredStyle: .alert)
+                                        
+                                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+                                            self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
                                             
-                                            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { [weak alert] (_) in
-                                                self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
-                                            }))
-                                            self.present(alert, animated: true, completion: nil)
-                                        }
-                                        else{
-                                            let alert = UIAlertController(title: "Add Member", message: "Invitation has been sent to the user", preferredStyle: .alert)
+                                            let ref = self.reference.child("notifications").child(accountCode).child("invites")
                                             
-                                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-                                                self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
+                                            ref.observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
+                                                let count = Int(snapshot.childrenCount)
                                                 
-                                                let ref = self.reference.child("notifications").child(accountCode).child("invites")
+                                                if count > 0{
+                                                    self.reference.child("notifications").child(accountCode).child("invites").updateChildValues([self.familyCode!: "pending"])
+                                                }
+                                                else{
+                                                    self.reference.child("notifications").child(accountCode).child("invites").setValue([self.familyCode!: "pending"])
+                                                }
                                                 
-                                                ref.observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
-                                                    let count = Int(snapshot.childrenCount)
-                                                    
-                                                    if count > 0{
-                                                        self.reference.child("notifications").child(accountCode).child("invites").updateChildValues([self.familyCode!: "pending"])
-                                                    }
-                                                    else{
-                                                        self.reference.child("notifications").child(accountCode).child("invites").setValue([self.familyCode!: "pending"])
-                                                    }
-                                                    
-                                                })
-                                            }))
-                                            self.present(alert, animated: true, completion: nil)
-                                        }
+                                            })
+                                        }))
+                                        self.present(alert, animated: true, completion: nil)
                                     }
-                                    
-                                })
-                            }
+                                }
+                                
+                            })
                         }
                         
                     })

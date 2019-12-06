@@ -250,11 +250,12 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                                     }
                                 }
                                 
-                                
+                                self.tableView.reloadData()
                             }) { print($0) }
                         }
                     }
                 }
+                self.tableView.reloadData()
             }) { print($0) }
         }
     }
@@ -417,10 +418,10 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
             if families[indexPath.section].count == 0{
                 cell.membernameLabel.text = "No members available yet"
                 cell.isUserInteractionEnabled = false
+                cell.selectionStyle = .none
                 cell.memberstatusLabel.isHidden = true
                 cell.memberImageView.isHidden = true
                 cell.statusIndicator.isHidden = true
-                cell.isEditing = false
             }
                 
             else{
@@ -428,6 +429,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                 cell.memberImageView.isHidden = false
                 cell.statusIndicator.isHidden = false
                 cell.isUserInteractionEnabled = true
+                cell.selectionStyle = .default
                 cell.memberImageView.backgroundColor = .gray
                 cell.membernameLabel.text = families[indexPath.section][indexPath.row].name
                 cell.memberImageView.image = families[indexPath.section][indexPath.row].image
@@ -446,72 +448,86 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         else{
             let empty = tableView.dequeueReusableCell(withIdentifier: "empty", for: indexPath) as! EmptyTableViewCell
             tableView.separatorStyle = .none
+            empty.isUserInteractionEnabled = false
             return empty
         }
     }
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedCount += 1
-        
-        if selectedCount > 0{
-            locateButton.isEnabled = true
-            locateButton.alpha = 1
-        }
-        else{
-            locateButton.isEnabled = false
-            locateButton.alpha = 0.7
-        }
-        
-        if selectedUsers.contains(families[indexPath.section][indexPath.row].key){
-            let alert = UIAlertController(title: "Duplicate User",
-                                          message: "User already selected.",
-                                          preferredStyle: .alert)
+        if families[indexPath.section].count != 0{
+            selectedCount += 1
             
-            //alert with error
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            self.present(alert, animated: true, completion: nil)
-            tableView.cellForRow(at: indexPath)?.isSelected = false
+            if selectedCount > 0{
+                locateButton.isEnabled = true
+                locateButton.alpha = 1
+            }
+            else{
+                locateButton.isEnabled = false
+                locateButton.alpha = 0.7
+            }
+            
+            if selectedUsers.contains(families[indexPath.section][indexPath.row].key){
+                let alert = UIAlertController(title: "Duplicate User",
+                                              message: "User already selected.",
+                                              preferredStyle: .alert)
+                
+                //alert with error
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(alert, animated: true, completion: nil)
+                tableView.cellForRow(at: indexPath)?.isSelected = false
+            }
+            if selectedUsers.count > 5{
+                let alert = UIAlertController(title: "Selected Users Exceeded Limit",
+                                              message: "Only 5 users are allowed to be located at once",
+                                              preferredStyle: .alert)
+                
+                //alert with error
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(alert, animated: true, completion: nil)
+                tableView.cellForRow(at: indexPath)?.isSelected = false
+            }
+                
+            else{
+                if let key = families[indexPath.section][indexPath.row].key{
+                    selectedUsers.add(key)
+                }
+                if let image = families[indexPath.section][indexPath.row].image{
+                    selectedUsersImages.add(image)
+                }
+                if let firstName = families[indexPath.section][indexPath.row].firstName{
+                    selectedUsersFirstName.add(firstName)
+                }
+            }
         }
-        else{
-            if let key = families[indexPath.section][indexPath.row].key{
-                selectedUsers.add(key)
-            }
-            if let image = families[indexPath.section][indexPath.row].image{
-                selectedUsersImages.add(image)
-            }
-            if let firstName = families[indexPath.section][indexPath.row].firstName{
-                selectedUsersFirstName.add(firstName)
-            }
-        }
-        
     }
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        
-        selectedCount -= 1
-        
-        if selectedCount > 0{
-            locateButton.isEnabled = true
-            locateButton.alpha = 1
+        if families[indexPath.section].count != 0{
+            selectedCount -= 1
+            
+            if selectedCount > 0{
+                locateButton.isEnabled = true
+                locateButton.alpha = 1
+            }
+            else{
+                locateButton.isEnabled = false
+                locateButton.alpha = 0.7
+            }
+            
+            if let key = families[indexPath.section][indexPath.row].key{
+                selectedUsers.remove(key)
+            }
+            if let image = families[indexPath.section][indexPath.row].image{
+                selectedUsersImages.remove(image)
+            }
+            if let firstName = families[indexPath.section][indexPath.row].firstName{
+                selectedUsersFirstName.remove(firstName)
+            }
         }
-        else{
-            locateButton.isEnabled = false
-            locateButton.alpha = 0.7
-        }
-        
-        if let key = families[indexPath.section][indexPath.row].key{
-            selectedUsers.remove(key)
-        }
-        if let image = families[indexPath.section][indexPath.row].image{
-            selectedUsersImages.remove(image)
-        }
-        if let firstName = families[indexPath.section][indexPath.row].firstName{
-            selectedUsersFirstName.remove(firstName)
-        }
-        
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MemberTableViewCell
         if editingStyle == .delete {
             if let memberKey = families[indexPath.section][indexPath.row].key, let familyKey = familyCodes[indexPath.section] as? String{
                 
@@ -519,16 +535,32 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                 self.reference.child("users").child(memberKey).child("families").child(familyKey).removeValue()
                 self.reference.child("family").child(familyKey).child("members").child("\(memberKey)").removeValue()
                 
+                let fullname = families[indexPath.section][indexPath.row].name
+                let message = "You have removed \(fullname) from \(self.familyNames[indexPath.section])"
+                
+                self.reference.child("notifications").child(self.user!).child("notifications").childByAutoId().setValue(message)
+                
+                let message2 = "You have been removed from \(self.familyNames[indexPath.section])"
+                
+                self.reference.child("notifications").child(memberKey).child("notifications").childByAutoId().setValue(message2)
+                
             }
         }
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        if families[indexPath.section].count == 0{
-            return UITableViewCell.EditingStyle.none
+        
+        if families.count != 0{
+            if families[indexPath.section].count == 0{
+                return UITableViewCell.EditingStyle.none
+            }
+            else{
+                return UITableViewCell.EditingStyle.delete
+            }
         }
         else{
-            return UITableViewCell.EditingStyle.delete
+            return UITableViewCell.EditingStyle.none
         }
+        
     }
 }

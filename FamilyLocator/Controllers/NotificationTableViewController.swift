@@ -21,6 +21,7 @@ class NotificationTableViewController: UITableViewController {
     var requestFamilyKeys = Array<String>()
     var requestFamilyNames = Array<String>()
     var notifications = Array<String>()
+    var notificationKeys = Array<String>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,11 +62,16 @@ class NotificationTableViewController: UITableViewController {
             }) { print($0) }
             reference.child("notifications").child("\(user)" ).child("notifications").observe( .value, with: { (snapshot) in
                 self.notifications.removeAll()
+                self.notificationKeys.removeAll()
                 for notif in (snapshot.children.allObjects as! [DataSnapshot]){
                     if let name = notif.value{
                         self.notifications.append(name as! String)
-                        self.tableView.reloadData()
+                        
                     }
+                    if let keys = notif.key as? String{
+                        self.notificationKeys.append(keys as! String)
+                    }
+                    self.tableView.reloadData()
                 }
             }) { print($0) }
             
@@ -76,7 +82,7 @@ class NotificationTableViewController: UITableViewController {
                 self.requestKeys.removeAll()
                 for familyCode in (snapshot.children.allObjects as! [DataSnapshot]){
                     if let code = familyCode.key as? String{
-                        self.reference.child("family").child("\(code)").observe( .value, with: { (snapshot) in
+                        self.reference.child("family").child("\(code)").observeSingleEvent(of: .value, with: { (snapshot) in
                             for request in (snapshot.childSnapshot(forPath: "requests").children.allObjects as! [DataSnapshot]){
                                 if request.value as? String == "pending"{
                                     if let name = snapshot.childSnapshot(forPath: "name").value{
@@ -88,7 +94,7 @@ class NotificationTableViewController: UITableViewController {
                                                     self.requests.append(fullname)
                                                     self.requestFamilyKeys.append(code)
                                                     self.requestFamilyNames.append(name as! String)
-                                                    self.tableView.reloadData()
+//                                                    self.tableView.reloadData()
                                                 }
                                                 self.tableView.reloadData()
                                             }) { print($0) }
@@ -287,6 +293,23 @@ class NotificationTableViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let notifKey = notificationKeys[indexPath.row]
+                self.reference.child("notifications").child(self.user!).child("notifications").child(notifKey).removeValue()
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        
+        if indexPath.section == 2{
+            return UITableViewCell.EditingStyle.delete
+        }
+        else{
+            return UITableViewCell.EditingStyle.none
+        }
     }
     
     

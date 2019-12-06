@@ -71,6 +71,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             mapView.isMyLocationEnabled = true
             mapView.settings.tiltGestures = false
             mapView.settings.myLocationButton = true
+            mapView.settings.indoorPicker = false
             mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: buttonProperties.buttonSize+buttonProperties.offset, right: 0)
             
             
