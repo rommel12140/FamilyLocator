@@ -62,6 +62,13 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //        setupHeader()
+        selectedCount = 0
+        selectedUsers.removeAllObjects()
+        selectedUsersFirstName.removeAllObjects()
+        selectedUsersImages.removeAllObjects()
+        locateButton.isEnabled = false
+        locateButton.alpha = 0.7
+        tableView.reloadData()
         tableView.parallaxHeader.minimumHeight = view.safeAreaInsets.top
     }
     
@@ -527,7 +534,6 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MemberTableViewCell
         if editingStyle == .delete {
             if let memberKey = families[indexPath.section][indexPath.row].key, let familyKey = familyCodes[indexPath.section] as? String{
                 

@@ -97,7 +97,7 @@ class MenuOptionsTableViewController: UITableViewController {
                             
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
                                 self.dismiss(animated: true, completion: nil) // Force unwrapping because we know it exists.
-                                self.reference.child("family").child(familyCode).child("members").setValue(["0" : self.user])
+                                self.reference.child("family").child(familyCode).child("members").setValue([self.user: "joined"])
                                 self.reference.child("family").child(familyCode).updateChildValues(["name" : textField])
                                 self.reference.child("family").child(familyCode).child("requests")
                                 self.reference.child("users").child(self.user).child("families").updateChildValues([familyCode : "joined"])

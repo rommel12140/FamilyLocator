@@ -41,6 +41,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var userImages: Array<UIImage>!
     var userFirstNames: Array<String>!
     var isInit = false
+    let progress = ProgressHUD(text: "Routing...")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -295,6 +296,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 let update = GMSCameraUpdate.fit(bounds, withPadding: 17)
                 mapView.animate(with: update)
                 //initialize
+                self.mapView.alpha = 0.7
+                self.view.addSubview(progress)
+                self.view.isUserInteractionEnabled = false
                 self.fetchRoute(src: src, dst: CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude))
                 //update
                 self.observationdst = markers[markerID!].observe(
@@ -397,6 +401,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 polyline.strokeWidth = 3
                 polyline.map = mapView
             }
+            self.mapView.alpha = 1
+            self.progress.removeFromSuperview()
+            self.view.isUserInteractionEnabled = true
         }
     }
 }
