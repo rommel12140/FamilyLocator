@@ -61,6 +61,7 @@
 		C9CDA0112387DA130026C7EF /* MenuOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CDA0102387DA130026C7EF /* MenuOptionsTableViewController.swift */; };
 		C9CDA0142387DA9D0026C7EF /* MenuOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CDA0132387DA9D0026C7EF /* MenuOptionsTableViewCell.swift */; };
 		C9D19D62238CCBD5005DA6A6 /* Polyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D19D61238CCBD5005DA6A6 /* Polyline.swift */; };
+		C9D63A67239F46170042CA90 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D63A66239F46160042CA90 /* Blur.swift */; };
 		C9DC24E0238B6EDA0062B915 /* InvitationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DC24DE238B6EDA0062B915 /* InvitationCell.swift */; };
 		C9DC24E1238B6EDA0062B915 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DC24DF238B6EDA0062B915 /* NotificationCell.swift */; };
 		C9DC24EC238B6F340062B915 /* KeyboardDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DC24EA238B6F340062B915 /* KeyboardDismiss.swift */; };
@@ -129,6 +130,7 @@
 		C9CDA0102387DA130026C7EF /* MenuOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOptionsTableViewController.swift; sourceTree = "<group>"; };
 		C9CDA0132387DA9D0026C7EF /* MenuOptionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOptionsTableViewCell.swift; sourceTree = "<group>"; };
 		C9D19D61238CCBD5005DA6A6 /* Polyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polyline.swift; sourceTree = "<group>"; };
+		C9D63A66239F46160042CA90 /* Blur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Blur.swift; path = FamilyLocator/API/Blur.swift; sourceTree = SOURCE_ROOT; };
 		C9DC24DE238B6EDA0062B915 /* InvitationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationCell.swift; sourceTree = "<group>"; };
 		C9DC24DF238B6EDA0062B915 /* NotificationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		C9DC24EA238B6F340062B915 /* KeyboardDismiss.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardDismiss.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				C9B13B5E238504E400169223 /* TextFields */,
 				C9B13B61238504E400169223 /* Colors */,
 				C9CDA00C2387B14F0026C7EF /* BlurView.swift */,
+				C9D63A66239F46160042CA90 /* Blur.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -522,6 +525,7 @@
 				C9C500A9237A4F4B00A13953 /* RegisterViewController.swift in Sources */,
 				C9B13B66238504E400169223 /* CommonGreenColor.swift in Sources */,
 				C9CDA0142387DA9D0026C7EF /* MenuOptionsTableViewCell.swift in Sources */,
+				C9D63A67239F46170042CA90 /* Blur.swift in Sources */,
 				C9AEAD22237904750042E476 /* LoginViewController.swift in Sources */,
 				C91BC2D923824CC200988A95 /* MemberTableViewCell.swift in Sources */,
 				C9DC24E0238B6EDA0062B915 /* InvitationCell.swift in Sources */,

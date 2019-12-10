@@ -132,17 +132,11 @@ class RegisterViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func createUser(email: String, password: String, firstname: String, lastname: String) {
-        let progressHUD = ProgressHUD(text: "Registering...")
+        let progressHUD = ProgressHUD(text: "Logging in...")
+        let blur = UIView.blur(view: self.view)
+        self.view.addSubview(blur)
         self.view.addSubview(progressHUD)
-        self.view.alpha = 0.9
-        
-        signInButton.isEnabled = false
-        registerButton.isEnabled = false
-        emailTextField.isEnabled = false
-        passwordTextField.isEnabled = false
-        confirmPasswordTextField.isEnabled = false
-        firstNameTextField.isEnabled = false
-        lastNameTextField.isEnabled = false
+        self.view.isUserInteractionEnabled = false
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
             if error == nil {
                 //create user if valid
@@ -166,9 +160,9 @@ class RegisterViewController: UIViewController, UIScrollViewDelegate {
                 let userCode = str
                 viewController.user = userCode
                 self.present(navController, animated: true, completion: {
-                    self.view.addSubview(progressHUD)
                     progressHUD.removeFromSuperview()
-                    self.view.alpha = 1.0
+                    blur.removeFromSuperview()
+                    self.view.isUserInteractionEnabled = true
                 })
             }
             else{
@@ -179,15 +173,9 @@ class RegisterViewController: UIViewController, UIScrollViewDelegate {
                 //alert with error
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 self.present(alert, animated: true, completion: nil)
-                self.signInButton.isEnabled = true
-                self.registerButton.isEnabled = true
-                self.emailTextField.isEnabled = true
-                self.passwordTextField.isEnabled = true
-                self.confirmPasswordTextField.isEnabled = true
-                self.firstNameTextField.isEnabled = true
-                self.lastNameTextField.isEnabled = true
-                self.view.alpha = 1
                 progressHUD.removeFromSuperview()
+                blur.removeFromSuperview()
+                self.view.isUserInteractionEnabled = true
             }
         }
     }

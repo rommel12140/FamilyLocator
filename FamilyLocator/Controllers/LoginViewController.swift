@@ -77,11 +77,12 @@
     
     func autoLogin(){
         if Auth.auth().currentUser != nil {
-            let progressHUD = ProgressHUD(text: "Logging in...")
-            self.view.addSubview(progressHUD)
-            self.view.alpha = 0.9
             let reference = Database.database().reference()
-            
+            let progressHUD = ProgressHUD(text: "Logging in...")
+            let blur = UIView.blur(view: self.view)
+            self.view.addSubview(blur)
+            self.view.addSubview(progressHUD)
+            self.view.isUserInteractionEnabled = false
             reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                 //present view controller while passing userCode from database
                 let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "userSelection") as! UserSelectionTableViewController
@@ -93,17 +94,12 @@
                     
                     viewController.user = userCode
                     self.present(navController, animated: true, completion: {
-                        self.view.addSubview(progressHUD)
                         progressHUD.removeFromSuperview()
-                        self.view.alpha = 1.0
-                        self.loginButton.isEnabled = true
-                        self.emailTextField.isEnabled = true
-                        self.signupButton.isEnabled = true
-                        self.passwordTextField.isEnabled = true
+                        blur.removeFromSuperview()
+                        self.view.isUserInteractionEnabled = true
                     })
                 }
             })
-            
         }
     }
     
@@ -154,13 +150,10 @@
     
     func authenticateUser(){
         let progressHUD = ProgressHUD(text: "Logging in...")
+        let blur = UIView.blur(view: self.view)
+        self.view.addSubview(blur)
         self.view.addSubview(progressHUD)
-        self.view.alpha = 0.9
-        
-        loginButton.isEnabled = false
-        emailTextField.isEnabled = false
-        signupButton.isEnabled = false
-        passwordTextField.isEnabled = false
+        self.view.isUserInteractionEnabled = false
         //signin user with email and password text fields
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { user, error in
             if let error = error, user == nil {
@@ -171,12 +164,9 @@
                 //alert with error
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 self.present(alert, animated: true, completion: nil)
-                self.loginButton.isEnabled = true
-                self.emailTextField.isEnabled = true
-                self.signupButton.isEnabled = true
-                self.passwordTextField.isEnabled = true
-                self.view.alpha = 1
                 progressHUD.removeFromSuperview()
+                blur.removeFromSuperview()
+                self.view.isUserInteractionEnabled = true
             }
             else{
                 //reference data and get user code
@@ -190,14 +180,9 @@
                         reference.child("users").child("\(userCode)").updateChildValues(["isOnline" : "true"])
                         viewController.user = userCode
                         self.present(navController, animated: true, completion: {
-                            self.view.addSubview(progressHUD)
                             progressHUD.removeFromSuperview()
-                            self.view.alpha = 1.0
-                            
-                            self.loginButton.isEnabled = true
-                            self.emailTextField.isEnabled = true
-                            self.signupButton.isEnabled = true
-                            self.passwordTextField.isEnabled = true
+                            blur.removeFromSuperview()
+                            self.view.isUserInteractionEnabled = true
                         })
                     }
                 })

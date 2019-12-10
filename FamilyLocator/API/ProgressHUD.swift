@@ -16,9 +16,9 @@ class ProgressHUD: UIVisualEffectView {
         }
     }
     
-    let activityIndictor: UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
+    let activityIndictor: UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
     let label: UILabel = UILabel()
-    let blurEffect = UIBlurEffect(style: .light)
+    let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.extraLight)
     let vibrancyView: UIVisualEffectView
     
     init(text: String) {
@@ -69,7 +69,7 @@ class ProgressHUD: UIVisualEffectView {
                                  y: 0,
                                  width: width - activityIndicatorSize - 15,
                                  height: height)
-            label.textColor = UIColor.white
+            label.textColor = UIColor.gray
             label.font = UIFont.boldSystemFont(ofSize: 16)
         }
     }

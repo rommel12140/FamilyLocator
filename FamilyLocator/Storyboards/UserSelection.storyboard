@@ -124,6 +124,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="xKy-BV-yPD">
+                        <nil key="title"/>
                         <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="V3j-Wt-ntT">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bjI-tY-x6N">
                                 <rect key="frame" x="268" y="0.0" width="126" height="44"/>

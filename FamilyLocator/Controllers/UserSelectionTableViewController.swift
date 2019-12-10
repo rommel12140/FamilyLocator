@@ -51,6 +51,9 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.allowsMultipleSelection = true
+        self.tableView.allowsMultipleSelectionDuringEditing = true
+        
         getFamilyCode()
         setup()
         setupHeader()
@@ -143,7 +146,6 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                         }
                     }
                     self.tableView.reloadData()
-                    
                 })
                 
             })
@@ -242,8 +244,17 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                                                                     if self.families.count-1 >= section{
                                                                         if self.families[section].count-1 >= index{
                                                                             self.families[section][index].image = UIImage(data: data!)!
+                                                                            
+                                                                            if self.selectedUsers.contains(self.families[section][index].key) {
+                                                                                let sUserIndex = self.selectedUsers.indexOfObjectIdentical(to: self.families[section][index].key)
+                                                                                
+                                                                                self.selectedUsersImages.replaceObject(at: sUserIndex, with: UIImage(data: data!)!)
+                                                                            }
+                                                                            if let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: section)) as? MemberTableViewCell{
+                                                                                    cell.memberImageView.image = UIImage(data: data!)!
+                                                                            }
                                                                         }
-                                                                        self.tableView.reloadData()
+                                                                        
                                                                     }
                                                                 }
                                                                 
@@ -421,7 +432,6 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         if families.count > 0{
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MemberTableViewCell
             tableView.separatorStyle = .singleLine
-            
             if families[indexPath.section].count == 0{
                 cell.membernameLabel.text = "No members available yet"
                 cell.isUserInteractionEnabled = false
@@ -484,26 +494,28 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                 self.present(alert, animated: true, completion: nil)
                 tableView.cellForRow(at: indexPath)?.isSelected = false
             }
-            if selectedUsers.count > 5{
-                let alert = UIAlertController(title: "Selected Users Exceeded Limit",
-                                              message: "Only 5 users are allowed to be located at once",
-                                              preferredStyle: .alert)
-                
-                //alert with error
-                alert.addAction(UIAlertAction(title: "OK", style: .default))
-                self.present(alert, animated: true, completion: nil)
-                tableView.cellForRow(at: indexPath)?.isSelected = false
-            }
-                
             else{
-                if let key = families[indexPath.section][indexPath.row].key{
-                    selectedUsers.add(key)
+                if selectedUsers.count > 5{
+                    let alert = UIAlertController(title: "Selected Users Exceeded Limit",
+                                                  message: "Only 5 users are allowed to be located at once",
+                                                  preferredStyle: .alert)
+                    
+                    //alert with error
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    self.present(alert, animated: true, completion: nil)
+                    tableView.cellForRow(at: indexPath)?.isSelected = false
                 }
-                if let image = families[indexPath.section][indexPath.row].image{
-                    selectedUsersImages.add(image)
-                }
-                if let firstName = families[indexPath.section][indexPath.row].firstName{
-                    selectedUsersFirstName.add(firstName)
+                    
+                else{
+                    if let key = families[indexPath.section][indexPath.row].key{
+                        selectedUsers.add(key)
+                    }
+                    if let image = families[indexPath.section][indexPath.row].image{
+                        selectedUsersImages.add(image)
+                    }
+                    if let firstName = families[indexPath.section][indexPath.row].firstName{
+                        selectedUsersFirstName.add(firstName)
+                    }
                 }
             }
         }
@@ -542,7 +554,7 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                 self.reference.child("family").child(familyKey).child("members").child("\(memberKey)").removeValue()
                 
                 let fullname = families[indexPath.section][indexPath.row].name
-                let message = "You have removed \(fullname) from \(self.familyNames[indexPath.section])"
+                let message = "You have removed \(fullname!) from \(self.familyNames[indexPath.section])"
                 
                 self.reference.child("notifications").child(self.user!).child("notifications").childByAutoId().setValue(message)
                 

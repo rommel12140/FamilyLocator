@@ -304,7 +304,7 @@ class NotificationTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         
-        if indexPath.section == 2{
+        if indexPath.section == 2, notificationKeys.count != 0{
             return UITableViewCell.EditingStyle.delete
         }
         else{

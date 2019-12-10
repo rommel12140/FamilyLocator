@@ -90,8 +90,16 @@ class MenuOptionsTableViewController: UITableViewController {
                             self.present(error, animated: true, completion: nil)
                         }
                         else if let textField = createFamily?.textFields![0].text{
-                            let code = self.createRandomHex()
+                            var code = self.createRandomHex() //Generate Unique Random Key
                             let familyCode = "\(String(describing: textField))-\(code)"
+                            self.reference.child("family").observeSingleEvent(of: .value, with: { (snapshot) in
+                                while snapshot.hasChild("\(familyCode)"){
+                                    //Generate another key if another user already has the key
+                                    code = self.createRandomHex()
+                                    let familyCode = "\(String(describing: textField))-\(code)"
+                                }
+                            })
+                            
                             
                             let alert = UIAlertController(title: "Create Family", message: "Successfully created the family", preferredStyle: .alert)
                             
@@ -234,6 +242,7 @@ class MenuOptionsTableViewController: UITableViewController {
             
             
         case 3:
+            print("logout")
             let reference = Database.database().reference()
         reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                 if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
