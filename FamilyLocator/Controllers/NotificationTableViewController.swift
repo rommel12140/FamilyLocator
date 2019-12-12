@@ -296,15 +296,18 @@ class NotificationTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let notifKey = notificationKeys[indexPath.row]
+        if notificationKeys.count >= 0 {
+            if editingStyle == .delete {
+                let notifKey = notificationKeys[indexPath.row]
                 self.reference.child("notifications").child(self.user!).child("notifications").child(notifKey).removeValue()
+            }
         }
+        
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         
-        if indexPath.section == 2, notificationKeys.count != 0{
+        if indexPath.section == 2, notifications.count != 0{
             return UITableViewCell.EditingStyle.delete
         }
         else{

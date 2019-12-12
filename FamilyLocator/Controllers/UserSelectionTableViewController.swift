@@ -13,11 +13,16 @@ import FirebaseDatabase
 import FirebaseStorage
 
 struct Member{
-    var key: String!
     var name: String!
     var firstName: String!
     var status: String!
     var image: UIImage!
+    var indexPaths = Array<IndexPath>()
+}
+
+struct Family{
+    var name: String!
+    var members = [String: Member]()
 }
 
 class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -26,22 +31,20 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     var selectedUsers = NSMutableArray()
     var selectedUsersFirstName = NSMutableArray()
     var selectedUsersImages = NSMutableArray()
-    var familyCodes = Array<String>()
-    var familyNames = Array<String>()
-    var families = Array<Array<Member>>()
+    var family = [String: Family]()
+    var allMembers = [String: Member]()
     var firstName: String!
     var lastName: String!
     var selectedCount = 0
     let reference = Database.database().reference()
     let storageRef = Storage.storage()
-    var familyRef = Array<DatabaseReference>()
     
     @IBOutlet var headerView: UIView!
     @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var changeProfilePictureButton: UIButton!
-    @IBOutlet weak var fullNameLabel: UILabel!
-    @IBOutlet weak var accountCode: UILabel!
+    @IBOutlet weak var fullNameTextField: UITextField!
+    @IBOutlet weak var accountCodeTextField: UITextField!
     @IBOutlet weak var locateButton: UIButton!
     
     
@@ -54,12 +57,32 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
         self.tableView.allowsMultipleSelection = true
         self.tableView.allowsMultipleSelectionDuringEditing = true
         
-        getFamilyCode()
+        initFamilies()
         setup()
         setupHeader()
         displayUserData()
         navBarModifications()
         imagePicker.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //        background.translatesAutoresizingMaskIntoConstraints = false
+        let bgLeading = background.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor)
+        let bgTrailing = background.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
+        background.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+        view.addConstraints([bgLeading, bgTrailing])
+        
+        //        locateButton.translatesAutoresizingMaskIntoConstraints = false
+        let locateLeading = locateButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor)
+        let locateTrailing = locateButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
+        view.addConstraints([locateLeading, locateTrailing])
+        
+        //        fullNameTextField.translatesAutoresizingMaskIntoConstraints = false
+        let fNameLeading = fullNameTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor)
+        let fNameTrailing = fullNameTextField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
+        view.addConstraints([fNameLeading, fNameTrailing])
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -98,10 +121,6 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     }
     
     func setupHeader() {
-        
-//        profileImage.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor)
-//        profileImage.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
-        
         profileImage.layer.cornerRadius = profileImage.frame.height/2
         changeProfilePictureButton.layer.cornerRadius = changeProfilePictureButton.frame.height/2
     }
@@ -112,8 +131,8 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                 if let firstname = (snapshot.value as AnyObject).value(forKey: "firstname") as? String, let lastname = (snapshot.value as AnyObject).value(forKey: "lastname") as? String{
                     self.firstName = firstname
                     self.lastName = lastname
-                    self.fullNameLabel.text = "\(firstname)  \(lastname)"
-                    self.accountCode.text = user
+                    self.fullNameTextField.text = "\(firstname)  \(lastname)"
+                    self.accountCodeTextField.text = user
                     self.profileImage.image = UIImage(named: "user-placeholder")
                 }
                 
@@ -146,137 +165,117 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                         }
                     }
                     self.tableView.reloadData()
+                    
                 })
                 
             })
         }
     }
     
-    func getFamilyCode(){
+    func initFamilies(){
         if let currentUser = user{
             reference.child("users").child("\(currentUser)").child("families").observe( .value, with: { (snapshot) in
-                
-                self.familyRef.removeAll()
-                self.families.removeAll()
-                self.familyNames.removeAll()
-                self.familyCodes.removeAll()
-                for (section,familyCode) in snapshot.children.allObjects.enumerated(){
-                    print(section)
-                    self.families.append([])
-                    self.familyCodes.append("")
-                    self.familyNames.append("")
-                    if let fc = familyCode as? DataSnapshot{
-                        if let family = fc.key as? String{
-                            self.familyRef.append(self.reference.child("family").child("\(family)"))
-                            self.familyRef[section].observe( .value, with: { (snapshot) in
-                                print(self.families.count)
-                                print(section)
-                                if self.families.count-1 < section{
-                                    if self.familyRef.count != 0{
-                                        for index in 0..<self.familyRef.count-1{
-                                            self.familyRef[index].removeAllObservers()
-                                        }
-                                    }
-                                }
-                                if self.families.count-1 >= section{
-                                    self.families[section] = []
-                                    self.familyCodes[section] = ""
-                                    self.familyNames[section] = ""
-                                    //set name
-                                    if let name = snapshot.childSnapshot(forPath: "name").value as? String{
-                                        self.familyCodes[section] = family
-                                        self.familyNames[section] = name
-                                        self.tableView.reloadData()
-                                    }
-                                    
-                                    
-                                    if var snapshotKeys = (snapshot.childSnapshot(forPath: "members").value as? AnyObject)?.allKeys{
-                                        print(snapshotKeys)
-                                        for (index, snapshotKey) in (snapshotKeys.enumerated()){
-                                            if self.user == snapshotKey as? String{
-                                                snapshotKeys.remove(at: index)
-                                            }
-                                        }
-                                        
-                                        for (index, snapshotKey) in (snapshotKeys.enumerated()){
-                                            self.families[section].append(Member())
-                                            if let member = snapshotKey as? String{
-                                                let memberReference = self.reference.child("users").child("\(member)")
-                                                memberReference.observe( .value, with: { (snapshot) in
-                                                    //set name
-                                                    if let name = snapshot.value, self.families.count-1 >= section, self.families[section].count-1 >= index{
-                                                        if let fName = (name as AnyObject) .value(forKey: "firstname") as? String, let lName = (name as AnyObject) .value(forKey: "lastname") as? String, let onlineCheck = (name as AnyObject) .value(forKey: "isOnline") as? String {
-                                                            let fullname = ("\(fName) \(lName)")
-                                                            print(fullname)
-                                                            var holder = Member()
-                                                            holder.key = member
-                                                            holder.name = fullname
-                                                            holder.firstName = fName
-                                                            holder.status = onlineCheck
-                                                            if let image = UIImage(named: "user-placeholder"){
-                                                                if self.families[section][index].image != nil{
-                                                                    holder.image = self.families[section][index].image
-                                                                }
-                                                                else{
-                                                                        holder.image = image
-                                                                }
-                                                                
-                                                            }
-                                                            else{
-                                                                holder.image = UIImage()
-                                                            }
-                                                            
-                                                            self.families[section][index] = holder
-                                                            self.tableView.reloadData()
-                                                        }
-                                                    }
-                                                }) { print($0) }
-                                                self.reference.child("users").child("\(member)").child("buffer").observe( .value, with: { (snapshot) in
-                                                    self.reference.child("users").child("\(member)").child("imageUrl").observeSingleEvent(of: .value, with: { (snapshot) in
-                                                        // Get download URL from snapshot
-                                                        if let downloadUrl = snapshot.value as? String{
-                                                            // Create a storage reference from the URL
-                                                            let imageStorage = self.storageRef.reference(forURL: downloadUrl)
-                                                            // Download the data, assuming a max size of 1MB (you can change this as necessary)
-                                                            imageStorage.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
-                                                                if error == nil{
-                                                                    // Create a UIImage, add it to the array
-                                                                    if self.families.count-1 >= section{
-                                                                        if self.families[section].count-1 >= index{
-                                                                            self.families[section][index].image = UIImage(data: data!)!
-                                                                            
-                                                                            if self.selectedUsers.contains(self.families[section][index].key) {
-                                                                                let sUserIndex = self.selectedUsers.indexOfObjectIdentical(to: self.families[section][index].key)
-                                                                                
-                                                                                self.selectedUsersImages.replaceObject(at: sUserIndex, with: UIImage(data: data!)!)
-                                                                            }
-                                                                            if let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: section)) as? MemberTableViewCell{
-                                                                                    cell.memberImageView.image = UIImage(data: data!)!
-                                                                            }
-                                                                        }
-                                                                        
-                                                                    }
-                                                                }
-                                                                
-                                                            }
-                                                        }
-                                                        
-                                                    })
-                                                })
-                                            }
-                                        }
-                                    }
-                                }
-                                
-                                self.tableView.reloadData()
-                            }) { print($0) }
+                self.family.removeAll()
+                for familyKey in snapshot.children.allObjects{
+                    if let key = (familyKey as? DataSnapshot)?.key as? String{
+                        self.addFamily(family: key, userFamiliesSnapshot: snapshot)
+                    }
+                    
+                }
+                self.tableView.reloadData()
+            })
+        }
+    }
+    
+    func addFamily(family: String, userFamiliesSnapshot: DataSnapshot){
+        
+        self.reference.child("family").child("\(family)").observe( .value, with: { (snapshot) in
+            var userFamily = Family()
+            if let name = snapshot.childSnapshot(forPath: "name").value as? String{
+                userFamily.name = name
+                self.family["\(family)"] = userFamily
+            }
+            self.reference.child("users").child(self.user).child("families").observeSingleEvent(of: .value, with: { (snapshotCheck) in
+                if snapshotCheck.hasChild(family){
+                    if let snapshotKeys = (snapshot.childSnapshot(forPath: "members").value as? AnyObject)?.allKeys{
+                        for snapshotKey in snapshotKeys{
+                            if self.user != snapshotKey as? String, let memberKey = snapshotKey as? String{
+                                self.getMember(memberKey: memberKey, family: family)
+                            }
                         }
                     }
                 }
+                else{
+                    self.family.removeValue(forKey: family)
+                    
+                }
                 self.tableView.reloadData()
-            }) { print($0) }
-        }
+            })
+            self.tableView.reloadData()
+        })
     }
+    
+    func getMember(memberKey: String, family: String){
+        self.reference.child("users").child(memberKey).observe( .value, with: { (snapshot) in
+            if let currentMember = snapshot.value{
+                if let fName = (currentMember as AnyObject) .value(forKey: "firstname") as? String, let lName = (currentMember as AnyObject) .value(forKey: "lastname") as? String, let isOnline = (currentMember as AnyObject) .value(forKey: "isOnline") as? String {
+                    let image = UIImage(named: "user-placeholder")
+                    var member = Member()
+                    if self.family["\(family)"]?.members["\(memberKey)"] == nil {
+                            member.firstName = fName
+                            member.name = "\(fName) \(lName)"
+                            member.image = image
+                            member.status = isOnline
+                            self.allMembers["\(memberKey)"] = member
+                            self.family["\(family)"]?.members["\(memberKey)"] =  self.allMembers["\(memberKey)"]
+                            self.updateUserImage(family: family, memberKey: memberKey)
+                    }
+                    else{
+                        self.family["\(family)"]?.members["\(memberKey)"]?.image = self.allMembers["\(memberKey)"]?.image
+                        self.family["\(family)"]?.members["\(memberKey)"]?.status = isOnline
+                    }
+                }
+            }
+            
+            self.tableView.reloadData()
+        })
+    }
+    
+    func updateUserImage(family: String, memberKey: String){
+        self.reference.child("users").child("\(memberKey)").child("buffer").observe( .value, with: { (snapshot) in
+            self.reference.child("users").child("\(memberKey)").child("imageUrl").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get download URL from snapshot
+                if let downloadUrl = snapshot.value as? String{
+                    // Create a storage reference from the URL
+                    let imageStorage = self.storageRef.reference(forURL: downloadUrl)
+                    // Download the data, assuming a max size of 1MB (you can change this as necessary)
+                    imageStorage.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
+                        if error == nil{
+//                            let keys = Array(self.family.keys)
+//                            let indexOfKey = keys.index(of: family)
+//                            let members = Array((self.family[family]?.members.keys)!)
+//                            let indexOfMember = members.index(of: memberKey)
+//
+                                // Create a UIImage, add it to the array
+                                self.allMembers["\(memberKey)"]?.image = UIImage(data: data!)!
+                                self.family["\(family)"]?.members["\(memberKey)"]?.image = self.allMembers["\(memberKey)"]?.image
+                            for indexPath in (self.allMembers[memberKey]?.indexPaths)!{
+                                if let cell = self.tableView.cellForRow(at: indexPath) as? MemberTableViewCell{
+                                    cell.memberImageView.image = UIImage(data: data!)!
+                                }
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                }
+                
+            })
+            self.tableView.reloadData()
+        })
+    }
+    
     
     func navBarModifications() {
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -285,18 +284,18 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     }
     
     func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
-        parallaxHeader.view?.blurView.alpha = 1 - parallaxHeader.progress
+        parallaxHeader.view!.blurView.alpha = 1 - parallaxHeader.progress
         if parallaxHeader.progress == 0.000000{
             profileImage.frame.size = CGSize(width: 0, height: 0)
             changeProfilePictureButton.frame.size = CGSize(width: 0, height: 0)
-            fullNameLabel.frame.size = CGSize(width: 0, height: 0)
-            accountCode.frame.size = CGSize(width: 0, height: 0)
+            fullNameTextField.frame.size = CGSize(width: 0, height: 0)
+            accountCodeTextField.frame.size = CGSize(width: 0, height: 0)
         }
         else{
             profileImage.frame.size = CGSize(width: 100, height: 100)
             changeProfilePictureButton.frame.size = CGSize(width:30, height: 30)
-            fullNameLabel.frame.size = CGSize(width: headerView.frame.width, height: 26)
-            accountCode.frame.size = CGSize(width: headerView.frame.width, height: 22)
+            fullNameTextField.frame.size = CGSize(width: headerView.frame.width, height: 26)
+            accountCodeTextField.frame.size = CGSize(width: headerView.frame.width, height: 22)
         }
     }
     
@@ -370,11 +369,13 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let keys = Array(self.family.keys)
         let header = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as! HeaderXIB
-        if families.count > 0{
+        if family.count > 0{
             header.isHidden = false
-            header.familyName.text = familyNames[section]
-            header.familyCode.text = familyCodes[section]
+            header.familyName.text = family[keys[section]]?.name
+            
+            header.familyCode.text = keys[section]
             header.backgroundColor = UIColor(cgColor: #colorLiteral(red: 0.6963852048, green: 0.8679255843, blue: 0.8520774245, alpha: 1))
             
             header.familyOptions.tag = section
@@ -390,10 +391,11 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     }
     
     @objc func presentBottomSheet(_ sender: Any) {
+        let keys = Array(self.family.keys)
         let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "familyOptions") as! FamilyOptionsTableViewController
         let bottomSheet: MDCBottomSheetController = MDCBottomSheetController(contentViewController: viewController)
         viewController.userCode = self.user
-        viewController.familyCode = self.familyCodes[(sender as AnyObject).tag]
+        viewController.familyCode = keys[(sender as AnyObject).tag]
         bottomSheet.preferredContentSize = CGSize(width: self.view.frame.width, height: 60*3)
         // Present the bottom sheet
         present(bottomSheet, animated: true, completion: nil)
@@ -401,20 +403,23 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        if families.count == 0{
+        if family.count == 0{
             return 1
         }
-        return familyCodes.count
+        return family.count
         
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if families.count > 0{
-            if families[section].isEmpty{
+        let keys = Array(self.family.keys)
+
+        
+        if family.count > 0{
+            if family[keys[section]]?.members.count == 0{
                 return 1
             }
             else{
-                return families[section].count
+                return (family[keys[section]]?.members.count)!
             }
         }
         else{
@@ -428,30 +433,38 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let keys = Array(self.family.keys)
         
-        if families.count > 0{
+        if family.count > 0{
+            let members = Array((self.family[keys[indexPath.section]]?.members.keys)!)
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MemberTableViewCell
             tableView.separatorStyle = .singleLine
-            if families[indexPath.section].count == 0{
-                cell.membernameLabel.text = "No members available yet"
+            if family[keys[indexPath.section]]?.members.count == 0{
+                
                 cell.isUserInteractionEnabled = false
                 cell.selectionStyle = .none
+                cell.noMembersLabel.isHidden = false
+                cell.membernameLabel.isHidden = true
                 cell.memberstatusLabel.isHidden = true
                 cell.memberImageView.isHidden = true
                 cell.statusIndicator.isHidden = true
             }
                 
             else{
+                cell.noMembersLabel.isHidden = true
+                cell.membernameLabel.isHidden = false
                 cell.memberstatusLabel.isHidden = false
                 cell.memberImageView.isHidden = false
                 cell.statusIndicator.isHidden = false
                 cell.isUserInteractionEnabled = true
                 cell.selectionStyle = .default
                 cell.memberImageView.backgroundColor = .gray
-                cell.membernameLabel.text = families[indexPath.section][indexPath.row].name
-                cell.memberImageView.image = families[indexPath.section][indexPath.row].image
+                cell.membernameLabel.text = family[keys[indexPath.section]]?.members[members[indexPath.row]]?.name
+                cell.memberImageView.image = family[keys[indexPath.section]]?.members[members[indexPath.row]]?.image
                 
-                if families[indexPath.section][indexPath.row].status == "true"{
+                allMembers[members[indexPath.row]]?.indexPaths.append(indexPath)
+                
+                if family[keys[indexPath.section]]?.members[members[indexPath.row]]?.status == "true"{
                     cell.memberstatusLabel.text = "online"
                     cell.statusIndicator.backgroundColor = .green
                 }
@@ -472,19 +485,13 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if families[indexPath.section].count != 0{
-            selectedCount += 1
+        let keys = Array(self.family.keys)
+        
+        
+        if family.count > 0, family[keys[indexPath.section]]?.members.count != 0{
+            let members = Array((self.family[keys[indexPath.section]]?.members.keys)!)
             
-            if selectedCount > 0{
-                locateButton.isEnabled = true
-                locateButton.alpha = 1
-            }
-            else{
-                locateButton.isEnabled = false
-                locateButton.alpha = 0.7
-            }
-            
-            if selectedUsers.contains(families[indexPath.section][indexPath.row].key){
+            if selectedUsers.contains(members[indexPath.row]){
                 let alert = UIAlertController(title: "Duplicate User",
                                               message: "User already selected.",
                                               preferredStyle: .alert)
@@ -507,21 +514,35 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                 }
                     
                 else{
-                    if let key = families[indexPath.section][indexPath.row].key{
+                    if let key = members[indexPath.row] as? String{
                         selectedUsers.add(key)
                     }
-                    if let image = families[indexPath.section][indexPath.row].image{
+                    if let image = family[keys[indexPath.section]]?.members[members[indexPath.row]]?.image{
                         selectedUsersImages.add(image)
                     }
-                    if let firstName = families[indexPath.section][indexPath.row].firstName{
+                    if let firstName = family[keys[indexPath.section]]?.members[members[indexPath.row]]?.firstName{
                         selectedUsersFirstName.add(firstName)
+                    }
+                    selectedCount += 1
+                    
+                    if selectedCount > 0{
+                        locateButton.isEnabled = true
+                        locateButton.alpha = 1
+                    }
+                    else{
+                        locateButton.isEnabled = false
+                        locateButton.alpha = 0.7
                     }
                 }
             }
+           
         }
     }
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        if families[indexPath.section].count != 0{
+        let keys = Array(self.family.keys)
+        
+        if family.count > 0, family[keys[indexPath.section]]?.members.count != 0{
+            let members = Array((self.family[keys[indexPath.section]]?.members.keys)!)
             selectedCount -= 1
             
             if selectedCount > 0{
@@ -533,43 +554,45 @@ class UserSelectionTableViewController: UITableViewController, MXParallaxHeaderD
                 locateButton.alpha = 0.7
             }
             
-            if let key = families[indexPath.section][indexPath.row].key{
+            if let key = members[indexPath.row] as? String{
                 selectedUsers.remove(key)
             }
-            if let image = families[indexPath.section][indexPath.row].image{
+            if let image = family[keys[indexPath.section]]?.members[members[indexPath.row]]?.image{
                 selectedUsersImages.remove(image)
             }
-            if let firstName = families[indexPath.section][indexPath.row].firstName{
+            if let firstName = family[keys[indexPath.section]]?.members[members[indexPath.row]]?.firstName{
                 selectedUsersFirstName.remove(firstName)
             }
         }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            if let memberKey = families[indexPath.section][indexPath.row].key, let familyKey = familyCodes[indexPath.section] as? String{
-                
-                
-                self.reference.child("users").child(memberKey).child("families").child(familyKey).removeValue()
-                self.reference.child("family").child(familyKey).child("members").child("\(memberKey)").removeValue()
-                
-                let fullname = families[indexPath.section][indexPath.row].name
-                let message = "You have removed \(fullname!) from \(self.familyNames[indexPath.section])"
-                
-                self.reference.child("notifications").child(self.user!).child("notifications").childByAutoId().setValue(message)
-                
-                let message2 = "You have been removed from \(self.familyNames[indexPath.section])"
-                
-                self.reference.child("notifications").child(memberKey).child("notifications").childByAutoId().setValue(message2)
-                
+        let keys = Array(self.family.keys)
+        
+        if family.count > 0, family[keys[indexPath.section]]?.members.count != 0{
+            let members = Array((self.family[keys[indexPath.section]]?.members.keys)!)
+            if editingStyle == .delete {
+                if let memberKey = members[indexPath.row] as? String, let familyKey = keys[indexPath.section] as? String{
+                    self.reference.child("users").child(memberKey).child("families").child(familyKey).removeValue()
+                    self.reference.child("family").child(familyKey).child("members").child("\(memberKey)").removeValue()
+                    
+                    if let fullname = family[keys[indexPath.section]]?.members[members[indexPath.row]]?.name{
+                        if let message = "You have removed \(fullname) from \(family[keys[indexPath.section]]?.name as! String)" as? String{
+                            self.reference.child("notifications").child(self.user!).child("notifications").childByAutoId().setValue(message)
+                        }
+                    }
+                    if let message2 = "You have been removed from \((family[keys[indexPath.section]]?.name) as! String)" as? String{
+                        self.reference.child("notifications").child(memberKey).child("notifications").childByAutoId().setValue(message2)
+                    }
+                }
             }
         }
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        
-        if families.count != 0{
-            if families[indexPath.section].count == 0{
+        let keys = Array(self.family.keys)
+        if family.count != 0{
+            if family[keys[indexPath.section]]?.members.count == 0 {
                 return UITableViewCell.EditingStyle.none
             }
             else{

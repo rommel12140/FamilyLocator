@@ -13,6 +13,7 @@ class MemberTableViewCell: UITableViewCell {
     @IBOutlet weak var membernameLabel: UILabel!
     @IBOutlet weak var memberstatusLabel: UILabel!
     @IBOutlet weak var statusIndicator: UIImageView!
+    @IBOutlet weak var noMembersLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

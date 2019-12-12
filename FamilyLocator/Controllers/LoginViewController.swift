@@ -24,6 +24,8 @@
     @IBOutlet weak var appLogo: UIImageView!
     @IBOutlet weak var showPassword: UIButton!
     
+    let reachability = try! Reachability()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.scrollView.delegate = self
@@ -76,30 +78,57 @@
     }
     
     func autoLogin(){
-        if Auth.auth().currentUser != nil {
-            let reference = Database.database().reference()
-            let progressHUD = ProgressHUD(text: "Logging in...")
-            let blur = UIView.blur(view: self.view)
-            self.view.addSubview(blur)
-            self.view.addSubview(progressHUD)
-            self.view.isUserInteractionEnabled = false
-            reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
-                //present view controller while passing userCode from database
-                let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "userSelection") as! UserSelectionTableViewController
-                let navController = UINavigationController(rootViewController: viewController)
-                if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
-                    reference.child("users").child("\(userCode)").updateChildValues(["isOnline" : "true"])
-                    UserDefaults.standard.set(userCode, forKey: "currentUser")
-                    UserDefaults.standard.synchronize()
-                    
-                    viewController.user = userCode
-                    self.present(navController, animated: true, completion: {
-                        progressHUD.removeFromSuperview()
-                        blur.removeFromSuperview()
-                        self.view.isUserInteractionEnabled = true
-                    })
-                }
-            })
+        let progressHUD = ProgressHUD(text: "Logging in...")
+        let blur = UIView.blur(view: self.view)
+        reachability.whenReachable = { reachability in
+            if reachability.connection == .wifi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+            if Auth.auth().currentUser != nil {
+                self.view.addSubview(blur)
+                self.view.addSubview(progressHUD)
+                self.view.isUserInteractionEnabled = false
+                let reference = Database.database().reference()
+                
+                reference.child("uids").child("\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
+                    //present view controller while passing userCode from database
+                    let viewController = UIStoryboard(name: "UserSelection", bundle: nil).instantiateViewController(withIdentifier: "userSelection") as! UserSelectionTableViewController
+                    let navController = UINavigationController(rootViewController: viewController)
+                    if let userCode = (snapshot.value as AnyObject).value(forKey: "code") as? String{
+                        reference.child("users").child("\(userCode)").updateChildValues(["isOnline" : "true"])
+                        UserDefaults.standard.set(userCode, forKey: "currentUser")
+                        UserDefaults.standard.synchronize()
+                        
+                        viewController.user = userCode
+                        self.present(navController, animated: true, completion: {
+                            progressHUD.removeFromSuperview()
+                            blur.removeFromSuperview()
+                            self.view.isUserInteractionEnabled = true
+                        })
+                    }
+                })
+                
+            }
+        }
+        reachability.whenUnreachable = { _ in
+            let alert = UIAlertController(title: "Auto-login Failed",
+                                          message: "There is no internet connection",
+                                          preferredStyle: .alert)
+            
+            //alert with error
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true, completion: nil)
+            progressHUD.removeFromSuperview()
+            blur.removeFromSuperview()
+            self.view.isUserInteractionEnabled = true
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
         }
     }
     

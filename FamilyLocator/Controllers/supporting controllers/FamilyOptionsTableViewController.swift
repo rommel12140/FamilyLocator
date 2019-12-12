@@ -190,9 +190,13 @@ class FamilyOptionsTableViewController: UITableViewController {
                 self.reference.child("users").child(self.userCode!).child("families").child(self.familyCode).removeValue()
                 self.reference.child("family").child(self.familyCode!).child("members").child(self.userCode).removeValue()
                 
-                let message = "You have left \(self.familyCode!)"
-                
-                self.reference.child("notifications").child(self.userCode!).child("notifications").childByAutoId().setValue(message)
+                self.reference.child("family").child(self.familyCode!).child("name").observeSingleEvent(of: .value, with: { (snapshot) in
+                    
+                    if let name = snapshot.value{
+                        let message = "You have left \(name)"
+                        self.reference.child("notifications").child(self.userCode!).child("notifications").childByAutoId().setValue(message)
+                    }
+                })
             }))
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [weak alert] (_) in

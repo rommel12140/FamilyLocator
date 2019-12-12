@@ -10,6 +10,7 @@
 		3628DACE04F72A659AEA445D /* Pods_FamilyLocator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 609F5FC83FFE37AC968B2A31 /* Pods_FamilyLocator.framework */; };
 		C91BC2D923824CC200988A95 /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BC2D823824CC200988A95 /* MemberTableViewCell.swift */; };
 		C9917F59238FDFCA005F68B0 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9917F58238FDFCA005F68B0 /* RequestCell.swift */; };
+		C99993BD23A0842E005BEBA7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99993BB23A0842E005BEBA7 /* Reachability.swift */; };
 		C9AEAD20237904750042E476 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AEAD1F237904750042E476 /* AppDelegate.swift */; };
 		C9AEAD22237904750042E476 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AEAD21237904750042E476 /* LoginViewController.swift */; };
 		C9AEAD25237904750042E476 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9AEAD23237904750042E476 /* Main.storyboard */; };
@@ -76,6 +77,8 @@
 		609F5FC83FFE37AC968B2A31 /* Pods_FamilyLocator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FamilyLocator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C91BC2D823824CC200988A95 /* MemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
 		C9917F58238FDFCA005F68B0 /* RequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
+		C99993BB23A0842E005BEBA7 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		C99993BC23A0842E005BEBA7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C9AEAD1C237904750042E476 /* FamilyLocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamilyLocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9AEAD1F237904750042E476 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9AEAD21237904750042E476 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -247,6 +250,8 @@
 				C9B13B61238504E400169223 /* Colors */,
 				C9CDA00C2387B14F0026C7EF /* BlurView.swift */,
 				C9D63A66239F46160042CA90 /* Blur.swift */,
+				C99993BC23A0842E005BEBA7 /* Reachability.h */,
+				C99993BB23A0842E005BEBA7 /* Reachability.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -533,6 +538,7 @@
 				C9CDA0112387DA130026C7EF /* MenuOptionsTableViewController.swift in Sources */,
 				C9AED00623863FF2007FDFF3 /* FamilyOptionsTableViewCell.swift in Sources */,
 				C9B13B7D238526E900169223 /* UserSelectionTableViewController.swift in Sources */,
+				C99993BD23A0842E005BEBA7 /* Reachability.swift in Sources */,
 				C9C7121D2398A56800157B46 /* FamilyOptionsTableViewController.swift in Sources */,
 				C9DC24EC238B6F340062B915 /* KeyboardDismiss.swift in Sources */,
 				C9CDA00D2387B14F0026C7EF /* BlurView.swift in Sources */,
